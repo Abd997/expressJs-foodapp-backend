@@ -4,6 +4,6 @@ app.get("*", (req, res) => {
   res.send("Route not exists");
 });
 
-const PORT = 8000 || process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => console.log("server started"));
+app.listen(PORT, () => console.log(`server started at PORT:${PORT}`));
