@@ -1,12 +1,12 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const { body } = require("express-validator");
 const { NewUserValidation } = require("./validation");
 const { handleRegisterRequest } = require("./controllers");
 
 mongoose
-  .connect("mongodb://localhost:27017/test", {
+  .connect(process.env.DATABASE_LINK, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

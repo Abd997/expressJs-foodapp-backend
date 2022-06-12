@@ -18,17 +18,17 @@ const handleRegisterRequest = (req, res) => {
     password: req.body.password,
     email: req.body.email,
   };
-  // UserCollection.create(data, function (err, result) {
-  //   if (err) {
-  //     console.log("could not add user");
-  //     return res.send("could not add user");
-  //   } else {
-  //     console.log(result);
-  //     ``;
-  //     return res.send("New user has been added successfully");
-  //   }
-  // });
-  return res.send("New user has been added successfully");
+
+  UserCollection.create(data, function (err, result) {
+    if (err) {
+      // console.log("could not add user");
+      return res.send("could not add user");
+    } else {
+      // console.log(result);
+      return res.send("New user has been added successfully");
+    }
+  });
+  // return res.send("New user has been added successfully");
 };
 
 module.exports = handleRegisterRequest;
