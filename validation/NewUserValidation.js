@@ -12,6 +12,7 @@ const NewUserValidation = [
   }),
   body("firstName").exists({ checkFalsy: true }),
   body("lastName").exists({ checkFalsy: true }),
+  body("password").exists({ checkFalsy: true }),
 ];
 
 module.exports = NewUserValidation;

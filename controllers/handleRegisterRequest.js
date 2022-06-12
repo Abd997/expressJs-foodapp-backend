@@ -1,10 +1,11 @@
-const express = require("express");
+const e = require("express");
 const { validationResult } = require("express-validator");
 const UserCollection = require("../models/User");
+
 /**
  *
- * @param {express.Request} req
- * @param {express.Response} res
+ * @param {e.Request} req
+ * @param {e.Response} res
  */
 const handleRegisterRequest = (req, res) => {
   const errors = validationResult(req);
