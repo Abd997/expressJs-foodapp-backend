@@ -1,8 +1,9 @@
-const controllers = require("./controllers");
-
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
+const { body } = require("express-validator");
+const { NewUserValidation } = require("./validation");
+const { handleRegisterRequest } = require("./controllers");
 
 mongoose
   .connect("mongodb://localhost:27017/test", {
@@ -16,10 +17,10 @@ mongoose
     (err) => console.log("could not connect to database")
   );
 
-app.post("/register", express.json(), controllers.handleRegisterRequest);
+app.post("/register", express.json(), NewUserValidation, handleRegisterRequest);
 
 app.get("*", (req, res) => {
-  res.send("Route not exists");
+  res.status(404).send("Route not exists");
 });
 
 const PORT = process.env.PORT || 8080;
