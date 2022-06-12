@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm ci 
+ENV NODE_ENV=production
+
+RUN npm ci --production
 
 EXPOSE 8080
 
