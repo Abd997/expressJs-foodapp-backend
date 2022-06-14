@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema(
     weightGoal: String,
     currentActivityLevel: String,
     dateOfBirth: String,
-    Height: String,
+    height: String,
   },
   { collection: "UserCollection" }
 );

@@ -2,24 +2,38 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const { NewUserValidation, LoginUserValidation } = require("./validation");
-const { handleRegisterRequest, handleLoginRequest } = require("./controllers");
+const {
+  NewUserValidation,
+  LoginUserValidation,
+  ExtraDetailsValidation,
+} = require("./validation");
+const {
+  handleRegisterRequest,
+  handleLoginRequest,
+  handleExtraDetailsRequest,
+} = require("./controllers");
 
-mongoose
-  .connect(process.env.DATABASE_LINK, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(
-    () => {
-      console.log("connected to database");
-    },
-    (err) => console.log("could not connect to database")
-  );
+// mongoose
+//   .connect(process.env.DATABASE_LINK, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(
+//     () => {
+//       console.log("connected to database");
+//     },
+//     (err) => console.log("could not connect to database")
+//   );
 
 app.use(express.json());
 
 app.post("/register", NewUserValidation, handleRegisterRequest);
+
+app.post(
+  "/register-extra-details",
+  ExtraDetailsValidation,
+  handleExtraDetailsRequest
+);
 
 app.get("/login", LoginUserValidation, handleLoginRequest);
 
