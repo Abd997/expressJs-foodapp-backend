@@ -1,6 +1,6 @@
 const e = require("express");
-const { validationResult } = require("express-validator");
 const UserCollection = require("../models/User");
+const validateRequest = require("./validateRequest");
 
 /**
  *
@@ -8,10 +8,7 @@ const UserCollection = require("../models/User");
  * @param {e.Response} res
  */
 const handleRegisterRequest = (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+  validateRequest(req, res);
 
   const data = {
     firstName: req.body.firstName,
