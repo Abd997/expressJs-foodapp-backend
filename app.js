@@ -21,6 +21,8 @@ app.post(
   handleExtraDetailsRequest
 );
 
+app.get("/discover-deals", handle);
+
 app.get("/login", LoginUserValidation, handleLoginRequest);
 
 app.get("*", (req, res) => {
