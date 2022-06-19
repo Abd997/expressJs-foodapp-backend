@@ -1,5 +1,6 @@
 module.exports = {
-  NewUserValidation: require("./NewUserValidation"),
-  LoginUserValidation: require("./LoginUserValidation"),
-  ExtraDetailsValidation: require("./ExtraDetailsValidation"),
+  newUserValidation: require("./newUserValidation"),
+  loginUserValidation: require("./loginUserValidation"),
+  extraDetailsValidation: require("./extraDetailsValidation"),
+  getStoryValidation: require("./getStoryValidation"),
 };
