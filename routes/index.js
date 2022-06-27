@@ -1,3 +1,4 @@
 module.exports = {
-	authorizedRoutes: require("./authorizedRoute")
+	authorizedRoutes: require("./authorizedRoute"),
+	adminRoutes: require("./adminRoutes")
 };

@@ -1,23 +1,17 @@
 const route = require("express").Router();
 const multer = require("multer");
-const fs = require("fs");
 const {
 	handleUploadStory,
-	handleGetStory
+	handleGetStory,
+	handleUploadPost,
+	handleGetPost,
+	handleExtraDetailsRequest
 } = require("../controllers");
-const { getStoryValidation } = require("../validation");
-
-const fileStorageEngine = multer.diskStorage({
-	destination: (req, file, cb) => {
-		if (!fs.existsSync("./temp-storage")) {
-			fs.mkdirSync("./temp-storage");
-		}
-		cb(null, "./temp-storage");
-	},
-	filename: (req, file, cb) => {
-		cb(null, Date.now() + "--" + file.originalname);
-	}
-});
+const {
+	getStoryValidation,
+	extraDetailsValidation
+} = require("../validation");
+const { fileStorageEngine } = require("./utils");
 
 const upload = multer({ storage: fileStorageEngine });
 
@@ -28,5 +22,15 @@ route.post(
 );
 
 route.post("/story", getStoryValidation, handleGetStory);
+
+route.post("/upload-post", upload.single("image"), handleUploadPost);
+
+route.post("/post", handleGetPost);
+
+route.post(
+	"/register-extra-details",
+	extraDetailsValidation,
+	handleExtraDetailsRequest
+);
 
 module.exports = route;

@@ -4,17 +4,16 @@ const {
 	newUserValidation,
 	loginUserValidation,
 	extraDetailsValidation,
-	getStoryValidation
+	authRequestValidation
 } = require("./validation");
 const {
 	handleRegisterRequest,
 	handleLoginRequest,
 	handleExtraDetailsRequest,
-	handleGetStory,
-	handleUploadStory
+	handleGetWeeklyFoods,
+	handleGetFood
 } = require("./controllers");
-const { verifyToken } = require("./middlewares");
-const { authorizedRoutes } = require("./routes");
+const { authorizedRoutes, adminRoutes } = require("./routes");
 
 app.use(express.json());
 
@@ -22,15 +21,15 @@ app.post("/register", newUserValidation, handleRegisterRequest);
 
 app.post("/login", loginUserValidation, handleLoginRequest);
 
-app.use("/auth", verifyToken, authorizedRoutes);
+// app.get("/blogs/:start/:end", handleGetBlogs);
 
-app.post(
-	"/register-extra-details",
-	extraDetailsValidation,
-	handleExtraDetailsRequest
-);
+app.get("/foods/:weekNumber", handleGetWeeklyFoods);
 
-// app.get("/discover-deals", handle);
+app.get("/food/:id", handleGetFood);
+
+app.use("/auth", authRequestValidation, authorizedRoutes);
+
+app.use("/admin", adminRoutes);
 
 app.all("*", (req, res) => {
 	res.status(404).send("Route not exists");

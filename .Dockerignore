@@ -2,3 +2,7 @@ node_modules
 .vscode
 .github
 __test__
+temp-storage
+thunder-tests
+.gitignore
+.git

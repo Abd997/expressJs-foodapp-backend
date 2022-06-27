@@ -1,5 +1,5 @@
 const e = require("express");
-const validateRequest = require("./validateRequest");
+const validateRequest = require("../middlewares/checkExpressValidatorErrors");
 const storage = require("@azure/storage-blob");
 const UserCollection = require("../models/User");
 const dotenv = require("dotenv").config();

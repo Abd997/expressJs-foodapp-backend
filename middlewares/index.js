@@ -1,3 +1,4 @@
 module.exports = {
-  verifyToken: require("./verifyToken"),
+	verifyToken: require("./verifyToken"),
+	checkExpressValidatorErrors: require("./checkExpressValidatorErrors")
 };
