@@ -9,10 +9,12 @@ const FoodCollection = require("../models/Food");
 module.exports = async (req, res) => {
 	const data = {
 		name: req.body.name,
-		description: req.body.description || "empty",
+		description: req.body.description,
 		foodType: req.body.foodType,
 		price: req.body.price,
-		weekNumber: req.body.weekNumber
+		weekNumber: req.body.weekNumber,
+		currency: req.body.currency,
+		tags: req.body.tags
 	};
 	const doc = await FoodCollection.create(data);
 	if (!doc) {
