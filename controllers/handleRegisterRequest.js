@@ -19,7 +19,9 @@ const handleRegisterRequest = (req, res) => {
 
 	UserCollection.create(data, function (err, result) {
 		if (err) {
-			return res.status(400).send("could not add user");
+			return res
+				.status(400)
+				.send({ msg: "could not add user", err: err });
 		} else {
 			return res.send("New user has been added successfully");
 		}
