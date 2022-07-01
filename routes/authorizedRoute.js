@@ -1,5 +1,4 @@
 const route = require("express").Router();
-const multer = require("multer");
 const {
 	handleUploadStory,
 	handleGetStory,
@@ -8,22 +7,32 @@ const {
 	handleExtraDetailsRequest
 } = require("../controllers");
 const {
+	multerUpload,
+	checkValidationErrors
+} = require("../middlewares");
+const {
 	getStoryValidation,
 	extraDetailsValidation
 } = require("../validation");
-const { fileStorageEngine } = require("./utils");
-
-const upload = multer({ storage: fileStorageEngine });
 
 route.post(
 	"/upload-story",
-	upload.single("image"),
+	multerUpload.single("image"),
 	handleUploadStory
 );
 
-route.post("/story", getStoryValidation, handleGetStory);
+route.post(
+	"/story",
+	getStoryValidation,
+	checkValidationErrors,
+	handleGetStory
+);
 
-route.post("/upload-post", upload.single("image"), handleUploadPost);
+route.post(
+	"/upload-post",
+	multerUpload.single("image"),
+	handleUploadPost
+);
 
 route.post("/post", handleGetPost);
 

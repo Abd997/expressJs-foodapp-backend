@@ -1,12 +1,8 @@
 const e = require("express");
 const FoodCollection = require("../models/Food");
+const { uploadToAzure, deleteFromTemp } = require("./utils");
 
-/**
- *
- * @param {e.Request} req
- * @param {e.Response} res
- */
-module.exports = async (req, res) => {
+const saveToMongo = async (req, res) => {
 	const data = {
 		name: req.body.name,
 		description: req.body.description,
@@ -21,4 +17,13 @@ module.exports = async (req, res) => {
 		res.status(400).send("Data not added");
 	}
 	res.send("Data added successfully");
+};
+
+/**
+ *
+ * @param {e.Request} req
+ * @param {e.Response} res
+ */
+module.exports = async (req, res) => {
+	await saveToMongo(req, res);
 };

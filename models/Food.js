@@ -14,7 +14,7 @@ const FoodSchema = new mongoose.Schema(
 	{
 		name: { type: String, required: true },
 		description: { type: String, default: "empty" },
-		imageURl: String,
+		imageURL: String,
 		foodType: { type: String, default: "meal" },
 		price: String,
 		currency: { type: String, default: "usd" },
@@ -28,7 +28,8 @@ const FoodSchema = new mongoose.Schema(
 		calories: String,
 		Protein: String,
 		Fat: String,
-		Carbs: String
+		Carbs: String,
+		isFavourite: { type: Boolean, require: true, default: false }
 	},
 	{ collection: "FoodCollection" }
 );

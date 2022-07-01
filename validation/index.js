@@ -3,5 +3,6 @@ module.exports = {
 	loginUserValidation: require("./loginUserValidation"),
 	extraDetailsValidation: require("./extraDetailsValidation"),
 	getStoryValidation: require("./getStoryValidation"),
-	authRequestValidation: require("./authRequestValidation")
+	authRequestValidation: require("./authRequestValidation"),
+	validatePostFoodImageReq: require("./validatePostFoodImageReq")
 };

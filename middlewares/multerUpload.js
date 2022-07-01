@@ -1,7 +1,7 @@
 const fs = require("fs");
 const multer = require("multer");
 
-module.exports = multer.diskStorage({
+fileStorageEngine = multer.diskStorage({
 	destination: (req, file, cb) => {
 		if (!fs.existsSync("./temp-storage")) {
 			fs.mkdirSync("./temp-storage");
@@ -12,3 +12,5 @@ module.exports = multer.diskStorage({
 		cb(null, Date.now() + "--" + file.originalname);
 	}
 });
+
+module.exports = multer({ storage: fileStorageEngine });

@@ -5,7 +5,7 @@ const resolve = require("path").resolve;
  *
  * @param {e.Request} req
  */
-module.exports = async (req) => {
+module.exports = async (req, containerName = "stories") => {
 	const accountName = process.env.STORAGE_NAME;
 	const key = process.env.CLOUD_KEY;
 	const certs = new storage.StorageSharedKeyCredential(
@@ -16,7 +16,6 @@ module.exports = async (req) => {
 		`https://${accountName}.blob.core.windows.net`,
 		certs
 	);
-	const containerName = process.env.CONTAINER;
 	const client = blobServiceClient.getContainerClient(containerName);
 	const newBlobBlock = client.getBlockBlobClient(req.file.filename);
 	await newBlobBlock.uploadFile(

@@ -1,4 +1,5 @@
 const e = require("express");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 /**
@@ -8,18 +9,18 @@ const jwt = require("jsonwebtoken");
  * @param {e.NextFunction} next
  */
 module.exports = function (req, res, next) {
-  const bearerHeader = req.headers["authorization"];
+	const bearerHeader = req.headers["authorization"];
 
-  if (typeof bearerHeader === "undefined") {
-    return res.status(401).send("user not authorized");
-  }
+	if (typeof bearerHeader === "undefined") {
+		return res.status(401).send("user not authorized");
+	}
 
-  const token = bearerHeader.split(" ")[1];
+	const token = bearerHeader.split(" ")[1];
 
-  try {
-    jwt.verify(token, "secretkey");
-    next();
-  } catch (err) {
-    return res.status(401).send("Invalid token");
-  }
+	try {
+		jwt.verify(token, process.env.JWT_KEY);
+		next();
+	} catch (err) {
+		return res.status(401).send("Invalid token");
+	}
 };

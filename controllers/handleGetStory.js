@@ -1,5 +1,4 @@
 const e = require("express");
-const validateRequest = require("../middlewares/checkExpressValidatorErrors");
 const storage = require("@azure/storage-blob");
 const UserCollection = require("../models/User");
 const dotenv = require("dotenv").config();
@@ -10,7 +9,6 @@ const dotenv = require("dotenv").config();
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	validateRequest(req, res);
 	const doc = await checkStory(req, res);
 	const sas = getBlobSasUri(doc);
 	res.send(sas);

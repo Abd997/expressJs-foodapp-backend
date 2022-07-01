@@ -1,6 +1,6 @@
 const e = require("express");
 const UserCollection = require("../models/User");
-const validateRequest = require("../middlewares/checkExpressValidatorErrors");
+const validateRequest = require("../middlewares/checkValidationErrors");
 
 /**
  *

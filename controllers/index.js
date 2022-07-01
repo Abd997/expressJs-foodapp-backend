@@ -8,5 +8,6 @@ module.exports = {
 	handleGetPost: require("./handleGetPost"),
 	handlePostFood: require("./handlePostFood"),
 	handleGetWeeklyFoods: require("./handleGetWeeklyFoods"),
-	handleGetFood: require("./handleGetFood")
+	handleGetFood: require("./handleGetFood"),
+	handlePostFoodImage: require("./handlePostFoodImage")
 };

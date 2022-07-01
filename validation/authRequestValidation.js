@@ -1,8 +1,5 @@
 const { body } = require("express-validator");
-const {
-	verifyToken,
-	checkExpressValidatorErrors
-} = require("../middlewares");
+const { verifyToken } = require("../middlewares");
 const UserCollection = require("../models/User");
 
 module.exports = [
@@ -18,6 +15,5 @@ module.exports = [
 				return Promise.reject("User not registered");
 			});
 	}),
-	checkExpressValidatorErrors,
 	verifyToken
 ];
