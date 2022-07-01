@@ -24,6 +24,7 @@ const handleLoginRequest = async (req, res) => {
 	return res.json({
 		msg: "user has successfully authenticated",
 		email: req.body.email,
+		firstName: req.body.firstName,
 		token: token
 	});
 };

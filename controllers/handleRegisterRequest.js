@@ -27,6 +27,7 @@ const handleRegisterRequest = async (req, res) => {
 		return res.json({
 			msg: "New user has been added successfully",
 			email: req.body.email,
+			firstName: req.body.firstName,
 			token: token
 		});
 	} catch (err) {
