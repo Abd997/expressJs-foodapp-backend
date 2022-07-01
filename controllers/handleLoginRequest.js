@@ -22,7 +22,9 @@ const handleLoginRequest = async (req, res) => {
 	const token = await jwt.sign(req.body.email, process.env.JWT_KEY);
 
 	return res.json({
-		token
+		msg: "user has successfully authenticated",
+		email: req.body.email,
+		token: token
 	});
 };
 

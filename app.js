@@ -49,5 +49,5 @@ app.all("*", (req, res) => {
 module.exports = app;
 
 /*
-  VERSION => 0.73
+  VERSION => 0.74
 */

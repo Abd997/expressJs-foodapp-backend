@@ -26,12 +26,12 @@ const handleRegisterRequest = async (req, res) => {
 		const token = jwt.sign(data.email, process.env.JWT_KEY);
 		return res.json({
 			msg: "New user has been added successfully",
+			email: req.body.email,
 			token: token
 		});
 	} catch (err) {
 		res.status(400).send({ msg: "could not add user", err: err });
 	}
-	// res.send("work");
 };
 
 module.exports = handleRegisterRequest;
