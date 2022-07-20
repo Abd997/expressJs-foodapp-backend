@@ -16,16 +16,15 @@ module.exports = async (req, res) => {
 		if (!doc) {
 			return sendErrorResponse(res, 400, "User not found");
 		}
+		const token = await jwt.sign(req.body.email, process.env.JWT_KEY);
+
+		return res.json({
+			msg: "User successfully authenticated",
+			email: req.body.email,
+			firstName: doc.firstName,
+			token: token
+		});
 	} catch (err) {
 		return sendErrorResponse(res, 500, "Could not verify user");
 	}
-
-	const token = await jwt.sign(req.body.email, process.env.JWT_KEY);
-
-	return res.json({
-		msg: "User has successfully authenticated",
-		email: req.body.email,
-		firstName: doc.firstName,
-		token: token
-	});
 };

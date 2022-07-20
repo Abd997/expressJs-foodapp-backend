@@ -3,7 +3,7 @@ const app = express();
 const userLogin = require("./user-login");
 const userRegister = require("./user-register");
 
-const VERSION = "0.7.2";
+const VERSION = "0.7.3";
 
 app.use(express.json());
 

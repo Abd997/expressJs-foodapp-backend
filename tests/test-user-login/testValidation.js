@@ -3,14 +3,12 @@ const app = require("../../src/app");
 
 module.exports = () => {
 	describe("test validation", () => {
-		const url = "/user/register";
-
+		const url = "/user/login";
 		it("returns code:400 msg:Email is invalid", async () => {
 			const res = await supertest(app).post(url).send({
-				firstName: "first",
-				lastName: "last",
 				password: "password"
 			});
+
 			expect(res.statusCode).toBe(400);
 			expect(res.body.errors[0].msg).toEqual("Email is invalid");
 		});

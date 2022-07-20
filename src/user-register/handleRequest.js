@@ -33,11 +33,17 @@ module.exports = async (req, res) => {
 
 	try {
 		const token = jwt.sign(email, process.env.JWT_KEY);
-	} catch (err) {}
-	return res.json({
-		msg: "New user has been added successfully",
-		email: email,
-		firstName: firstName,
-		token: token
-	});
+		return res.status(201).json({
+			msg: "New user has been added successfully",
+			email: email,
+			firstName: firstName,
+			token: token
+		});
+	} catch (err) {
+		return res.status(201).json({
+			msg: "New user has been added successfully",
+			email: email,
+			firstName: firstName
+		});
+	}
 };

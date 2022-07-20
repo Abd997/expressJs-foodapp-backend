@@ -1,4 +1,5 @@
 const { default: mongoose } = require("mongoose");
+const testUserLogin = require("./test-user-login");
 require("dotenv").config();
 const testUserRegistration = require("./test-user-registration");
 
@@ -9,9 +10,22 @@ describe("test backend", () => {
 		} catch (err) {
 			console.log("Could not connect to MongoDB");
 		}
+		try {
+			await mongoose.connection.db.dropDatabase();
+		} catch (err) {
+			console.log("Could not drop previous database");
+		}
 	});
 
-	testUserRegistration();
+	const user = {
+		email: "user100@gmail.com",
+		firstName: "first",
+		lastName: "last",
+		password: "password"
+	};
+
+	testUserRegistration(user);
+	testUserLogin(user);
 
 	afterAll(async () => {
 		try {
