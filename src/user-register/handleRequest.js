@@ -2,13 +2,14 @@ const e = require("express");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const UserCollection = require("../models/User");
+const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**
  *
  * @param {e.Request} req
  * @param {e.Response} res
  */
-const handleRegisterRequest = async (req, res) => {
+module.exports = async (req, res) => {
 	const data = {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
@@ -19,9 +20,7 @@ const handleRegisterRequest = async (req, res) => {
 	try {
 		const doc = await UserCollection.create(data);
 		if (!doc) {
-			return res
-				.status(400)
-				.send({ msg: "could not add user", err: err });
+			return sendErrorResponse(res, 400, "could not add user");
 		}
 		const token = jwt.sign(data.email, process.env.JWT_KEY);
 		return res.json({
@@ -31,8 +30,6 @@ const handleRegisterRequest = async (req, res) => {
 			token: token
 		});
 	} catch (err) {
-		res.status(400).send({ msg: "could not add user", err: err });
+		return sendErrorResponse(res, 400, "could not add user");
 	}
 };
-
-module.exports = handleRegisterRequest;

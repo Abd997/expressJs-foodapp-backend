@@ -2,21 +2,21 @@ const e = require("express");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const UserCollection = require("../models/User");
-const validateRequest = require("../middlewares/checkValidationErrors");
+const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**
  *
  * @param {e.Request} req
  * @param {e.Response} res
  */
-const handleLoginRequest = async (req, res) => {
+module.exports = async (req, res) => {
 	const doc = await UserCollection.findOne({
 		email: req.body.email,
 		password: req.body.password
 	});
 
 	if (!doc) {
-		return res.status(400).send("user not found");
+		return sendErrorResponse(res, 400, "user not found");
 	}
 
 	const token = await jwt.sign(req.body.email, process.env.JWT_KEY);
@@ -28,5 +28,3 @@ const handleLoginRequest = async (req, res) => {
 		token: token
 	});
 };
-
-module.exports = handleLoginRequest;

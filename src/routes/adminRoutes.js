@@ -13,8 +13,8 @@ const route = require("express").Router();
 route.post("/add-food", handlePostFood);
 
 route.post(
-	"/add-food-image/:id",
-	validatePostFoodImageReq,
+	"/add-food-image",
+	// validatePostFoodImageReq,
 	multerUpload.single("image"),
 	handlePostFoodImage
 );
