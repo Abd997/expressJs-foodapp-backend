@@ -1,7 +1,7 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const UserCollection = require("../models/User");
+const UserRepo = require("../repo/UserRepo");
 const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**
@@ -10,26 +10,34 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const data = {
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		password: req.body.password,
-		email: req.body.email
-	};
+	const { email, firstName, lastName, password } = req.body;
 
 	try {
-		const doc = await UserCollection.create(data);
-		if (!doc) {
-			return sendErrorResponse(res, 400, "could not add user");
+		const doc = await UserRepo.findUser(email, password);
+		if (doc) {
+			return res.status(400).json({ msg: "User already exists" });
 		}
-		const token = jwt.sign(data.email, process.env.JWT_KEY);
-		return res.json({
-			msg: "New user has been added successfully",
-			email: req.body.email,
-			firstName: req.body.firstName,
-			token: token
-		});
 	} catch (err) {
-		return sendErrorResponse(res, 400, "could not add user");
+		return sendErrorResponse(
+			res,
+			500,
+			"Could not check if user already exists"
+		);
 	}
+
+	try {
+		await UserRepo.registerUser(email, firstName, lastName, password);
+	} catch (err) {
+		return sendErrorResponse(res, 500, "Could not add user");
+	}
+
+	try {
+		const token = jwt.sign(email, process.env.JWT_KEY);
+	} catch (err) {}
+	return res.json({
+		msg: "New user has been added successfully",
+		email: email,
+		firstName: firstName,
+		token: token
+	});
 };

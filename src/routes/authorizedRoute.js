@@ -1,12 +1,5 @@
 const route = require("express").Router();
 const {
-	handleUploadStory,
-	handleGetStory,
-	handleUploadPost,
-	handleGetPost,
-	handleExtraDetailsRequest
-} = require("../controllers");
-const {
 	multerUpload,
 	checkValidationErrors
 } = require("../middlewares");

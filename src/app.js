@@ -1,17 +1,9 @@
 const express = require("express");
 const app = express();
-const {
-	handleRegisterRequest,
-	handleLoginRequest,
-	handleExtraDetailsRequest,
-	handleGetWeeklyFoods,
-	handleGetFood
-} = require("../controllers");
-const { authorizedRoutes, adminRoutes } = require("./routes");
 const userLogin = require("./user-login");
 const userRegister = require("./user-register");
 
-const VERSION = 0.7;
+const VERSION = "0.7.2";
 
 app.use(express.json());
 
@@ -29,13 +21,13 @@ app.post(
 
 // app.get("/blogs/:start/:end", handleGetBlogs);
 
-app.get("/foods/:weekNumber", handleGetWeeklyFoods);
+// app.use("/auth", authorizedRoutes);
 
-app.get("/food/:id", handleGetFood);
+// app.get("/foods/:weekNumber", handleGetWeeklyFoods);
 
-app.use("/auth", authorizedRoutes);
+// app.get("/food/:id", handleGetFood);
 
-app.use("/admin", adminRoutes);
+// app.use("/admin", adminRoutes);
 
 app.get("/version", (req, res) => {
 	res.send(`${VERSION}`);

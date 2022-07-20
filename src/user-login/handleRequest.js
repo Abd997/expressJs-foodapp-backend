@@ -1,7 +1,7 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const UserRepo = require("../repo/UserRepo");
 require("dotenv").config();
-const UserCollection = require("../models/User");
 const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**
@@ -10,19 +10,20 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const doc = await UserCollection.findOne({
-		email: req.body.email,
-		password: req.body.password
-	});
-
-	if (!doc) {
-		return sendErrorResponse(res, 400, "user not found");
+	const { email, password } = req.body;
+	try {
+		const doc = await UserRepo.findUser(email, password);
+		if (!doc) {
+			return sendErrorResponse(res, 400, "User not found");
+		}
+	} catch (err) {
+		return sendErrorResponse(res, 500, "Could not verify user");
 	}
 
 	const token = await jwt.sign(req.body.email, process.env.JWT_KEY);
 
 	return res.json({
-		msg: "user has successfully authenticated",
+		msg: "User has successfully authenticated",
 		email: req.body.email,
 		firstName: doc.firstName,
 		token: token
