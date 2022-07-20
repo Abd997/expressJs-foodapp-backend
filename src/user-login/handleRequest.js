@@ -12,19 +12,27 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
 module.exports = async (req, res) => {
 	const { email, password } = req.body;
 	try {
-		const doc = await UserRepo.findUser(email, password);
+		var doc = await UserRepo.findUser(email, password);
 		if (!doc) {
 			return sendErrorResponse(res, 400, "User not found");
 		}
-		const token = await jwt.sign(req.body.email, process.env.JWT_KEY);
-
-		return res.json({
-			msg: "User successfully authenticated",
-			email: req.body.email,
-			firstName: doc.firstName,
-			token: token
-		});
 	} catch (err) {
 		return sendErrorResponse(res, 500, "Could not verify user");
 	}
+	try {
+		var token = await jwt.sign(email, process.env.JWT_KEY);
+	} catch (err) {
+		return sendErrorResponse(
+			res,
+			500,
+			"Could not create token for user"
+		);
+	}
+
+	return res.json({
+		msg: "User successfully authenticated",
+		email: email,
+		firstName: doc.firstName,
+		token: token
+	});
 };

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon server.js",
     "start": "NODE_ENV=production node src/server.js",
-    "test": "jest tests/app.test.js",
+    "test": "jest --runInBand tests/app.test.js",
     "migrate": "node database_migration/database_migration.js"
   },
   "repository": {

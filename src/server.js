@@ -5,7 +5,7 @@ const app = require("./app");
 if (process.env.NODE_ENV === "production") {
 	mongoose.connect(process.env.DATABASE_PROD, {}).then(
 		() => {
-			console.log("connected to database");
+			console.log("connected to MongoDB production");
 		},
 		(err) =>
 			console.log("could not connect to database Error: " + err)
@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
 	mongoose.connect(process.env.DATABASE_TEST, {}).then(
 		() => {
-			console.log("connected to database");
+			console.log("connected to MongoDB test");
 		},
 		(err) =>
 			console.log("could not connect to database Error: " + err)
