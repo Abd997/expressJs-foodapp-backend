@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 	const { email, firstName, lastName, password } = req.body;
 
 	try {
-		const doc = await UserRepo.findUser(email, password);
+		const doc = await UserRepo.findUser(email);
 		if (doc) {
 			return res.status(400).json({ msg: "User already exists" });
 		}

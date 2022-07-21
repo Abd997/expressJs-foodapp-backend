@@ -1,38 +1,45 @@
+const userExtraDetails = require("../user-extra-details");
+const verifyToken = require("../utils/verifyToken");
+
 const route = require("express").Router();
-const {
-	multerUpload,
-	checkValidationErrors
-} = require("../middlewares");
-const {
-	getStoryValidation,
-	extraDetailsValidation
-} = require("../validation");
+
+// route.post(
+// 	"/upload-story",
+// 	multerUpload.single("image"),
+// 	handleUploadStory
+// );
+
+// route.post(
+// 	"/story",
+// 	getStoryValidation,
+// 	checkValidationErrors,
+// 	handleGetStory
+// );
+
+// route.post(
+// 	"/upload-post",
+// 	multerUpload.single("image"),
+// 	handleUploadPost
+// );
+
+// route.post("/post", handleGetPost);
+
+route.post("/", verifyToken, (req, res) => {
+	res.json({ msg: "User is authorized" });
+});
 
 route.post(
-	"/upload-story",
-	multerUpload.single("image"),
-	handleUploadStory
+	"/update/details",
+	userExtraDetails.validateUpdateReq,
+	verifyToken,
+	userExtraDetails.updateDetails
 );
 
 route.post(
-	"/story",
-	getStoryValidation,
-	checkValidationErrors,
-	handleGetStory
-);
-
-route.post(
-	"/upload-post",
-	multerUpload.single("image"),
-	handleUploadPost
-);
-
-route.post("/post", handleGetPost);
-
-route.post(
-	"/register-extra-details",
-	extraDetailsValidation,
-	handleExtraDetailsRequest
+	"/get/details",
+	userExtraDetails.validateGetReq,
+	verifyToken,
+	userExtraDetails.getDetails
 );
 
 module.exports = route;

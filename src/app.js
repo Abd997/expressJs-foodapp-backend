@@ -1,9 +1,11 @@
 const express = require("express");
+const { authorizedRoute } = require("./routes");
 const app = express();
 const userLogin = require("./user-login");
 const userRegister = require("./user-register");
+const verifyToken = require("./utils/verifyToken");
 
-const VERSION = "0.7.5";
+const VERSION = "0.7.9";
 
 app.use(express.json());
 
@@ -19,9 +21,9 @@ app.post(
 	userLogin.handleRequest
 );
 
-// app.get("/blogs/:start/:end", handleGetBlogs);
+app.use("/auth/user", authorizedRoute);
 
-// app.use("/auth", authorizedRoutes);
+// app.get("/blogs/:start/:end", handleGetBlogs);
 
 // app.get("/foods/:weekNumber", handleGetWeeklyFoods);
 

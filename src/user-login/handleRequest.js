@@ -12,7 +12,7 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
 module.exports = async (req, res) => {
 	const { email, password } = req.body;
 	try {
-		var doc = await UserRepo.findUser(email, password);
+		var doc = await UserRepo.authenticateUser(email, password);
 		if (!doc) {
 			return sendErrorResponse(res, 400, "User not found");
 		}

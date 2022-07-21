@@ -1,7 +1,9 @@
 const { default: mongoose } = require("mongoose");
+const testUserDetails = require("./test-user-details");
 const testUserLogin = require("./test-user-login");
 require("dotenv").config();
 const testUserRegistration = require("./test-user-registration");
+const testVerifyToken = require("./testVerifyToken");
 
 describe("test backend", () => {
 	beforeAll(async () => {
@@ -17,15 +19,24 @@ describe("test backend", () => {
 		}
 	});
 
-	const user = {
+	let user = {
 		email: "user100@gmail.com",
 		firstName: "first",
 		lastName: "last",
-		password: "password"
+		password: "password",
+		gender: "male",
+		weight: "45",
+		weightGoal: "increase",
+		currentActivityLevel: "low",
+		dateOfBirth: "01-01-2000",
+		height: "150cm",
+		token: ""
 	};
 
 	testUserRegistration(user);
 	testUserLogin(user);
+	testVerifyToken();
+	testUserDetails(user);
 
 	afterAll(async () => {
 		try {
