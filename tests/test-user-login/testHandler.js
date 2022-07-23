@@ -14,6 +14,7 @@ module.exports = (user) => {
 			expect(res.status).toBe(200);
 			expect(res.body.msg).toEqual("User successfully authenticated");
 			expect(res.body.token).toBeDefined();
+			console.log(res.body.token);
 		});
 	});
 };

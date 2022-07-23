@@ -5,7 +5,7 @@ const userLogin = require("./user-login");
 const userRegister = require("./user-register");
 const verifyToken = require("./utils/verifyToken");
 
-const VERSION = "0.7.9";
+const VERSION = "0.7.12";
 
 app.use(express.json());
 
@@ -20,6 +20,8 @@ app.post(
 	userLogin.validateRequest,
 	userLogin.handleRequest
 );
+
+app.post("/admin/login");
 
 app.use("/auth/user", authorizedRoute);
 

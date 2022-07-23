@@ -30,8 +30,5 @@ const updateToMongo = async (req, res) => {
  */
 module.exports = async (req, res) => {
 	await uploadToAzure(req, "foodimages");
-	// await deleteFromTemp(req);
-	// res.send("y");
 	await updateToMongo(req, res);
-	// res.send(req.body.name);
 };

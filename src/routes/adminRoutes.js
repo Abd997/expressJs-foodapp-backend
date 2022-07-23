@@ -1,22 +1,22 @@
-// const {
-// 	handlePostFood,
-// 	handlePostFoodImage
-// } = require("../controllers");
-// const {
-// 	multerUpload,
-// 	checkValidationErrors
-// } = require("../middlewares");
-// const { validatePostFoodImageReq } = require("../validation");
+const express = require("express");
+const addFoodImage = require("../admin/add-food-image");
+const addWeeklyFoods = require("../admin/add-weekly-foods");
+const multerUpload = require("../utils/multerUpload");
+const verifyAdminToken = require("../utils/verifyAdminToken");
+const route = express();
 
-// const route = require("express").Router();
+route.post(
+	"/add/weeklyfoods",
+	addWeeklyFoods.validateReq,
+	verifyAdminToken,
+	addWeeklyFoods.handler
+);
 
-// route.post("/add-food", handlePostFood);
+route.post(
+	"/add/foodimage",
+	verifyAdminToken,
+	multerUpload.single("image"),
+	addFoodImage.handler
+);
 
-// route.post(
-// 	"/add-food-image",
-// 	// validatePostFoodImageReq,
-// 	multerUpload.single("image"),
-// 	handlePostFoodImage
-// );
-
-// module.exports = route;
+module.exports = route;

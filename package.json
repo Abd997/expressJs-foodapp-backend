@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon server.js",
+    "dev": "NODE_ENV=development nodemon src/server.js",
     "start": "NODE_ENV=production node src/server.js",
     "test": "jest --runInBand tests/app.test.js",
-    "migrate": "node database_migration/database_migration.js"
+    "migrate": "node database-migration"
   },
   "repository": {
     "type": "git",

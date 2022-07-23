@@ -30,7 +30,8 @@ describe("test backend", () => {
 		currentActivityLevel: "low",
 		dateOfBirth: "01-01-2000",
 		height: "150cm",
-		token: ""
+		token:
+			"eyJhbGciOiJIUzI1NiJ9.dXNlcjEwMEBnbWFpbC5jb20.Y7UuVMpJysuNlAR68bzxI_SqfIt-qduSThZyv1eHDi4"
 	};
 
 	testUserRegistration(user);
