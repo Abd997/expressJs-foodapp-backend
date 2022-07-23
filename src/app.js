@@ -1,11 +1,11 @@
 const express = require("express");
+const getWeeklyFood = require("./get-weekly-food");
 const { authorizedRoute } = require("./routes");
 const app = express();
 const userLogin = require("./user-login");
 const userRegister = require("./user-register");
-const verifyToken = require("./utils/verifyToken");
 
-const VERSION = "0.7.12";
+const VERSION = "0.7.13";
 
 app.use(express.json());
 
@@ -24,6 +24,12 @@ app.post(
 app.post("/admin/login");
 
 app.use("/auth/user", authorizedRoute);
+
+app.post(
+	"/get/weeklyfood",
+	getWeeklyFood.validateReq,
+	getWeeklyFood.handler
+);
 
 // app.get("/blogs/:start/:end", handleGetBlogs);
 

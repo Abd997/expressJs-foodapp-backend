@@ -1,4 +1,3 @@
-const getWeeklyFood = require("../get-weekly-food");
 const groceries = require("../groceries");
 const userExtraDetails = require("../user-extra-details");
 const verifyToken = require("../utils/verifyToken");
@@ -49,13 +48,6 @@ route.post(
 	groceries.validateReq,
 	verifyToken,
 	groceries.addGroceries
-);
-
-route.post(
-	"/get/weeklyfood",
-	getWeeklyFood.validateReq,
-	verifyToken,
-	getWeeklyFood.handler
 );
 
 module.exports = route;
