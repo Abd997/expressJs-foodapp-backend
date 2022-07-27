@@ -17,7 +17,8 @@ const UserSchema = new mongoose.Schema(
 		hasPostedStory: { type: Boolean, default: false },
 		storyFileName: { type: String },
 
-		postIds: []
+		postIds: [],
+		favouriteFoodIds: []
 	},
 	{ collection: "UserCollection" }
 );

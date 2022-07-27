@@ -1,3 +1,4 @@
+const updateFavouriteFood = require("../controllers/updateFavouriteFood");
 const groceries = require("../groceries");
 const userExtraDetails = require("../user-extra-details");
 const verifyToken = require("../utils/verifyToken");
@@ -48,6 +49,12 @@ route.post(
 	groceries.validateReq,
 	verifyToken,
 	groceries.addGroceries
+);
+
+route.post(
+	"/update/favourite-food",
+	verifyToken,
+	updateFavouriteFood
 );
 
 module.exports = route;

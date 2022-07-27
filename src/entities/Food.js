@@ -25,10 +25,18 @@ const FoodSchema = new mongoose.Schema(
 			required: true,
 			default: new Date().getWeekNumber()
 		},
-		calories: String,
-		Protein: String,
-		Fat: String,
-		Carbs: String,
+		calories: { type: String, default: "400" },
+		Protein: { type: String, default: "22g" },
+		Fat: { type: String, default: "10g" },
+		Carbs: { type: String, default: "23g" },
+		customMeal: {
+			type: Array,
+			default: ["No carbs", "Halal", "Double veggies"]
+		},
+		ingredients: {
+			type: Array,
+			default: ["bun", "chicken", "fries", "ketchup"]
+		},
 		isFavourite: { type: Boolean, require: true, default: false }
 	},
 	{ collection: "FoodCollection" }

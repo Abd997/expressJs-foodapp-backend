@@ -45,5 +45,32 @@ module.exports = UserRepo = {
 			}
 		);
 		return doc;
+	},
+	addFavourite: async function (email, foodId) {
+		let user = await UserCollection.findOne({ email: email });
+		/** @type {Array} */
+		let favouriteFoodIds = [];
+		if (!user.favouriteFoodIds || user.favouriteFoodIds.length == 0) {
+			favouriteFoodIds.push(foodId);
+		} else if (user.favouriteFoodIds.length > 0) {
+			favouriteFoodIds = user.favouriteFoodIds;
+			const duplicate = favouriteFoodIds.find((v) => v == foodId);
+			if (duplicate) {
+				const ind = favouriteFoodIds.indexOf(foodId);
+				if (ind > -1) {
+					favouriteFoodIds.splice(ind, 1);
+				}
+			} else {
+				favouriteFoodIds.push(foodId);
+			}
+		}
+		await UserCollection.findOneAndUpdate(
+			{ email: email },
+			{
+				favouriteFoodIds: favouriteFoodIds
+			}
+		);
+		user = await UserCollection.findOne({ email: email });
+		console.log(user);
 	}
 };

@@ -1,4 +1,5 @@
 const FoodCollection = require("../entities/Food");
+const mongoose = require("mongoose");
 
 module.exports = FoodRepo = {
 	getWeeklyFoods: async function (weekNumber) {
@@ -11,6 +12,14 @@ module.exports = FoodRepo = {
 
 	addFood: async function (data) {
 		const doc = await FoodCollection.create(data);
+		return doc;
+	},
+
+	findFood: async function (foodId) {
+		const doc = await FoodCollection.findById(foodId);
+		if (!doc) {
+			throw new Error("Food not found");
+		}
 		return doc;
 	}
 };
