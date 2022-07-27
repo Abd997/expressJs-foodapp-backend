@@ -3,6 +3,7 @@ const editAddress = require("../controllers/editAddress");
 const getAddresses = require("../controllers/getAddresses");
 const getFavouriteFoods = require("../controllers/getFavouriteFoods");
 const removeAddress = require("../controllers/removeAddress");
+const sendFeedback = require("../controllers/sendFeedback");
 const updateFavouriteFood = require("../controllers/updateFavouriteFood");
 const groceries = require("../groceries");
 const userExtraDetails = require("../user-extra-details");
@@ -69,5 +70,8 @@ route.get("/address/:email", getAddresses);
 route.post("/add/address", verifyToken, addAddress);
 route.post("/remove/address", verifyToken, removeAddress);
 route.post("/edit/address", verifyToken, editAddress);
+
+//--------FEEDBACK--------
+route.post("/feedback", verifyToken, sendFeedback);
 
 module.exports = route;
