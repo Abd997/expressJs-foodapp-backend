@@ -72,5 +72,13 @@ module.exports = UserRepo = {
 		);
 		user = await UserCollection.findOne({ email: email });
 		console.log(user);
+	},
+
+	getFavFoods: async function (email) {
+		const doc = await UserCollection.findOne({ email: email });
+		if (!doc) {
+			throw new Error("User not found");
+		}
+		return doc.favouriteFoodIds;
 	}
 };

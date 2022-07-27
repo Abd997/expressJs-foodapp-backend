@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body } = require("express-validator/src");
 const checkExpressValidator = require("../utils/checkExpressValidator");
 
 module.exports = [

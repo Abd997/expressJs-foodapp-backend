@@ -1,3 +1,4 @@
+const getFavouriteFoods = require("../controllers/getFavouriteFoods");
 const updateFavouriteFood = require("../controllers/updateFavouriteFood");
 const groceries = require("../groceries");
 const userExtraDetails = require("../user-extra-details");
@@ -56,5 +57,7 @@ route.post(
 	verifyToken,
 	updateFavouriteFood
 );
+
+route.get("/favourite-food/:email", verifyToken, getFavouriteFoods);
 
 module.exports = route;

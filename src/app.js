@@ -1,12 +1,18 @@
 const express = require("express");
-const { authorizedRoute, normalRoutes } = require("./routes");
+const {
+	authorizedRoute,
+	normalRoutes,
+	adminRoutes
+} = require("./routes");
 const app = express();
 
-const VERSION = "0.8.1";
+const VERSION = "0.9.1";
 
 app.use(express.json());
 
 app.use("/auth/user", authorizedRoute);
+
+app.use("/admin", adminRoutes);
 
 app.use("/", normalRoutes);
 
@@ -15,8 +21,6 @@ app.use("/", normalRoutes);
 // app.get("/foods/:weekNumber", handleGetWeeklyFoods);
 
 // app.get("/food/:id", handleGetFood);
-
-// app.use("/admin", adminRoutes);
 
 app.get("/version", (req, res) => {
 	res.send(`${VERSION}`);

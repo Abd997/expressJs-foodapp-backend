@@ -1,5 +1,5 @@
 const e = require("express");
-const { validationResult } = require("express-validator");
+const { validationResult } = require("express-validator/src");
 const sendErrorResponse = require("./sendErrorResponse");
 
 /**
