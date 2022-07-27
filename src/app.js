@@ -2,7 +2,7 @@ const express = require("express");
 const { authorizedRoute, normalRoutes } = require("./routes");
 const app = express();
 
-const VERSION = "0.8.0";
+const VERSION = "0.8.1";
 
 app.use(express.json());
 
