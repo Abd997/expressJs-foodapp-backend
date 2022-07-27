@@ -1,4 +1,8 @@
+const addAddress = require("../controllers/addAddress");
+const editAddress = require("../controllers/editAddress");
+const getAddresses = require("../controllers/getAddresses");
 const getFavouriteFoods = require("../controllers/getFavouriteFoods");
+const removeAddress = require("../controllers/removeAddress");
 const updateFavouriteFood = require("../controllers/updateFavouriteFood");
 const groceries = require("../groceries");
 const userExtraDetails = require("../user-extra-details");
@@ -59,5 +63,11 @@ route.post(
 );
 
 route.get("/favourite-food/:email", verifyToken, getFavouriteFoods);
+
+//--------ADDRESSES--------
+route.get("/address/:email", getAddresses);
+route.post("/add/address", verifyToken, addAddress);
+route.post("/remove/address", verifyToken, removeAddress);
+route.post("/edit/address", verifyToken, editAddress);
 
 module.exports = route;

@@ -6,7 +6,7 @@ const {
 } = require("./routes");
 const app = express();
 
-const VERSION = "0.9.1";
+const VERSION = "0.10.1";
 
 app.use(express.json());
 
