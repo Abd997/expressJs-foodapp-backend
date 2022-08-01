@@ -1,4 +1,4 @@
-const FoodCollection = require("../entities/Food");
+const FoodCollection = require("../collections/FoodCollection");
 const mongoose = require("mongoose");
 
 module.exports = FoodRepo = {

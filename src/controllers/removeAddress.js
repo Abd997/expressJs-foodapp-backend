@@ -1,5 +1,5 @@
 const e = require("express");
-const AddressCollection = require("../entities/Address");
+const AddressCollection = require("../collections/Address");
 const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**

@@ -1,4 +1,4 @@
-const UserCollection = require("../entities/User");
+const UserCollection = require("../collections/User");
 const sendErrorResponse = require("../utils/sendErrorResponse");
 
 module.exports = UserRepo = {

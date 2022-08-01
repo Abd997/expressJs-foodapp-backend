@@ -6,17 +6,17 @@ const verifyAdminToken = require("../utils/verifyAdminToken");
 const route = express();
 
 route.post(
-	"/add/weeklyfoods",
-	addWeeklyFoods.validateReq,
-	verifyAdminToken,
-	addWeeklyFoods.handler
+  "/add/weeklyfoods",
+  addWeeklyFoods.validateReq,
+  verifyAdminToken,
+  addWeeklyFoods.handler
 );
 
 route.post(
-	"/add/foodimage",
-	verifyAdminToken,
-	multerUpload.single("image"),
-	addFoodImage
+  "/add/food-image",
+  // verifyAdminToken,
+  multerUpload.single("image"),
+  addFoodImage
 );
 
 module.exports = route;
