@@ -14,6 +14,7 @@ const multerUpload = require("../utils/multerUpload");
 const handleUploadStory = require("../controllers/handleUploadStory");
 const handleGetStory = require("../controllers/handleGetStory");
 const handleUploadPost = require("../controllers/handleUploadPost");
+const getAllUserPosts = require("../controllers/getAllUserPosts");
 
 const route = require("express").Router();
 
@@ -27,6 +28,8 @@ route.post(
 route.get("/get/story/:email", verifyToken, handleGetStory);
 
 route.post("/upload/post", multerUpload.single("image"), handleUploadPost);
+
+route.get("/get/posts/:email", verifyToken, getAllUserPosts);
 
 // route.post("/post", handleGetPost);
 

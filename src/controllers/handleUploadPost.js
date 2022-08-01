@@ -1,7 +1,8 @@
 const e = require("express");
-const UserCollection = require("../models/User");
-const UserPosts = require("../models/UserPosts");
+const UserCollection = require("../collections/User");
+const UserPosts = require("../collections/UserPosts");
 const uploadToAzure = require("../utils/uploadToAzure");
+const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**
  *
@@ -36,7 +37,11 @@ async function savePostToDatabase(req) {
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-  await uploadToAzure(req);
-  await savePostToDatabase(req);
-  res.json({ msg: "Post uploaded successfully" });
+  try {
+    await uploadToAzure(req);
+    await savePostToDatabase(req);
+    res.json({ msg: "Post uploaded successfully" });
+  } catch (e) {
+    sendErrorResponse(res, 500, e.message);
+  }
 };

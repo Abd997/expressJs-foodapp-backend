@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const UserPostSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
     imageFileName: String,
     description: String,
     title: String,
