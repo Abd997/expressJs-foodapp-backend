@@ -1,6 +1,6 @@
 const e = require("express");
 const storage = require("@azure/storage-blob");
-const UserCollection = require("../models/User");
+const UserCollection = require("../collections/User");
 const dotenv = require("dotenv").config();
 
 /**
