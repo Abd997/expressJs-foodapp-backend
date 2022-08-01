@@ -1,7 +1,7 @@
 const e = require("express");
 const storage = require("@azure/storage-blob");
 const UserCollection = require("../collections/User");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 /**
  *
@@ -10,7 +10,7 @@ const dotenv = require("dotenv").config();
  */
 async function checkStory(req, res) {
   const doc = await UserCollection.findOne({
-    email: req.body.userStory,
+    email: req.params.email,
   });
   if (!doc) {
     return res.status(401).send("User not found");
@@ -23,31 +23,35 @@ async function checkStory(req, res) {
 
 // Create a service SAS for a blob
 function getBlobSasUri(doc) {
-  const accountName = process.env.STORAGE_NAME;
-  const key = process.env.CLOUD_KEY;
-  const certs = new storage.StorageSharedKeyCredential(accountName, key);
-  const blobServiceClient = new storage.BlobServiceClient(
-    `https://${accountName}.blob.core.windows.net`,
-    certs
+  // const accountName = process.env.STORAGE_NAME;
+  // const key = process.env.CLOUD_KEY;
+  // const certs = new storage.StorageSharedKeyCredential(accountName, key);
+  // const blobServiceClient = new storage.BlobServiceClient(
+  //   `https://${accountName}.blob.core.windows.net`,
+  //   certs
+  // );
+  // const containerName = "container";
+  // const client = blobServiceClient.getContainerClient(containerName);
+  // const blobName = doc.storyFileName;
+  // const blobClient = client.getBlobClient(blobName);
+  // const blobSAS = storage
+  //   .generateBlobSASQueryParameters(
+  //     {
+  //       containerName,
+  //       blobName,
+  //       permissions: storage.BlobSASPermissions.parse("r"),
+  //       startsOn: new Date(),
+  //       expiresOn: new Date(new Date().valueOf() + 86400),
+  //     },
+  //     certs
+  //   )
+  //   .toString();
+  // const sasUrl = blobClient.url + "?" + blobSAS;
+  // return sasUrl;
+  return (
+    "https://foodappstorageaccount.blob.core.windows.net/container/" +
+    doc.storyFileName
   );
-  const containerName = "container";
-  const client = blobServiceClient.getContainerClient(containerName);
-  const blobName = doc.storyFileName;
-  const blobClient = client.getBlobClient(blobName);
-  const blobSAS = storage
-    .generateBlobSASQueryParameters(
-      {
-        containerName,
-        blobName,
-        permissions: storage.BlobSASPermissions.parse("r"),
-        startsOn: new Date(),
-        expiresOn: new Date(new Date().valueOf() + 86400),
-      },
-      certs
-    )
-    .toString();
-  const sasUrl = blobClient.url + "?" + blobSAS;
-  return sasUrl;
 }
 
 /**

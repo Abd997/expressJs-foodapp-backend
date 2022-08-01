@@ -13,6 +13,7 @@ const verifyToken = require("../utils/verifyToken");
 const multerUpload = require("../utils/multerUpload");
 const handleUploadStory = require("../controllers/handleUploadStory");
 const handleGetStory = require("../controllers/handleGetStory");
+const handleUploadPost = require("../controllers/handleUploadPost");
 
 const route = require("express").Router();
 
@@ -24,12 +25,8 @@ route.post(
 );
 
 route.get("/get/story/:email", verifyToken, handleGetStory);
-//
-// route.post(
-// 	"/upload-post",
-// 	multerUpload.single("image"),
-// 	handleUploadPost
-// );
+
+route.post("/upload/post", multerUpload.single("image"), handleUploadPost);
 
 // route.post("/post", handleGetPost);
 
