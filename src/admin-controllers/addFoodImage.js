@@ -22,12 +22,15 @@ const validate = (req) => {
 module.exports = async (req, res) => {
   try {
     await validate(req);
-    const { foodName } = req.body;
+    let { foodName } = req.body;
     await uploadToAzure(req);
+    foodName = foodName.replaceAll("-", " ");
     await FoodCollection.updateMany(
       { name: foodName },
       {
-        imageURL: req.file.filename,
+        imageURL:
+          "https://foodappstorageaccount.blob.core.windows.net/container/" +
+          req.file.filename,
       }
     );
     res.json({

@@ -15,50 +15,59 @@ const handleUploadStory = require("../controllers/handleUploadStory");
 const handleGetStory = require("../controllers/handleGetStory");
 const handleUploadPost = require("../controllers/handleUploadPost");
 const getAllUserPosts = require("../controllers/getAllUserPosts");
+const getFeed = require("../controllers/getFeed");
 
 const route = require("express").Router();
 
 route.post(
-  "/upload/story",
-  verifyToken,
-  multerUpload.single("image"),
-  handleUploadStory
+	"/upload/story",
+	verifyToken,
+	multerUpload.single("image"),
+	handleUploadStory
 );
 
 route.get("/get/story/:email", verifyToken, handleGetStory);
 
-route.post("/upload/post", multerUpload.single("image"), handleUploadPost);
+route.post(
+	"/upload/post",
+	multerUpload.single("image"),
+	handleUploadPost
+);
 
 route.get("/get/posts/:email", verifyToken, getAllUserPosts);
 
 // route.post("/post", handleGetPost);
 
 route.post("/", verifyToken, (req, res) => {
-  res.json({ msg: "User is authorized" });
+	res.json({ msg: "User is authorized" });
 });
 
 route.post(
-  "/update/details",
-  userExtraDetails.validateUpdateReq,
-  verifyToken,
-  userExtraDetails.updateDetails
+	"/update/details",
+	userExtraDetails.validateUpdateReq,
+	verifyToken,
+	userExtraDetails.updateDetails
 );
 
 route.post(
-  "/get/details",
-  userExtraDetails.validateGetReq,
-  verifyToken,
-  userExtraDetails.getDetails
+	"/get/details",
+	userExtraDetails.validateGetReq,
+	verifyToken,
+	userExtraDetails.getDetails
 );
 
 route.post(
-  "/update/groceries",
-  groceries.validateReq,
-  verifyToken,
-  groceries.addGroceries
+	"/update/groceries",
+	groceries.validateReq,
+	verifyToken,
+	groceries.addGroceries
 );
 
-route.post("/update/favourite-food", verifyToken, updateFavouriteFood);
+route.post(
+	"/update/favourite-food",
+	verifyToken,
+	updateFavouriteFood
+);
 
 route.get("/favourite-food/:email", verifyToken, getFavouriteFoods);
 
@@ -74,6 +83,8 @@ route.post("/feedback", verifyToken, sendFeedback);
 route.post("/meal/add/like", verifyToken, addMealLike);
 route.post("/meal/remove/like", verifyToken, removeMealLike);
 
-route.post("/update/weight-goal", verifyToken);
+// route.post("/update/weight-goal", verifyToken);
+
+route.get("/feed:email", verifyToken, getFeed);
 
 module.exports = route;
