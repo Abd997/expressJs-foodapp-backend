@@ -85,6 +85,6 @@ route.post("/meal/remove/like", verifyToken, removeMealLike);
 
 // route.post("/update/weight-goal", verifyToken);
 
-route.get("/feed:email", verifyToken, getFeed);
+route.get("/feed/:email", verifyToken, getFeed);
 
 module.exports = route;
