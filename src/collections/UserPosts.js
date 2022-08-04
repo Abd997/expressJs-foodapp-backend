@@ -16,18 +16,14 @@ const UserPostSchema = new mongoose.Schema(
 		imageFileName: String,
 		description: String,
 		title: String,
-		likes: { type: Number, default: 0 },
-		likedBy: [
-			{
-				email: { type: String, unique: true }
-			}
-		],
-		commentNumber: { type: Number, default: 0 },
+		totalLikes: { type: Number, default: 0 },
+		likedBy: [String],
+		totalComments: { type: Number, default: 0 },
 		comments: [
 			{
+				email: String,
 				title: String,
 				description: String,
-				userEmail: String,
 				dateCreated: { type: Date, default: Date.now() },
 				dateUpdated: { type: Date, default: Date.now() }
 			}

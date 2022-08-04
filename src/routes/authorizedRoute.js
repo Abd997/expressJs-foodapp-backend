@@ -16,6 +16,7 @@ const handleGetStory = require("../controllers/handleGetStory");
 const handleUploadPost = require("../controllers/handleUploadPost");
 const getAllUserPosts = require("../controllers/getAllUserPosts");
 const getFeed = require("../controllers/getFeed");
+const updatePostLike = require("../controllers/user-posts/updatePostLike");
 
 const route = require("express").Router();
 
@@ -86,5 +87,7 @@ route.post("/meal/remove/like", verifyToken, removeMealLike);
 // route.post("/update/weight-goal", verifyToken);
 
 route.get("/feed/:email", verifyToken, getFeed);
+
+route.post("/update/post-like", verifyToken, updatePostLike);
 
 module.exports = route;
