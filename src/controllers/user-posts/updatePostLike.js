@@ -1,13 +1,11 @@
-/**
- * Check if a user has already liked the post
- * If yes return that message
- * If not then like the post by that user
- */
 const e = require("express");
 const UserPosts = require("../../collections/UserPosts");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
 /**
+ * Check if a user has already liked the post
+ * If yes return that message
+ * If not then like the post by that user
  *
  * @param {e.Request} req
  */

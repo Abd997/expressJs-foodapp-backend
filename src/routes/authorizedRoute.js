@@ -1,93 +1,83 @@
-const addAddress = require("../controllers/addAddress");
-const editAddress = require("../controllers/editAddress");
-const getAddresses = require("../controllers/getAddresses");
-const getFavouriteFoods = require("../controllers/getFavouriteFoods");
-const removeAddress = require("../controllers/removeAddress");
-const sendFeedback = require("../controllers/sendFeedback");
-const updateFavouriteFood = require("../controllers/updateFavouriteFood");
-const addMealLike = require("../controllers/addMealLike");
-const removeMealLike = require("../controllers/removeMealLike");
-const groceries = require("../groceries");
-const userExtraDetails = require("../user-extra-details");
-const verifyToken = require("../utils/verifyToken");
+const {
+	reportUser,
+	blockUser,
+	addUserStory,
+	getStory,
+	addUserPost,
+	getAllUserPosts,
+	updatePostLike,
+	addPostComment,
+	getPostComments,
+	getUserComment,
+	updateUser,
+	getUserDetails,
+	addGroceries,
+	updateFavouriteFood,
+	getFavouriteFoods,
+	getAddresses,
+	addAddress,
+	removeAddress,
+	updateAddress,
+	addFeedback,
+	addMealLike,
+	removeMealLike,
+	getFeed,
+	updateMealLike
+} = require("../controllers");
+
 const multerUpload = require("../utils/multerUpload");
-const handleUploadStory = require("../controllers/handleUploadStory");
-const handleGetStory = require("../controllers/handleGetStory");
-const handleUploadPost = require("../controllers/handleUploadPost");
-const getAllUserPosts = require("../controllers/getAllUserPosts");
-const getFeed = require("../controllers/getFeed");
-const updatePostLike = require("../controllers/user-posts/updatePostLike");
 
 const route = require("express").Router();
 
-route.post(
-	"/upload/story",
-	verifyToken,
-	multerUpload.single("image"),
-	handleUploadStory
-);
+// ------------USER SAFETY------------
+route.post("/report-user", reportUser);
+route.post("/block-user", blockUser);
 
-route.get("/get/story/:email", verifyToken, handleGetStory);
+// ------------STORY------------
+route.post("/story", multerUpload.single("image"), addUserStory);
+route.get("/story", getStory);
 
-route.post(
-	"/upload/post",
-	multerUpload.single("image"),
-	handleUploadPost
-);
-
-route.get("/get/posts/:email", verifyToken, getAllUserPosts);
+// ------------POST------------
+route.post("/userpost", multerUpload.single("image"), addUserPost);
+route.get("/userposts", getAllUserPosts);
+route.put("/userpost/like", updatePostLike);
+route.post("/userpost/comment", addPostComment);
+route.get("/userpost/:postId/comments", getPostComments);
+// not working properly
+route.get("/userpost/comment/:commentId", getUserComment);
 
 // route.post("/post", handleGetPost);
 
-route.post("/", verifyToken, (req, res) => {
-	res.json({ msg: "User is authorized" });
-});
+// ------------DETAILS------------
+route.put("/user", updateUser);
+route.get("/user", getUserDetails);
 
-route.post(
-	"/update/details",
-	userExtraDetails.validateUpdateReq,
-	verifyToken,
-	userExtraDetails.updateDetails
-);
+// ------------GROCERIES------------
+route.post("/groceries", addGroceries);
 
-route.post(
-	"/get/details",
-	userExtraDetails.validateGetReq,
-	verifyToken,
-	userExtraDetails.getDetails
-);
+// ------------FAVOURITE FOOD------------
+route.put("/favouritefood", updateFavouriteFood);
+route.get("/favouritefoods", getFavouriteFoods);
 
-route.post(
-	"/update/groceries",
-	groceries.validateReq,
-	verifyToken,
-	groceries.addGroceries
-);
+// ------------ADDRESSES------------
+route.get("/addresses", getAddresses);
+route.post("/address", addAddress);
+route.delete("/address", removeAddress);
+route.put("/address", updateAddress);
 
-route.post(
-	"/update/favourite-food",
-	verifyToken,
-	updateFavouriteFood
-);
+// ------------FEEDBACK------------
+route.post("/feedback", addFeedback);
 
-route.get("/favourite-food/:email", verifyToken, getFavouriteFoods);
-
-//--------ADDRESSES--------
-route.get("/address/:email", getAddresses);
-route.post("/add/address", verifyToken, addAddress);
-route.post("/remove/address", verifyToken, removeAddress);
-route.post("/edit/address", verifyToken, editAddress);
-
-//--------FEEDBACK--------
-route.post("/feedback", verifyToken, sendFeedback);
-
-route.post("/meal/add/like", verifyToken, addMealLike);
-route.post("/meal/remove/like", verifyToken, removeMealLike);
+// ------------MEAL------------
+route.put("/meal/like", updateMealLike);
 
 // route.post("/update/weight-goal", verifyToken);
 
-route.get("/feed/:email", verifyToken, getFeed);
-
-route.post("/update/post-like", verifyToken, updatePostLike);
+// ------------FEED------------
+route.get("/feed", getFeed);
 
 module.exports = route;
+
+// route.use("/", verifyToken, (req, res) => {
+// 	res.json({ msg: "User is authorized" });
+// });

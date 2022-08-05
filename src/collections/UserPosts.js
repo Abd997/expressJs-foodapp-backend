@@ -13,7 +13,7 @@ Date.prototype.getWeekNumber = function () {
 const UserPostSchema = new mongoose.Schema(
 	{
 		email: { type: String, required: true },
-		imageFileName: String,
+		imageUrl: String,
 		description: String,
 		title: String,
 		totalLikes: { type: Number, default: 0 },

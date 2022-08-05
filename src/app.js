@@ -4,13 +4,14 @@ const {
 	normalRoutes,
 	adminRoutes
 } = require("./routes");
+const verifyToken = require("./utils/verifyToken");
 const app = express();
 
-const VERSION = "0.13.0";
+const VERSION = "1.0.0";
 
 app.use(express.json());
 
-app.use("/auth/user", authorizedRoute);
+app.use("/auth/user/", verifyToken, authorizedRoute);
 
 app.use("/admin", adminRoutes);
 

@@ -1,5 +1,6 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const UserCollection = require("../collections/User");
 require("dotenv").config();
 const sendErrorResponse = require("./sendErrorResponse");
 
@@ -26,12 +27,19 @@ module.exports = async (req, res, next) => {
 	}
 
 	try {
-		await jwt.verify(token, process.env.JWT_KEY);
-	} catch (err) {
-		if (err instanceof jwt.JsonWebTokenError) {
+		const userEmail = await jwt.verify(token, process.env.JWT_KEY);
+		const userExists = await UserCollection.findOne({
+			email: userEmail
+		});
+		if (!userExists) {
+			throw new Error("User not registered");
+		}
+		req.body.email = userEmail;
+	} catch (error) {
+		if (error instanceof jwt.JsonWebTokenError) {
 			return sendErrorResponse(res, 400, "Token is invalid");
 		}
-		return sendErrorResponse(res, 500, "Could not verify token");
+		return sendErrorResponse(res, 400, error.message);
 	}
 
 	next();

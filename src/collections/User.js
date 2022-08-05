@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
-  {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+	{
+		firstName: { type: String, required: true },
+		lastName: { type: String, required: true },
+		email: { type: String, required: true, unique: true },
+		password: { type: String, required: true },
 
-    gender: String,
-    weight: String,
-    weightGoal: String,
-    currentActivityLevel: String,
-    dateOfBirth: String,
-    height: String,
+		gender: String,
+		weight: String,
+		weightGoal: String,
+		currentActivityLevel: String,
+		dateOfBirth: String,
+		height: String,
 
-    hasPostedStory: { type: Boolean, default: false },
-    storyFileName: { type: String },
+		hasPostedStory: { type: Boolean, default: false },
+		storyFileName: { type: String },
 
-    postIds: [],
-    favouriteFoodIds: [],
-  },
-  { collection: "UserCollection" }
+		postIds: [],
+		favouriteFoodIds: [],
+
+		totalReportsByOtherUsers: { type: Number, default: 0 },
+		otherBlockedUsers: [String]
+	},
+	{ collection: "UserCollection" }
 );
 
 const UserCollection = mongoose.model("UserCollection", UserSchema);

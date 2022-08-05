@@ -5,10 +5,12 @@ const migrateDevDatabase = require("./migrateDevDatabase");
 (async () => {
 	try {
 		await mongoose.connect(process.env.DATABASE_PROD);
-		// await mongoose.connection.db.dropDatabase();
+		await mongoose.connection.db.dropDatabase();
 		console.log("Connected to database");
 	} catch (error) {
 		console.log("Could not connect to database");
+		console.error(error.message);
+		await mongoose.connection.close();
 		return;
 	}
 	try {
