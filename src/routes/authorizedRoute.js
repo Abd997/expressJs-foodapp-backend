@@ -26,6 +26,7 @@ const {
 } = require("../controllers");
 
 const multerUpload = require("../utils/multerUpload");
+const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
 
 // ------------USER SAFETY------------
@@ -37,7 +38,12 @@ route.post("/story", multerUpload.single("image"), addUserStory);
 route.get("/story", getStory);
 
 // ------------POST------------
-route.post("/userpost", multerUpload.single("image"), addUserPost);
+route.post(
+	"/userpost",
+	multerUpload.single("image"),
+	verifyToken,
+	addUserPost
+);
 route.get("/userposts", getAllUserPosts);
 route.put("/userpost/like", updatePostLike);
 route.post("/userpost/comment", addPostComment);
