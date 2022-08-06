@@ -34,6 +34,6 @@ module.exports = async (req, res) => {
 		);
 		res.json({ msg: "Post uploaded successfully" });
 	} catch (error) {
-		sendErrorResponse(res, 500, error.message);
+		sendErrorResponse(res, 500, error);
 	}
 };

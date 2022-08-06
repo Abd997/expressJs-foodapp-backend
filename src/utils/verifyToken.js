@@ -1,7 +1,7 @@
+require("dotenv").config();
 const e = require("express");
 const jwt = require("jsonwebtoken");
 const UserCollection = require("../collections/User");
-require("dotenv").config();
 const sendErrorResponse = require("./sendErrorResponse");
 
 /**
