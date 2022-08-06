@@ -1,22 +1,19 @@
 const express = require("express");
-const addFoodImage = require("../admin-controllers/addFoodImage");
-const addWeeklyFoods = require("../admin/add-weekly-foods");
+const {
+	addWeeklyFood,
+	addWeeklyFoodImage
+} = require("../admin-controllers");
 const multerUpload = require("../utils/multerUpload");
 const verifyAdminToken = require("../utils/verifyAdminToken");
 const route = express();
 
-route.post(
-  "/add/weeklyfoods",
-  addWeeklyFoods.validateReq,
-  verifyAdminToken,
-  addWeeklyFoods.handler
-);
+route.post("/weeklyfood", verifyAdminToken, addWeeklyFood);
 
-route.post(
-  "/add/food-image",
-  // verifyAdminToken,
-  multerUpload.single("image"),
-  addFoodImage
+route.put(
+	"/food-image",
+	verifyAdminToken,
+	multerUpload.single("image"),
+	addWeeklyFoodImage
 );
 
 module.exports = route;

@@ -1,6 +1,6 @@
 const e = require("express");
-const sendErrorResponse = require("../../utils/sendErrorResponse");
-const uploadToAzure = require("../../utils/uploadToAzure");
+const sendErrorResponse = require("../utils/sendErrorResponse");
+const uploadToAzure = require("../utils/uploadToAzure");
 
 /**
  *

@@ -1,6 +1,6 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
-const AdminRepo = require("../../repo/AdminRepo");
+const AdminRepo = require("../repo/AdminRepo");
 const UserRepo = require("../repo/UserRepo");
 require("dotenv").config();
 const sendErrorResponse = require("../utils/sendErrorResponse");

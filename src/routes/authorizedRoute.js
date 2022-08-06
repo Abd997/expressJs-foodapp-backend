@@ -26,7 +26,6 @@ const {
 } = require("../controllers");
 
 const multerUpload = require("../utils/multerUpload");
-
 const route = require("express").Router();
 
 // ------------USER SAFETY------------
@@ -77,7 +76,3 @@ route.put("/meal/like", updateMealLike);
 route.get("/feed", getFeed);
 
 module.exports = route;
-
-// route.use("/", verifyToken, (req, res) => {
-// 	res.json({ msg: "User is authorized" });
-// });

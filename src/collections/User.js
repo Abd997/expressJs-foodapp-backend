@@ -19,6 +19,12 @@ const UserSchema = new mongoose.Schema(
 
 		postIds: [],
 		favouriteFoodIds: [],
+		groceries: [
+			{
+				groceryId: Number,
+				quantity: { type: Number, default: 0 }
+			}
+		],
 
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String]

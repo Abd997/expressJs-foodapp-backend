@@ -1,6 +1,6 @@
 const e = require("express");
-const FoodRepo = require("../../repo/FoodRepo");
-const sendErrorResponse = require("../../utils/sendErrorResponse");
+const FoodRepo = require("../repo/FoodRepo");
+const sendErrorResponse = require("../utils/sendErrorResponse");
 
 /**
  *

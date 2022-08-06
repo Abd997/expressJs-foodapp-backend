@@ -10,10 +10,8 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  * @param {e.Request} req
  */
 const validate = async (req) => {
-	const { email, postId } = req.body;
-	if (!email) {
-		throw new Error("Email not sent");
-	} else if (!postId) {
+	const { postId } = req.body;
+	if (!postId) {
 		throw new Error("Post id not sent");
 	}
 };

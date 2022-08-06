@@ -18,10 +18,11 @@ module.exports = async () => {
 		"Boulets"
 	];
 
+	const startWeek = 27;
 	for (var j = 0; j < 8; j++) {
-		const startWeek = 27;
-		for (var i = 0; i < 7; i++) {
-			var foodName = foodNames[Math.floor(Math.random() * 12)];
+		for (var i = 0; i < 12; i++) {
+			// var foodName = foodNames[Math.floor(Math.random() * 12)];
+			var foodName = foodNames[i];
 			await FoodCollection.create({
 				name: foodName,
 				price: "10",
