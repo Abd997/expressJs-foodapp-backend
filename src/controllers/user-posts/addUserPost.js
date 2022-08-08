@@ -11,8 +11,9 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  */
 module.exports = async (req, res) => {
 	try {
-		// console.log(req.body.email);
-		await uploadToAzure(req);
+		if (req.file) {
+			await uploadToAzure(req);
+		}
 		const doc = await UserCollection.findOne({
 			email: req.body.email
 		});
@@ -20,7 +21,9 @@ module.exports = async (req, res) => {
 		const postIds = doc.postIds;
 		const newPost = await UserPosts.create({
 			email: req.body.email,
-			imageUrl: `https://foodappstorageaccount.blob.core.windows.net/container/${req.file.filename}`,
+			imageUrl: req.file
+				? `https://foodappstorageaccount.blob.core.windows.net/container/${req.file.filename}`
+				: "empty",
 			description: req.body.description,
 			title: req.body.title
 		});
@@ -32,8 +35,9 @@ module.exports = async (req, res) => {
 				postIds: postIds
 			}
 		);
-		res.json({ msg: "Post uploaded successfully" });
+		return res.json({ msg: "Post uploaded successfully" });
 	} catch (error) {
+		console.log(error);
 		sendErrorResponse(res, 500, error);
 	}
 };

@@ -12,7 +12,19 @@ module.exports = async (req, res) => {
 		const { email } = req.body;
 		const data = await UserPosts.find(
 			{},
-			"title email imageUrl description totalLikes totalComments dateCreated dateUpdated"
+			`
+        title 
+        email 
+        firstName 
+        lastName 
+        profileImageUrl 
+        imageUrl 
+        description 
+        totalLikes 
+        totalComments 
+        dateCreated 
+        dateUpdated
+      `
 		).sort({ dateUpdated: -1 });
 		return res.json({
 			data

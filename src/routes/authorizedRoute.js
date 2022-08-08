@@ -32,6 +32,7 @@ const route = require("express").Router();
 // ------------USER SAFETY------------
 route.post("/report-user", reportUser);
 route.post("/block-user", blockUser);
+route.post("/flag-user", flagUser);
 
 // ------------STORY------------
 route.post("/story", multerUpload.single("image"), addUserStory);
@@ -48,10 +49,9 @@ route.get("/userposts", getAllUserPosts);
 route.put("/userpost/like", updatePostLike);
 route.post("/userpost/comment", addPostComment);
 route.get("/userpost/:postId/comments", getPostComments);
+
 // not working properly
 route.get("/userpost/comment/:commentId", getUserComment);
-
-// route.post("/post", handleGetPost);
 
 // ------------DETAILS------------
 route.put("/user", updateUser);

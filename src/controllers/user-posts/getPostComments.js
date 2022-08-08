@@ -23,6 +23,9 @@ module.exports = async (req, res) => {
 		await validate(req);
 		const { postId } = req.params;
 		const post = await UserPosts.findById(postId);
+		if (!post) {
+			throw new Error("Post does not exists");
+		}
 		const comments = post.comments;
 		return res.json({
 			totalComments: post.totalComments,

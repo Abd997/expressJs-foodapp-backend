@@ -30,5 +30,6 @@ module.exports = {
 	removeAddress: require("./user-address/removeAddress"),
 	updateMealLike: require("./food/updateMealLike"),
 	reportUser: require("./user-safety/reportUser"),
-	blockUser: require("./user-safety/blockUser")
+	blockUser: require("./user-safety/blockUser"),
+	flagUser: require("./user-safety/flagUser")
 };
