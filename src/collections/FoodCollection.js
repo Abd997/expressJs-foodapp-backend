@@ -16,8 +16,9 @@ const FoodSchema = new mongoose.Schema(
 		description: { type: String, default: "empty" },
 		imageURL: { type: String, default: "empty" },
 		foodType: { type: String, default: "meal" },
-		price: String,
-		currency: { type: String, default: "usd" },
+		price: { type: Number, default: 10 },
+		priceInCents: { type: Number, default: 1000 },
+		currency: { type: String, default: "eur" },
 		tags: [],
 		dateCreated: { type: Date, default: Date.now() },
 		weekNumber: {

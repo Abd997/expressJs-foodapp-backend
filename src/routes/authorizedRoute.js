@@ -23,12 +23,22 @@ const {
 	removeMealLike,
 	getFeed,
 	updateMealLike,
-	flagUser
+	flagUser,
+	createCheckoutSession,
+	checkoutSuccess,
+	checkoutFailure,
+	checkoutCancel
 } = require("../controllers");
 
 const multerUpload = require("../utils/multerUpload");
 const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
+
+// ------------CHECKOUT------------
+route.post("/checkout/create-intent", createCheckoutSession);
+route.get("/checkout/success", checkoutSuccess);
+route.get("/checkout/failure", checkoutFailure);
+route.get("/checkout/cancel", checkoutCancel);
 
 // ------------USER SAFETY------------
 route.post("/report-user", reportUser);

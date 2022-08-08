@@ -7,7 +7,7 @@ const {
 const verifyToken = require("./utils/verifyToken");
 const app = express();
 
-const VERSION = "1.0.7";
+const VERSION = "1.1.0";
 
 app.use(express.json());
 

@@ -31,5 +31,9 @@ module.exports = {
 	updateMealLike: require("./food/updateMealLike"),
 	reportUser: require("./user-safety/reportUser"),
 	blockUser: require("./user-safety/blockUser"),
-	flagUser: require("./user-safety/flagUser")
+	flagUser: require("./user-safety/flagUser"),
+	createCheckoutSession: require("./checkout/createCheckoutSession"),
+	checkoutSuccess: require("./checkout/checkoutSuccess"),
+	checkoutFailure: require("./checkout/checkoutFailure"),
+	checkoutCancel: require("./checkout/checkoutCancel")
 };
