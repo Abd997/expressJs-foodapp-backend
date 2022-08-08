@@ -22,7 +22,8 @@ const {
 	addMealLike,
 	removeMealLike,
 	getFeed,
-	updateMealLike
+	updateMealLike,
+	flagUser
 } = require("../controllers");
 
 const multerUpload = require("../utils/multerUpload");
