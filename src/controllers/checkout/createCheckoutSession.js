@@ -30,31 +30,28 @@ module.exports = async (req, res) => {
 		if (!itemToBuy) {
 			throw new Error("Item does not exists");
 		}
-		// const session = await stripe.checkout.sessions.create({
-		// 	payment_method_types: ["card"],
-		// 	mode: "payment",
-		// 	line_items: [
-		// 		{
-		// 			price_data: {
-		// 				name: itemToBuy.name,
-		// 				currency: "eur",
-		// 				price: itemToBuy._id,
-		// 				quantity: itemQuantity
-		// 			}
-		// 		}
-		// 	],
-		// 	success_url: `${process.env.SERVER_URL}/auth/user/checkout/success`,
-		// 	cancel_url: `${process.env.SERVER_URL}/auth/user/checkout/cancel`
-		// });
+
+		const payment = await stripe.paymentMethods.create({
+			type: "card",
+			card: {
+				number: "4242424242424242",
+				exp_month: 9,
+				exp_year: 2023,
+				cvc: "343"
+			}
+		});
+
 		const paymentIntent = await stripe.paymentIntents.create({
+			payment_method: payment.id,
 			amount: itemToBuy.priceInCents,
 			currency: "eur",
+			confirm: "true",
 			payment_method_types: ["card"],
 			metadata: { uid: "some_userID" }
 		});
-		return res.send(paymentIntent);
+		return res.json({ status: paymentIntent.status });
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 		return sendErrorResponse(res, 500, error.message);
 	}
 };
