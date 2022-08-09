@@ -1,9 +1,22 @@
+require("dotenv").config();
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const { BadRequestError } = require("../custom-error");
 const AdminRepo = require("../repo/AdminRepo");
-const UserRepo = require("../repo/UserRepo");
-require("dotenv").config();
 const sendErrorResponse = require("../utils/sendErrorResponse");
+
+/**
+ *
+ * @param {e.Request} req
+ */
+const validate = async (req) => {
+	const { email, password } = req.body;
+	if (!email) {
+		throw new BadRequestError("Email not sent");
+	} else if (!password) {
+		throw new BadRequestError("Password not sent");
+	}
+};
 
 /**
  *
@@ -11,29 +24,19 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const { email, password } = req.body;
 	try {
+		await validate(req);
+		const { email, password } = req.body;
 		var doc = await AdminRepo.authenticateUser(email, password);
 		if (!doc) {
-			return sendErrorResponse(res, 400, "User not found");
+			throw new BadRequestError("Admin not found");
 		}
-	} catch (err) {
-		return sendErrorResponse(res, 500, "Could not verify user");
-	}
-	try {
 		var token = await jwt.sign(email, process.env.JWT_ADMIN);
-	} catch (err) {
-		return sendErrorResponse(
-			res,
-			500,
-			"Could not create token for user"
-		);
+		return res.json({
+			msg: "Admin successfully authenticated",
+			token: token
+		});
+	} catch (error) {
+		return sendErrorResponse(res, error.statusCode, error.message);
 	}
-
-	return res.json({
-		msg: "User successfully authenticated",
-		email: email,
-		firstName: doc.firstName,
-		token: token
-	});
 };

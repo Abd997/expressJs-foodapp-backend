@@ -31,6 +31,13 @@ module.exports = async (req, res) => {
 			throw new Error("Item does not exists");
 		}
 
+		let price = itemToBuy.priceInCents * itemQuantity;
+		const deliveryChargeInCents = 1000;
+
+		if (price < 9 * 10_000) {
+			price += deliveryChargeInCents;
+		}
+
 		const payment = await stripe.paymentMethods.create({
 			type: "card",
 			card: {
@@ -43,7 +50,7 @@ module.exports = async (req, res) => {
 
 		const paymentIntent = await stripe.paymentIntents.create({
 			payment_method: payment.id,
-			amount: itemToBuy.priceInCents,
+			amount: price,
 			currency: "eur",
 			confirm: "true",
 			payment_method_types: ["card"],

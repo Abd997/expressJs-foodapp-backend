@@ -27,29 +27,38 @@ const {
 	createCheckoutSession,
 	checkoutSuccess,
 	checkoutFailure,
-	checkoutCancel
+	checkoutCancel,
+	validateCoupon
 } = require("../controllers");
+const getAllStories = require("../controllers/user-story/getAllStories");
 
 const multerUpload = require("../utils/multerUpload");
 const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
 
-// ------------CHECKOUT------------
+// ------------ CHECKOUT ------------
 route.post("/checkout/create-intent", createCheckoutSession);
+route.get("/checkout/validate-coupon/:couponNumber", validateCoupon);
 route.get("/checkout/success", checkoutSuccess);
 route.get("/checkout/failure", checkoutFailure);
 route.get("/checkout/cancel", checkoutCancel);
 
-// ------------USER SAFETY------------
+// ------------ USER SAFETY ------------
 route.post("/report-user", reportUser);
 route.post("/block-user", blockUser);
 route.post("/flag-user", flagUser);
 
-// ------------STORY------------
-route.post("/story", multerUpload.single("image"), addUserStory);
+// ------------ USER STORY ------------
+route.post(
+	"/story",
+	multerUpload.single("story"),
+	verifyToken,
+	addUserStory
+);
 route.get("/story", getStory);
+route.get("/stories", getAllStories);
 
-// ------------POST------------
+// ------------ USER POST ------------
 route.post(
 	"/userpost",
 	multerUpload.single("image"),

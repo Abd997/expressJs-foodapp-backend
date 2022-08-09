@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		password: { type: String, required: true },
 
+		isAmbassador: { type: Boolean, default: false },
+
 		profileImageUrl: { type: String, default: "empty" },
 
 		gender: String,
@@ -17,7 +19,7 @@ const UserSchema = new mongoose.Schema(
 		height: String,
 
 		hasPostedStory: { type: Boolean, default: false },
-		storyFileName: { type: String },
+		storyUrl: { type: String },
 
 		postIds: [],
 		favouriteFoodIds: [],

@@ -1,6 +1,6 @@
-const AdminCollection = require("../entities/Admin");
+const AdminCollection = require("../collections/Admin");
 
-module.exports = UserRepo = {
+module.exports = {
 	authenticateUser: async function (email, password) {
 		const doc = await AdminCollection.findOne({
 			email: email,

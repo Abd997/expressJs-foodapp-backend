@@ -1,19 +1,21 @@
+require("./custom-error");
 const express = require("express");
 const {
 	authorizedRoute,
 	normalRoutes,
 	adminRoutes
 } = require("./routes");
+const verifyAdminToken = require("./utils/verifyAdminToken");
 const verifyToken = require("./utils/verifyToken");
 const app = express();
 
-const VERSION = "1.1.1";
+const VERSION = "1.2.0";
 
 app.use(express.json());
 
 app.use("/auth/user/", verifyToken, authorizedRoute);
 
-app.use("/admin", adminRoutes);
+app.use("/auth/admin/", verifyAdminToken, adminRoutes);
 
 app.use("/", normalRoutes);
 

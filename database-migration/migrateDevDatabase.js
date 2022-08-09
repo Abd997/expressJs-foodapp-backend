@@ -1,32 +1,42 @@
 const axios = require("axios");
+const AdminCollection = require("../src/collections/Admin");
+require("dotenv").config();
 const FoodCollection = require("../src/collections/FoodCollection");
 const FoodRepo = require("../src/repo/FoodRepo");
 
 module.exports = async () => {
+	// insert an admin
+	await AdminCollection.create({
+		email: "admin100@gmail.com",
+		password: "password"
+	});
+
 	const foodNames = [
-		"cake",
-		"burger",
-		"fries",
-		"stoofvlees",
-		"Sole meunière",
+		"Boulets",
+		"Burger",
+		"Cake",
 		"Chicons au gratin",
-		"Filet Americain",
-		"Moules frites",
-		"Stoemp",
-		"Paling in t groen",
+		"Fries",
 		"Gentse waterzooi",
-		"Boulets"
+		"Le filet americain",
+		"Paling-in-t-groen",
+		"Sole-meunière",
+		"Stoofvlees",
+		"Stoemp"
 	];
 
-	const startWeek = 27;
+	// insert weekly foods
+	const startWeek = 28;
 	for (var j = 0; j < 8; j++) {
-		for (var i = 0; i < 12; i++) {
-			// var foodName = foodNames[Math.floor(Math.random() * 12)];
+		for (var i = 0; i < 11; i++) {
 			var foodName = foodNames[i];
 			await FoodCollection.create({
 				name: foodName,
 				price: "10",
 				foodType: "meal",
+				imageURL: `${
+					process.env.AZURE_CONTAINER_URL
+				}/${foodName.replace(" ", "-")}.jpg`,
 				weekNumber: startWeek + j,
 				tags: [
 					{

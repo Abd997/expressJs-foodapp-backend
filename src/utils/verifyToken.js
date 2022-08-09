@@ -28,13 +28,14 @@ module.exports = async (req, res, next) => {
 
 	try {
 		const userEmail = await jwt.verify(token, process.env.JWT_KEY);
-		const userExists = await UserCollection.findOne({
+		const user = await UserCollection.findOne({
 			email: userEmail
 		});
-		if (!userExists) {
+		if (!user) {
 			throw new Error("User not registered");
 		}
 		req.body.email = userEmail;
+		req.body.user = user;
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			return sendErrorResponse(res, 400, "Token is invalid");

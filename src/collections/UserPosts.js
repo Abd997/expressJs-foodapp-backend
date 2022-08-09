@@ -11,9 +11,8 @@ const UserPostSchema = new mongoose.Schema(
 		totalComments: { type: Number, default: 0 },
 		comments: [
 			{
-				email: String,
-				title: String,
-				description: String,
+				email: { type: String, required: true },
+				caption: { type: String, required: true },
 				dateCreated: { type: Date, default: Date.now() },
 				dateUpdated: { type: Date, default: Date.now() }
 			}
