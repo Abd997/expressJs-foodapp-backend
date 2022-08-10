@@ -55,7 +55,7 @@ route.post(
 	verifyToken,
 	addUserStory
 );
-route.get("/story", getStory);
+route.get("/story/:storyUserEmail", getStory);
 route.get("/stories", getAllStories);
 
 // ------------ USER POST ------------
@@ -68,7 +68,7 @@ route.post(
 route.get("/userposts", getAllUserPosts);
 route.put("/userpost/like", updatePostLike);
 route.post("/userpost/comment", addPostComment);
-route.get("/userpost/:postId/comments", getPostComments);
+route.get("/userpost/comments/:postId", getPostComments);
 
 // not working properly
 route.get("/userpost/comment/:commentId", getUserComment);

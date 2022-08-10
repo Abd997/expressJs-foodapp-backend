@@ -1,6 +1,8 @@
 const e = require("express");
 const storage = require("@azure/storage-blob");
 const UserCollection = require("../../collections/User");
+const { BadRequestError } = require("../../custom-error");
+const sendErrorResponse = require("../../utils/sendErrorResponse");
 require("dotenv").config();
 
 // Create a service SAS for a blob
@@ -36,17 +38,39 @@ function getBlobSasUri(doc) {
 /**
  *
  * @param {e.Request} req
+ */
+const validate = async (req) => {
+	const { storyUserEmail } = req.params;
+	if (!storyUserEmail) {
+		throw new BadRequestError(
+			"Email of the user whose story is requested has not been sent"
+		);
+	}
+};
+
+/**
+ *
+ * @param {e.Request} req
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const { email } = req.body;
-	const doc = await UserCollection.findOne({
-		email: email
-	});
-	if (!doc.hasPostedStory) {
-		return res.json({ msg: "User has not posted any story" });
+	try {
+		await validate(req);
+		const { storyUserEmail } = req.params;
+		const user = await UserCollection.findOne({
+			email: storyUserEmail
+		});
+		if (!user) {
+			throw new BadRequestError("Story user does not exist");
+		}
+		if (!user.hasPostedStory) {
+			throw new BadRequestError("User has not posted any story");
+		}
+		return res.json({ storyUrl: user.storyUrl });
+	} catch (error) {
+		if (error instanceof BadRequestError) {
+			return sendErrorResponse(res, error.statusCode, error.message);
+		}
+		return sendErrorResponse(res, 500, error.message);
 	}
-
-	const sas = getBlobSasUri(doc);
-	res.json({ storyUrl: sas });
 };

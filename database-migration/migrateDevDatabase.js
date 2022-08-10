@@ -2,10 +2,11 @@ const axios = require("axios");
 const AdminCollection = require("../src/collections/Admin");
 require("dotenv").config();
 const FoodCollection = require("../src/collections/FoodCollection");
+const GroceryCollection = require("../src/collections/GroceryCollection");
 const FoodRepo = require("../src/repo/FoodRepo");
 
 module.exports = async () => {
-	// insert an admin
+	// insert admin
 	await AdminCollection.create({
 		email: "admin100@gmail.com",
 		password: "password"
@@ -70,4 +71,20 @@ module.exports = async () => {
 			console.log(`${foodName} inserted for week:${startWeek + j}`);
 		}
 	}
+
+	// insert groceries
+	const groceries = [
+		"bread",
+		"butter",
+		"pasta",
+		"rice",
+		"vegetable oil"
+	];
+  groceries.forEach((v, i) => {
+    await GroceryCollection.create({
+      name: v,
+      price: 11,
+      priceInCents: 11_000
+    });
+  })
 };
