@@ -3,6 +3,7 @@ const AdminCollection = require("../src/collections/Admin");
 require("dotenv").config();
 const FoodCollection = require("../src/collections/FoodCollection");
 const GroceryCollection = require("../src/collections/GroceryCollection");
+const UserCollection = require("../src/collections/User");
 const FoodRepo = require("../src/repo/FoodRepo");
 
 module.exports = async () => {
@@ -11,6 +12,16 @@ module.exports = async () => {
 		email: "admin100@gmail.com",
 		password: "password"
 	});
+	console.log("Admin added");
+
+	// insert users
+	await UserCollection.create({
+		email: "user100@gmail.com",
+		firstName: "user",
+		lastName: "100",
+		password: "password"
+	});
+	console.log("User added");
 
 	const foodNames = [
 		"Boulets",
@@ -27,8 +38,8 @@ module.exports = async () => {
 	];
 
 	// insert weekly foods
-	const startWeek = 28;
-	for (var j = 0; j < 8; j++) {
+	const startWeek = 31;
+	for (var j = 0; j < 2; j++) {
 		for (var i = 0; i < 11; i++) {
 			var foodName = foodNames[i];
 			await FoodCollection.create({
@@ -80,11 +91,12 @@ module.exports = async () => {
 		"rice",
 		"vegetable oil"
 	];
-  groceries.forEach((v, i) => {
-    await GroceryCollection.create({
-      name: v,
-      price: 11,
-      priceInCents: 11_000
-    });
-  })
+	for (let i = 0; i < groceries.length; i++) {
+		await GroceryCollection.create({
+			name: groceries[i],
+			price: 11,
+			priceInCents: 11_000
+		});
+		console.log(`Grocery ${groceries[i]} inserted`);
+	}
 };

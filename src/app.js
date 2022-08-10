@@ -9,7 +9,7 @@ const verifyAdminToken = require("./utils/verifyAdminToken");
 const verifyToken = require("./utils/verifyToken");
 const app = express();
 
-const VERSION = "1.2.1";
+const VERSION = "1.3.0";
 
 app.use(express.json());
 

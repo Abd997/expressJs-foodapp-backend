@@ -28,7 +28,10 @@ const {
 	checkoutSuccess,
 	checkoutFailure,
 	checkoutCancel,
-	validateCoupon
+	validateCoupon,
+	getAllGroceries,
+	addGrocery,
+	getUserGroceries
 } = require("../controllers");
 const getAllStories = require("../controllers/user-story/getAllStories");
 
@@ -79,6 +82,9 @@ route.get("/user", getUserDetails);
 
 // ------------GROCERIES------------
 route.post("/groceries", addGroceries);
+route.get("/available-groceries", getAllGroceries);
+route.get("/groceries", getUserGroceries);
+route.post("/grocery", addGrocery);
 
 // ------------FAVOURITE FOOD------------
 route.put("/favouritefood", updateFavouriteFood);

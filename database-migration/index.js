@@ -6,6 +6,8 @@ const migrateDevDatabase = require("./migrateDevDatabase");
 	try {
 		await mongoose.connect(process.env.DATABASE_PROD);
 		await mongoose.connection.db.dropDatabase();
+		await mongoose.connect(process.env.DATABASE_PROD);
+
 		console.log("Connected to database");
 	} catch (error) {
 		console.log("Could not connect to database");

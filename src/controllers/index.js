@@ -18,6 +18,9 @@ module.exports = {
 
 	// ------------ GROCERY ------------
 	addGroceries: require("./grocery/addGroceries"),
+	getAllGroceries: require("./grocery/getAllGroceries"),
+	addGrocery: require("./grocery/addGrocery"),
+	getUserGroceries: require("./grocery/getUserGroceries"),
 
 	// ------------ USER ------------
 	addUser: require("./user/addUser"),

@@ -25,8 +25,8 @@ const UserSchema = new mongoose.Schema(
 		favouriteFoodIds: [],
 		groceries: [
 			{
-				groceryId: Number,
-				quantity: { type: Number, default: 0 }
+				groceryId: mongoose.Schema.Types.ObjectId,
+				quantity: Number
 			}
 		],
 
