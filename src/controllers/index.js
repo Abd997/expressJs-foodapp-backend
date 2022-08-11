@@ -3,6 +3,7 @@ module.exports = {
 	saveExplorePost: require("./explore/saveExplorePost"),
 	getExplorePost: require("./explore/getExplorePost"),
 	getUserSavedPosts: require("./explore/getUserSavedPosts"),
+	getAllExplorePost: require("./explore/getAllExplorePost"),
 
 	// ------------ CHECKOUT ------------
 	createCheckoutSession: require("./checkout/createCheckoutSession"),

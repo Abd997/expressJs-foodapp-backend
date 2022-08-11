@@ -35,7 +35,8 @@ const {
 	saveExplorePost,
 	getDeals,
 	getExplorePost,
-	getUserSavedPosts
+	getUserSavedPosts,
+	getAllExplorePost
 } = require("../controllers");
 const getAllStories = require("../controllers/user-story/getAllStories");
 
@@ -44,6 +45,7 @@ const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
 
 // ------------ EXPLORE ------------
+route.get("/explore", getAllExplorePost);
 route.get("/explore/type/:type", getExplorePost);
 route.get("/explore/saved-posts", getUserSavedPosts);
 
