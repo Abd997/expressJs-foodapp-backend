@@ -1,5 +1,6 @@
 const axios = require("axios");
 const AdminCollection = require("../src/collections/Admin");
+const ExplorePostCollection = require("../src/collections/ExplorePost");
 require("dotenv").config();
 const FoodCollection = require("../src/collections/FoodCollection");
 const GroceryCollection = require("../src/collections/GroceryCollection");
@@ -98,5 +99,18 @@ module.exports = async () => {
 			priceInCents: 11_000
 		});
 		console.log(`Grocery ${groceries[i]} inserted`);
+	}
+
+	const types = ["deals", "blogs", "recipes"];
+	for (let i = 0; i < 3; i++) {
+		for (let j = 0; j < 10; j++) {
+			await ExplorePostCollection.create({
+				postType: types[i],
+				title: foodNames[j],
+				imageUrl: `${
+					process.env.AZURE_CONTAINER_URL
+				}/${foodName.replace(" ", "-")}.jpg`
+			});
+		}
 	}
 };

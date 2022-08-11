@@ -1,7 +1,8 @@
 const express = require("express");
 const {
 	addWeeklyFood,
-	addWeeklyFoodImage
+	addWeeklyFoodImage,
+	addExplorePost
 } = require("../admin-controllers");
 const addAmbassador = require("../admin-controllers/addAmbassador");
 const multerUpload = require("../utils/multerUpload");
@@ -17,5 +18,11 @@ route.put(
 );
 
 route.post("/register/ambassador", addAmbassador);
+
+route.post(
+	"/explore-post",
+	multerUpload.single("image"),
+	addExplorePost
+);
 
 module.exports = route;

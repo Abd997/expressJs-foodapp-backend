@@ -1,4 +1,9 @@
 module.exports = {
+	// ------------ EXPLORE ------------
+	saveExplorePost: require("./explore/saveExplorePost"),
+	getExplorePost: require("./explore/getExplorePost"),
+	getUserSavedPosts: require("./explore/getUserSavedPosts"),
+
 	// ------------ CHECKOUT ------------
 	createCheckoutSession: require("./checkout/createCheckoutSession"),
 	validateCoupon: require("./checkout/validateCoupon"),

@@ -30,6 +30,8 @@ const UserSchema = new mongoose.Schema(
 			}
 		],
 
+		savedExplorePosts: [mongoose.Schema.Types.ObjectId],
+
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String]
 	},
