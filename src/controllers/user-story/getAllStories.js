@@ -25,7 +25,8 @@ module.exports = async (req, res) => {
 		for (let i = 0; i < ambassadors.length; i++) {
 			stories.push({
 				storyUrl: ambassadors[i].storyUrl,
-				email: ambassadors[i].email
+				email: ambassadors[i].email,
+				avatar: ambassadors[i].profileImageUrl
 			});
 		}
 

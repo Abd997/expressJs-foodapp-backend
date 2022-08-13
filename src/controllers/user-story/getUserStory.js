@@ -66,7 +66,10 @@ module.exports = async (req, res) => {
 		if (!user.hasPostedStory) {
 			throw new BadRequestError("User has not posted any story");
 		}
-		return res.json({ storyUrl: user.storyUrl });
+		return res.json({
+			storyUrl: user.storyUrl,
+			avatar: user.profileImageUrl
+		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

@@ -33,6 +33,8 @@ module.exports = {
 	getFeed: require("./user/getUserFeed"),
 	getUserAuthentication: require("./user/getUserAuthentication"),
 	getUserDetails: require("./user/getUserDetails"),
+	addUserAvatar: require("./user/addUserAvatar"),
+	getUserAvatar: require("./user/getUserAvatar"),
 
 	// ------------ USER ADDRESS ------------
 	addAddress: require("./user-address/addAddress"),
@@ -56,6 +58,7 @@ module.exports = {
 	// ------------ USER STORY ------------
 	addUserStory: require("./user-story/addUserStory"),
 	getStory: require("./user-story/getUserStory"),
+	getAllStories: require("./user-story/getAllStories"),
 
 	// ------------ OTHERS ------------
 	addFeedback: require("./addFeedback"),

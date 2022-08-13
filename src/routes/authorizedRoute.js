@@ -36,9 +36,11 @@ const {
 	getDeals,
 	getExplorePost,
 	getUserSavedPosts,
-	getAllExplorePost
+	getAllExplorePost,
+	getAllStories,
+	addUserAvatar,
+	getUserAvatar
 } = require("../controllers");
-const getAllStories = require("../controllers/user-story/getAllStories");
 
 const multerUpload = require("../utils/multerUpload");
 const verifyToken = require("../utils/verifyToken");
@@ -58,6 +60,15 @@ route.get("/checkout/validate-coupon/:couponNumber", validateCoupon);
 route.get("/checkout/success", checkoutSuccess);
 route.get("/checkout/failure", checkoutFailure);
 route.get("/checkout/cancel", checkoutCancel);
+
+// ------------ USER ------------
+route.put(
+	"/avatar",
+	multerUpload.single("image"),
+	verifyToken,
+	addUserAvatar
+);
+route.get("/avatar", getUserAvatar);
 
 // ------------ USER SAFETY ------------
 route.post("/report-user", reportUser);

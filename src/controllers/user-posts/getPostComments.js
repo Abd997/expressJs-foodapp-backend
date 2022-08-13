@@ -1,4 +1,5 @@
 const e = require("express");
+const UserCollection = require("../../collections/User");
 const UserPosts = require("../../collections/UserPosts");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
@@ -26,10 +27,14 @@ module.exports = async (req, res) => {
 		if (!post) {
 			throw new Error("Post does not exists");
 		}
+		const postUser = await UserCollection.findOne({
+			email: post.email
+		});
 		const comments = post.comments;
 		return res.json({
 			totalComments: post.totalComments,
-			data: comments
+			data: comments,
+			avatar: postUser.profileImageUrl
 		});
 	} catch (error) {
 		sendErrorResponse(res, 500, error.message);

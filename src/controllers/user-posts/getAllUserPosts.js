@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 		const { email } = req.body;
 		const posts = await UserPosts.find(
 			{ email: email },
-			"_id email imageUrl totalLikes totalComments dateUpdated"
+			"_id email imageUrl totalLikes totalComments dateUpdated profileImageUrl"
 		);
 		return res.json({
 			posts: posts
