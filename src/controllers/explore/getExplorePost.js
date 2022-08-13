@@ -25,11 +25,11 @@ module.exports = async (req, res) => {
 		await validate(req);
 		const { type } = req.params;
 
-		const deals = await ExplorePostCollection.find({
+		const posts = await ExplorePostCollection.find({
 			postType: type
 		});
 		return res.json({
-			deals: deals
+			posts: posts
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
