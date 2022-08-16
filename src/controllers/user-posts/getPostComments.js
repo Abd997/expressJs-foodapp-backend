@@ -30,11 +30,25 @@ module.exports = async (req, res) => {
 		const postUser = await UserCollection.findOne({
 			email: post.email
 		});
+		/** @type{Array} */
 		const comments = post.comments;
+		const commentData = [];
+
+		for (let i = 0; i < comments.length; i++) {
+			let comment = comments[i];
+			let commentUser = await UserCollection.findOne({
+				email: comment.email
+			});
+			commentData.push({
+				email: comment.email,
+				caption: comment.caption,
+				username: commentUser.firstName,
+				profileImageUrl: commentUser.profileImageUrl
+			});
+		}
 		return res.json({
 			totalComments: post.totalComments,
-			data: comments,
-			avatar: postUser.profileImageUrl
+			comments: commentData
 		});
 	} catch (error) {
 		sendErrorResponse(res, 500, error.message);

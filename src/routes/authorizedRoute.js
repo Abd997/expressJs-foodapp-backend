@@ -39,12 +39,16 @@ const {
 	getAllExplorePost,
 	getAllStories,
 	addUserAvatar,
-	getUserAvatar
+	getUserAvatar,
+	getUserDashboardDetails
 } = require("../controllers");
 
 const multerUpload = require("../utils/multerUpload");
 const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
+
+// ------------ EXPLORE ------------
+route.get("/dashboard", getUserDashboardDetails);
 
 // ------------ EXPLORE ------------
 route.get("/explore", getAllExplorePost);

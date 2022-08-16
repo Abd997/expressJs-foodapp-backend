@@ -35,6 +35,7 @@ module.exports = {
 	getUserDetails: require("./user/getUserDetails"),
 	addUserAvatar: require("./user/addUserAvatar"),
 	getUserAvatar: require("./user/getUserAvatar"),
+	getUserDashboardDetails: require("./getUserDashoardDetails"),
 
 	// ------------ USER ADDRESS ------------
 	addAddress: require("./user-address/addAddress"),

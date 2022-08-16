@@ -1,6 +1,8 @@
 require("dotenv").config();
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const UserCollection = require("../../collections/User");
+const BadRequestError = require("../../custom-error/BadRequestError");
 const UserRepo = require("../../repo/UserRepo");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
@@ -12,27 +14,30 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
 module.exports = async (req, res) => {
 	const { email, password } = req.body;
 	try {
-		var doc = await UserRepo.authenticateUser(email, password);
-		if (!doc) {
-			return sendErrorResponse(res, 400, "User not found");
+		const user = await UserCollection.findOne({
+			email: email,
+			password: password
+		});
+		if (!user) {
+			throw new BadRequestError("User not registered");
 		}
-	} catch (err) {
-		return sendErrorResponse(res, 500, "Could not verify user");
+		const token = await jwt.sign(email, process.env.JWT_KEY);
+		return res.json({
+			msg: "User successfully authenticated",
+			email: email,
+			firstName: user.firstName,
+			token: token
+		});
+	} catch (error) {
+		if (error instanceof jwt.JsonWebTokenError) {
+			return sendErrorResponse(
+				res,
+				500,
+				"Could not create token for user"
+			);
+		} else if (error instanceof BadRequestError) {
+			return sendErrorResponse(res, error.statusCode, error.message);
+		}
+		return sendErrorResponse(res, 500, error.message);
 	}
-	try {
-		var token = await jwt.sign(email, process.env.JWT_KEY);
-	} catch (err) {
-		return sendErrorResponse(
-			res,
-			500,
-			"Could not create token for user"
-		);
-	}
-
-	return res.json({
-		msg: "User successfully authenticated",
-		email: email,
-		firstName: doc.firstName,
-		token: token
-	});
 };

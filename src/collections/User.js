@@ -33,7 +33,28 @@ const UserSchema = new mongoose.Schema(
 		savedExplorePosts: [mongoose.Schema.Types.ObjectId],
 
 		totalReportsByOtherUsers: { type: Number, default: 0 },
-		otherBlockedUsers: [String]
+		otherBlockedUsers: [String],
+
+		dietMeasurement: [
+			{
+				calories: {
+					caloriesRequired: { type: Number, default: 0 },
+					caloriesTaken: { type: Number, default: 0 }
+				},
+				carbs: {
+					carbsRequired: { type: Number, default: 0 },
+					carbsTaken: { type: Number, default: 0 }
+				},
+				fats: {
+					fatsRequired: { type: Number, default: 0 },
+					fatsTaken: { type: Number, default: 0 }
+				},
+				protein: {
+					proteinRequired: { type: Number, default: 0 },
+					proteinTaken: { type: Number, default: 0 }
+				}
+			}
+		]
 	},
 	{ collection: "UserCollection" }
 );

@@ -1,10 +1,10 @@
 const axios = require("axios");
 const AdminCollection = require("../src/collections/Admin");
+const UserCollection = require("../src/collections/User");
 const ExplorePostCollection = require("../src/collections/ExplorePost");
 require("dotenv").config();
 const FoodCollection = require("../src/collections/FoodCollection");
 const GroceryCollection = require("../src/collections/GroceryCollection");
-const UserCollection = require("../src/collections/User");
 const FoodRepo = require("../src/repo/FoodRepo");
 
 module.exports = async () => {
@@ -101,6 +101,7 @@ module.exports = async () => {
 		console.log(`Grocery ${groceries[i]} inserted`);
 	}
 
+	// insert explore posts
 	const types = ["deals", "blogs", "recipes"];
 	for (let i = 0; i < 3; i++) {
 		for (let j = 0; j < 10; j++) {

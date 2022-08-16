@@ -8,8 +8,8 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
  * @param {e.Request} req
  */
 const validate = async (req) => {
-	const { email, firstName, lastName, password } = req.body;
-	if (!email) {
+	const { userEmail, firstName, lastName, password } = req.body;
+	if (!userEmail) {
 		throw new BadRequestError("Email not sent");
 	} else if (!firstName) {
 		throw new BadRequestError("First name not sent");
@@ -28,13 +28,13 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		await validate(req);
-		const { email, firstName, lastName, password } = req.body;
-		const user = await UserCollection.findOne({ email: email });
+		const { userEmail, firstName, lastName, password } = req.body;
+		const user = await UserCollection.findOne({ email: userEmail });
 		if (user) {
 			throw new BadRequestError("Ambassador is already registered");
 		}
 		await UserCollection.create({
-			email: email,
+			email: userEmail,
 			firstName: firstName,
 			lastName: lastName,
 			password: password,
