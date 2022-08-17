@@ -8,20 +8,6 @@ const uploadToAzure = require("../../utils/uploadToAzure");
 /**
  *
  * @param {e.Request} req
- */
-async function saveStoryToDatabase(req) {
-	await UserCollection.updateOne(
-		{ email: req.body.email },
-		{
-			hasPostedStory: true,
-			storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
-		}
-	);
-}
-
-/**
- *
- * @param {e.Request} req
  * @param {e.Response} res
  */
 module.exports = async function (req, res) {
@@ -36,8 +22,14 @@ module.exports = async function (req, res) {
 			throw new BadRequestError("User has already posted a story");
 		}
 		await uploadToAzure(req);
-		await saveStoryToDatabase(req);
-		return res.json({ msg: "Story uploaded successfully" });
+		await UserCollection.updateOne(
+			{ email: user.email },
+			{
+				hasPostedStory: true,
+				storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
+			}
+		);
+		res.json({ msg: "Story uploaded successfully" });
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

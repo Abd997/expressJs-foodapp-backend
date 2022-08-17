@@ -42,30 +42,39 @@ const {
 	getUserAvatar,
 	getUserDashboardDetails
 } = require("../controllers");
+const bank_info = require("../controllers/bank-info");
+const user_story = require("../controllers/user-story");
 
 const multerUpload = require("../utils/multerUpload");
 const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
 
-// ------------ EXPLORE ------------
+// ============ BANK CARD ============
+route.post("/bankcard", bank_info.addCard);
+route.post("/subscription", bank_info.addSubscription);
+route.put("/bankcard", bank_info.editCard);
+route.delete("/subscription", bank_info.cancelSubscription);
+route.delete("/bankcard", bank_info.deleteCard);
+route.get("/bankcard", bank_info.getCard);
+route.get("/balance", bank_info.getBalance);
+
+// ============ DASHBOARD ============
 route.get("/dashboard", getUserDashboardDetails);
 
-// ------------ EXPLORE ------------
+// ============ EXPLORE ============
 route.get("/explore", getAllExplorePost);
 route.get("/explore/type/:type", getExplorePost);
 route.get("/explore/saved-posts", getUserSavedPosts);
-
-// ------------ CHECKOUT ------------
 route.put("/explore/save-post", saveExplorePost);
 
-// ------------ CHECKOUT ------------
+// ============ CHECKOUT ============
 route.post("/checkout/create-intent", createCheckoutSession);
 route.get("/checkout/validate-coupon/:couponNumber", validateCoupon);
 route.get("/checkout/success", checkoutSuccess);
 route.get("/checkout/failure", checkoutFailure);
 route.get("/checkout/cancel", checkoutCancel);
 
-// ------------ USER ------------
+// ============ USER ============
 route.put(
 	"/avatar",
 	multerUpload.single("image"),
@@ -74,12 +83,12 @@ route.put(
 );
 route.get("/avatar", getUserAvatar);
 
-// ------------ USER SAFETY ------------
+// ============ USER SAFETY ============
 route.post("/report-user", reportUser);
 route.post("/block-user", blockUser);
 route.post("/flag-user", flagUser);
 
-// ------------ USER STORY ------------
+// ============ USER STORY ============
 route.post(
 	"/story",
 	multerUpload.single("story"),
@@ -88,8 +97,9 @@ route.post(
 );
 route.get("/story/:storyUserEmail", getStory);
 route.get("/stories", getAllStories);
+route.put("/story/like", user_story.updateStoryLike);
 
-// ------------ USER POST ------------
+// ============ USER POST ============
 route.post(
 	"/userpost",
 	multerUpload.single("image"),
@@ -104,35 +114,35 @@ route.get("/userpost/comments/:postId", getPostComments);
 // not working properly
 route.get("/userpost/comment/:commentId", getUserComment);
 
-// ------------ DETAILS ------------
+// ============ DETAILS ============
 route.put("/user", updateUser);
 route.get("/user", getUserDetails);
 
-// ------------ GROCERIES ------------
+// ============ GROCERIES ============
 route.post("/groceries", addGroceries);
 route.get("/available-groceries", getAllGroceries);
 route.get("/groceries", getUserGroceries);
 route.post("/grocery", addGrocery);
 
-// ------------ FAVOURITE FOOD ------------
+// ============ FAVOURITE FOOD ============
 route.put("/favouritefood", updateFavouriteFood);
 route.get("/favouritefoods", getFavouriteFoods);
 
-// ------------ ADDRESSES ------------
+// ============ ADDRESSES ============
 route.get("/addresses", getAddresses);
 route.post("/address", addAddress);
 route.delete("/address", removeAddress);
 route.put("/address", updateAddress);
 
-// ------------ FEEDBACK ------------
+// ============ FEEDBACK ============
 route.post("/feedback", addFeedback);
 
-// ------------ MEAL ------------
+// ============ MEAL ============
 route.put("/meal/like", updateMealLike);
 
 // route.post("/update/weight-goal", verifyToken);
 
-// ------------ FEED ------------
+// ============ FEED ============
 route.get("/feed", getFeed);
 
 module.exports = route;

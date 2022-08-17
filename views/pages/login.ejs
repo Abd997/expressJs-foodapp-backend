@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Admin login</title>
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				height: 100vh;
+			}
+			.login_container {
+				border: solid 2px black;
+				padding: 40px;
+				align-items: center;
+				height: 60%;
+				width: 30%;
+			}
+			button {
+				padding: 12px 0px 12px 0px;
+				margin-top: 30px;
+				border-color: blue;
+				border-radius: 15px;
+				width: 100%;
+				background-color: white;
+			}
+			button:hover {
+				background-color: blue;
+				color: white;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			function setCookie(c_name, value, exdays) {
+				var exdate = new Date();
+				exdate.setDate(exdate.getDate() + exdays);
+				var c_value =
+					escape(value) +
+					(exdays == null ? "" : "; expires=" + exdate.toUTCString());
+				document.cookie = c_name + "=" + c_value;
+			}
+
+			function getCookie(c_name) {
+				var i,
+					x,
+					y,
+					ARRcookies = document.cookie.split(";");
+				for (i = 0; i < ARRcookies.length; i++) {
+					x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+					x = x.replace(/^\s+|\s+$/g, "");
+					if (x == c_name) {
+						return unescape(y);
+					}
+				}
+			}
+			function loginUser() {
+				const email = this.loginForm.email.value;
+				const password = this.loginForm.password.value;
+				const dataToSend = JSON.stringify({
+					email: email,
+					password: password
+				});
+				fetch("/admin/login", {
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json"
+					},
+					body: dataToSend
+				})
+					.then((res) => {
+						if (res.status == 200) {
+							res.json().then((data) => {
+								setCookie("authToken", data.token, 1);
+								window.location.href = "/auth/admin";
+							});
+						} else {
+							alert("Cannot login");
+						}
+					})
+					.catch((err) => {
+						alert("Cannot login");
+					});
+				return true;
+			}
+		</script>
+
+		<div class="login_container">
+			<h1>Login</h1>
+			<form
+				onsubmit="event.preventDefault(); loginUser();"
+				name="loginForm"
+			>
+				<label>Admin email</label>
+				<input type="text" required name="email" /> <br />
+				<br />
+				<label>Password</label>
+				<input type="password" required name="password" /> <br />
+				<button type="submit">Login</button>
+			</form>
+		</div>
+	</body>
+</html>

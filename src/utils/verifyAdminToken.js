@@ -12,22 +12,12 @@ const sendErrorResponse = require("./sendErrorResponse");
  * @param {e.NextFunction} next
  */
 module.exports = async (req, res, next) => {
-	const authHeader = req.headers["authorization"];
-
-	if (!authHeader) {
-		return sendErrorResponse(
-			res,
-			400,
-			"No authorization header present"
-		);
-	}
-
-	const token = authHeader.split(" ")[1];
-	if (!token) {
-		return sendErrorResponse(res, 400, "Token not sent");
-	}
-
 	try {
+		const token = req.cookies.authToken;
+
+		if (!token) {
+			return sendErrorResponse(res, 400, "Token not sent");
+		}
 		const email = await jwt.verify(token, process.env.JWT_ADMIN);
 		const admin = await AdminCollection.findOne({ email: email });
 		if (!admin) {
@@ -35,6 +25,7 @@ module.exports = async (req, res, next) => {
 		}
 		req.body.email = email;
 		req.body.admin = admin;
+		req.body.adminUser = admin;
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			return sendErrorResponse(res, 400, "Token is invalid");

@@ -8,10 +8,16 @@ const {
 const verifyAdminToken = require("./utils/verifyAdminToken");
 const verifyToken = require("./utils/verifyToken");
 const app = express();
+const path = require("path");
+const cookieParser = require("cookie-parser");
 
-const VERSION = "1.7.0";
+const VERSION = "1.8.0";
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "./views"));
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/auth/user/", verifyToken, authorizedRoute);
 

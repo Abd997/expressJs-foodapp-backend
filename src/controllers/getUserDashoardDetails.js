@@ -11,8 +11,13 @@ module.exports = async (req, res) => {
 	try {
 		const { user } = req.body;
 		const dietMeasurement = user.dietMeasurement;
+		let dashboard = {
+			balance: user.balance || 0,
+			dietMeasurement: dietMeasurement,
+			loginStreak: user.loginStreak
+		};
 		return res.json({
-			dashboard: dietMeasurement
+			dashboard: dashboard
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

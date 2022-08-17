@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		password: { type: String, required: true },
 
+		stripeCustomerId: { type: String, default: null },
+
 		isAmbassador: { type: Boolean, default: false },
 
 		profileImageUrl: { type: String, default: "empty" },
@@ -20,6 +22,7 @@ const UserSchema = new mongoose.Schema(
 
 		hasPostedStory: { type: Boolean, default: false },
 		storyUrl: { type: String },
+		storyLikes: [String],
 
 		postIds: [],
 		favouriteFoodIds: [],
@@ -35,26 +38,31 @@ const UserSchema = new mongoose.Schema(
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String],
 
-		dietMeasurement: [
-			{
-				calories: {
-					caloriesRequired: { type: Number, default: 0 },
-					caloriesTaken: { type: Number, default: 0 }
-				},
-				carbs: {
-					carbsRequired: { type: Number, default: 0 },
-					carbsTaken: { type: Number, default: 0 }
-				},
-				fats: {
-					fatsRequired: { type: Number, default: 0 },
-					fatsTaken: { type: Number, default: 0 }
-				},
-				protein: {
-					proteinRequired: { type: Number, default: 0 },
-					proteinTaken: { type: Number, default: 0 }
-				}
-			}
-		]
+		dietMeasurement: {
+			caloriesRequired: {
+				type: Number,
+				required: true,
+				default: 0
+			},
+			caloriesTaken: { type: Number, required: true, default: 0 },
+			carbsRequired: { type: Number, default: 0 },
+			carbsTaken: { type: Number, default: 0 },
+			fatsRequired: { type: Number, default: 0 },
+			fatsTaken: { type: Number, default: 0 },
+			proteinRequired: { type: Number, default: 0 },
+			proteinTaken: { type: Number, default: 0 },
+			waterRequired: { type: Number, default: 0 },
+			waterTaken: { type: Number, default: 0 },
+			movementSteps: { type: Number, default: 0 },
+			bmi: { type: Number, default: 0 }
+		},
+
+		loginStreak: { type: Number, default: 1 },
+		lastLogin: {
+			type: Date,
+			default: new Date().toISOString().slice(0, 10)
+		},
+		balance: { type: Number, default: 0 }
 	},
 	{ collection: "UserCollection" }
 );

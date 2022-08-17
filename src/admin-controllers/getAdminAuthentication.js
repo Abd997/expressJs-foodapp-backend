@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { BadRequestError } = require("../custom-error");
 const AdminRepo = require("../repo/AdminRepo");
 const sendErrorResponse = require("../utils/sendErrorResponse");
+const cookieParser = require("cookie-parser");
 
 /**
  *

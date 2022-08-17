@@ -13,6 +13,8 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  */
 module.exports = async (req, res) => {
 	const { email, password } = req.body;
+
+	// check if user exists
 	try {
 		const user = await UserCollection.findOne({
 			email: email,
@@ -21,6 +23,28 @@ module.exports = async (req, res) => {
 		if (!user) {
 			throw new BadRequestError("User not registered");
 		}
+
+		// update user last login
+		// increment user login streak if valid
+		const currentDate = new Date().toISOString().slice(0, 10);
+		let userLastLogin = user.lastLogin;
+		let loginStreak = user.loginStreak;
+		if (currentDate > userLastLogin) {
+			loginStreak++;
+		}
+		userLastLogin = new Date().toISOString().slice(0, 10);
+
+		await UserCollection.updateOne(
+			{
+				email: email
+			},
+			{
+				loginStreak: loginStreak,
+				lastLogin: userLastLogin
+			}
+		);
+
+		// create jwt token
 		const token = await jwt.sign(email, process.env.JWT_KEY);
 		return res.json({
 			msg: "User successfully authenticated",
