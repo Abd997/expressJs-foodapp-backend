@@ -49,6 +49,8 @@ const multerUpload = require("../utils/multerUpload");
 const verifyToken = require("../utils/verifyToken");
 const route = require("express").Router();
 
+// ============ USER CHAT ============
+
 // ============ BANK CARD ============
 route.post("/bankcard", bank_info.addCard);
 route.post("/subscription", bank_info.addSubscription);
