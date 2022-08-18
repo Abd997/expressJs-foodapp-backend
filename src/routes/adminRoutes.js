@@ -5,12 +5,16 @@ const {
 	addExplorePost
 } = require("../admin-controllers");
 const addAmbassador = require("../admin-controllers/addAmbassador");
+const admin_food = require("../admin-controllers/admin-food");
 const admin_grocery = require("../admin-controllers/admin-grocery");
 const multerUpload = require("../utils/multerUpload");
 const verifyAdminToken = require("../utils/verifyAdminToken");
 const route = express();
 
 // ============ ADMIN CHAT ============
+
+// ============ FOOD REST APIS ============
+route.post("/food", admin_food.addFood);
 
 route.post("/weeklyfood", addWeeklyFood);
 
