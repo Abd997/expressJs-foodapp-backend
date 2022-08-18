@@ -13,26 +13,45 @@
 				display: flex;
 				justify-content: center;
 				height: 100vh;
+				background-color: aquamarine;
+				font-family: sans-serif;
 			}
 			.login_container {
-				border: solid 2px black;
+				background-color: white;
+				border: solid 1px aqua;
+				border-radius: 10px;
 				padding: 40px;
 				align-items: center;
+				margin-top: 3%;
 				height: 60%;
 				width: 30%;
 			}
 			button {
 				padding: 12px 0px 12px 0px;
-				margin-top: 30px;
+				margin-top: 50px;
 				border-color: blue;
 				border-radius: 15px;
 				width: 100%;
-				background-color: white;
+				color: white;
+				background-color: blue;
+				letter-spacing: 1px;
 			}
 			button:hover {
 				background-color: blue;
 				color: white;
 				border: none;
+			}
+			label {
+				display: block;
+				margin-top: 20px;
+			}
+			.login__input {
+				display: block;
+				width: 100%;
+				padding: 10px 0px 10px 0px;
+				margin-top: 7px;
+				border: solid 1px gray;
+				border-radius: 10px;
 			}
 		</style>
 	</head>
@@ -94,17 +113,26 @@
 		</script>
 
 		<div class="login_container">
-			<h1>Login</h1>
+			<div style="font-size: 28px">LOGIN</div>
 			<form
 				onsubmit="event.preventDefault(); loginUser();"
 				name="loginForm"
 			>
 				<label>Admin email</label>
-				<input type="text" required name="email" /> <br />
-				<br />
+				<input
+					class="login__input"
+					type="text"
+					required
+					name="email"
+				/>
 				<label>Password</label>
-				<input type="password" required name="password" /> <br />
-				<button type="submit">Login</button>
+				<input
+					class="login__input"
+					type="password"
+					required
+					name="password"
+				/>
+				<button type="submit">LOGIN</button>
 			</form>
 		</div>
 	</body>

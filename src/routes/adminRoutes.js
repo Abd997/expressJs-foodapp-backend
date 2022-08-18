@@ -27,7 +27,7 @@ route.post(
 );
 
 route.get("/", async (req, res) => {
-	res.render("pages/admin");
+	res.render("pages/addGrocery");
 });
 
 route.get("/add/grocery.html", async (req, res) => {
