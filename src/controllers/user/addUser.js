@@ -1,8 +1,10 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const UserCollection = require("../../collections/User");
 require("dotenv").config();
 const UserRepo = require("../../repo/UserRepo");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
+const bcrypt = require("bcrypt");
 
 /**
  *
@@ -26,7 +28,14 @@ module.exports = async (req, res) => {
 	}
 
 	try {
-		await UserRepo.registerUser(email, firstName, lastName, password);
+		const salt = await bcrypt.genSalt(10);
+		const hashPassword = await bcrypt.hash(password, salt);
+		await UserCollection.create({
+			email: email,
+			firstName: firstName,
+			lastName: lastName,
+			password: hashPassword
+		});
 	} catch (err) {
 		return sendErrorResponse(res, 500, "Could not add user");
 	}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Admin</title>
+		<style>
+			.siderbar__menu_btn {
+				text-decoration: none;
+				padding: 15px 0px 15px 20px;
+				border-end-start-radius: 20px;
+				margin-top: 10px;
+			}
+			.siderbar__menu_btn:hover {
+				background-color: saddlebrown;
+				color: white !important;
+				transition-duration: 1s;
+				transition-delay: 0.5s;
+			}
+			.common__font {
+				color: darkgoldenrod;
+			}
+			.grocery__container {
+				padding: 20px;
+			}
+		</style>
+	</head>
+	<body
+		style="
+			height: 100vh;
+			width: 100%;
+			margin: 0;
+			font-family: sans-serif;
+			display: flex;
+			justify-content: space-between;
+		"
+	>
+		<script></script>
+
+		<div style="width: 25%; height: 100%; position: fixed">
+			<%- include('../partials/sidebar'); %>
+		</div>
+
+		<div style="padding: 40px; width: 75%; margin-left: 25%">
+			<div style="font-size: 28px">Grocery list</div>
+		</div>
+	</body>
+</html>

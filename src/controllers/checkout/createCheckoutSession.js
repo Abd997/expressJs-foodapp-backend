@@ -34,12 +34,22 @@ module.exports = async (req, res) => {
 			itemId,
 			itemQuantity,
 			deliveryMethod,
-			deliveryDate
+			deliveryDate,
+			loggedInUser
 		} = req.body;
+
+		if (!loggedInUser.stripeCustomerId) {
+			throw new BadRequestError(
+				"Customer does not have a saved payment method"
+			);
+		}
 
 		const itemToBuy = await FoodCollection.findById(itemId);
 		if (!itemToBuy) {
 			throw new BadRequestError("Item does not exists");
+		}
+		if (itemToBuy.itemQuantity === 0) {
+			throw new BadRequestError("Item is not in stock");
 		}
 
 		let price = itemToBuy.priceInCents * itemQuantity;

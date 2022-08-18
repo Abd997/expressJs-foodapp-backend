@@ -15,14 +15,14 @@ module.exports = async () => {
 	});
 	console.log("Admin added");
 
-	// insert users
-	await UserCollection.create({
-		email: "user100@gmail.com",
-		firstName: "user",
-		lastName: "100",
-		password: "password"
-	});
-	console.log("User added");
+	// // insert users
+	// await UserCollection.create({
+	// 	email: "user100@gmail.com",
+	// 	firstName: "user",
+	// 	lastName: "100",
+	// 	password: "password"
+	// });
+	// console.log("User added");
 
 	const foodNames = [
 		"Boulets",

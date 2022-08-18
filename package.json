@@ -1,6 +1,6 @@
 {
   "name": "food-app-microservice-backend",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
   "dependencies": {
     "@azure/storage-blob": "^12.10.0",
     "@types/stripe": "^8.0.417",
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Admin</title>
+		<style>
+			.siderbar__menu_btn {
+				text-decoration: none;
+				padding: 15px 0px 15px 20px;
+				border-end-start-radius: 20px;
+				margin-top: 10px;
+			}
+			.siderbar__menu_btn:hover {
+				background-color: saddlebrown;
+				color: white !important;
+				transition-duration: 1s;
+				transition-delay: 0.5s;
+			}
+			.common__font {
+				color: darkgoldenrod;
+			}
+			label {
+				margin-top: 10px;
+				display: block;
+			}
+			input {
+				padding: 7px 5px 7px 5px;
+				width: 40%;
+				margin-top: 12px;
+				border: solid 1px black;
+				border-radius: 10px;
+			}
+			input:focus {
+				border: none;
+				border-color: blue;
+				border-width: 4px;
+			}
+			.submit__btn {
+				display: block;
+				width: 42%;
+				padding: 10px 5px 10px 5px;
+				background-color: blue;
+				color: white;
+				border-radius: 10px;
+				margin-top: 30px;
+			}
+			.submit__btn:hover {
+				background-color: blue;
+				color: white;
+				border: none;
+			}
+		</style>
+	</head>
+	<body
+		style="
+			height: 100vh;
+			width: 100%;
+			margin: 0;
+			font-family: sans-serif;
+			display: flex;
+		"
+	>
+		<script>
+			function addFoodItems() {
+				const foodName = this.addFoodItemsForm.foodName.value;
+				const foodPrice = Number(
+					this.addFoodItemsForm.foodPrice.value
+				);
+				const foodQuantity = Number(
+					this.addFoodItemsForm.foodQuantity.value
+				);
+
+				const data = JSON.stringify({
+					foodName: foodName,
+					foodPrice: foodPrice,
+					foodQuantity: foodQuantity
+				});
+
+				const url = "/auth/admin/food";
+
+				fetch(url, {
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json"
+					},
+					body: data
+				})
+					.then((res) => {
+						if (res.status == 200) {
+							alert("food has been added");
+						} else {
+							alert("food could not be added");
+						}
+					})
+					.catch((err) => {
+						alert("food could not be added");
+					});
+				return true;
+			}
+		</script>
+
+		<div style="width: 25%; height: 100%; position: fixed">
+			<%- include('../partials/sidebar'); %>
+		</div>
+
+		<div style="padding: 40px; width: 75%; margin-left: 25%">
+			<div style="font-size: 28px">Add food</div>
+			<form
+				style="margin-top: 30px; width: 100%"
+				name="addFoodItemsForm"
+				onsubmit="event.preventDefault(); addFoodItems();"
+			>
+				<label>Name</label>
+				<input type="text" name="foodName" required />
+				<label>Price</label>
+				<input type="number" name="foodPrice" required />
+				<label>Quantity</label>
+				<input type="number" name="foodQuantity" required />
+				<button type="submit" class="submit__btn">Add</button>
+			</form>
+		</div>
+	</body>
+</html>

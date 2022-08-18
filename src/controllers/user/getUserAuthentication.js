@@ -5,6 +5,7 @@ const UserCollection = require("../../collections/User");
 const BadRequestError = require("../../custom-error/BadRequestError");
 const UserRepo = require("../../repo/UserRepo");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
+const bcrypt = require("bcrypt");
 
 /**
  *
@@ -12,16 +13,22 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const { email, password } = req.body;
-
-	// check if user exists
 	try {
+		// check if user exists
+		const { email, password } = req.body;
 		const user = await UserCollection.findOne({
-			email: email,
-			password: password
+			email: email
 		});
 		if (!user) {
 			throw new BadRequestError("User not registered");
+		}
+
+		const validPassword = await bcrypt.compare(
+			password,
+			user.password
+		);
+		if (!validPassword) {
+			throw new BadRequestError("Password is not correct");
 		}
 
 		// update user last login
