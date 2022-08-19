@@ -32,6 +32,7 @@ module.exports = async (req, res) => {
 			feedPosts.push({
 				title: data[i].title,
 				imageUrl: data[i].imageUrl,
+				email: data[i].email,
 				totalLikes: data[i].totalLikes,
 				totalComments: data[i].totalComments,
 				dateCreated: data[i].dateCreated,
