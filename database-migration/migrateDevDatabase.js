@@ -39,8 +39,8 @@ module.exports = async () => {
 	];
 
 	// insert weekly foods
-	const startWeek = 31;
-	for (var j = 0; j < 2; j++) {
+	const startWeek = 28;
+	for (var j = 0; j < 9; j++) {
 		for (var i = 0; i < 11; i++) {
 			var foodName = foodNames[i];
 			await FoodCollection.create({

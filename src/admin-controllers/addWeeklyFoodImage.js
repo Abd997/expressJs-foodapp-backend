@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 		/** @type{string} */
 		let foodName = req.body.foodName;
 		await uploadToAzure(req);
-		if (foodName.) foodName = foodName.replaceAll("-", " ");
+		// if (foodName.) foodName = foodName.replaceAll("-", " ");
 		await FoodCollection.updateMany(
 			{ name: foodName },
 			{
