@@ -49,9 +49,7 @@ module.exports = async (req, res) => {
 			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
 		};
 		await FoodCollection.create(data);
-		res.json({
-			msg: "Food image added successfully"
-		});
+		res.send("Food has been added");
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);
