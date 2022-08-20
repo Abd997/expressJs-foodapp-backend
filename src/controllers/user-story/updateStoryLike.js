@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 			throw new BadRequestError("Story user email not sent");
 		}
 		// check user story exists
-		const storyUser = UserCollection.findOne({
+		const storyUser = await UserCollection.findOne({
 			email: storyUserEmail
 		});
 		if (!storyUser) {
@@ -34,17 +34,21 @@ module.exports = async (req, res) => {
 
 		/** @type {Array} */
 		const storyLikes = storyUser.storyLikes;
-		let msg;
+		let msg = "",
+			storyLikedByUser = false;
 
-		if (storyLikes.length == 0) {
-			storyLikes.push(loggedInUser);
-			msg = "User has liked the story";
-		} else if (storyLikes.find(loggedInUser.email)) {
-			// unlike the story
-			const ind = storyLikes.findIndex(loggedInUser.email);
-			storyLikes.splice(ind, 1);
-			msg = "User has unliked the story";
-		} else {
+		for (let index = 0; index < storyLikes.length; index++) {
+			const element = storyLikes[index];
+			if (element === loggedInUser.email) {
+				// unlike the story
+				storyLikedByUser = true;
+				storyLikes.splice(index, 1);
+				msg = "User has unliked the story";
+				break;
+			}
+		}
+
+		if (!storyLikedByUser) {
 			// like the story
 			storyLikes.push(loggedInUser.email);
 			msg = "User has liked the story";
