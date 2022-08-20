@@ -1,6 +1,9 @@
 const e = require("express");
+const FoodCollection = require("../collections/FoodCollection");
+const { BadRequestError } = require("../custom-error");
 const FoodRepo = require("../repo/FoodRepo");
 const sendErrorResponse = require("../utils/sendErrorResponse");
+const uploadToAzure = require("../utils/uploadToAzure");
 
 /**
  *
@@ -8,19 +11,51 @@ const sendErrorResponse = require("../utils/sendErrorResponse");
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const data = {
-		name: req.body.name,
-		description: req.body.description,
-		foodType: req.body.foodType,
-		price: req.body.price,
-		weekNumber: req.body.weekNumber,
-		currency: req.body.currency,
-		tags: req.body.tags
-	};
 	try {
-		var doc = await FoodRepo.addFood(data);
+		let facts = [
+			{
+				fact: "calories",
+				value: req.body.calories
+			},
+			{
+				fact: "carbs",
+				value: req.body.carbs
+			},
+			{
+				fact: "fats",
+				value: req.body.fats
+			},
+			{
+				fact: "proteins",
+				value: req.body.proteins
+			}
+		];
+
+		/** @type {string} */
+		let tags = req.body.tags;
+		tags = tags.split(",");
+		await uploadToAzure(req);
+
+		const data = {
+			name: req.body.name,
+			description: req.body.description,
+			foodType: req.body.foodType,
+			price: req.body.price,
+			weekNumber: req.body.weekNumber,
+			tags: tags,
+			itemQuantity: req.body.itemQuantity,
+			facts: facts,
+			weekNumber: req.body.weekNumber,
+			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
+		};
+		await FoodCollection.create(data);
+		res.json({
+			msg: "Food image added successfully"
+		});
 	} catch (error) {
-		return sendErrorResponse(res, 500, "Could not add food item");
+		if (error instanceof BadRequestError) {
+			return sendErrorResponse(res, error.statusCode, error.message);
+		}
+		return sendErrorResponse(res, 500, error.message);
 	}
-	res.json({ msg: "Food item added successfully" });
 };
