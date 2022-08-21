@@ -11,7 +11,7 @@ const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
-const VERSION = "1.12.1";
+const VERSION = "1.13.0";
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
