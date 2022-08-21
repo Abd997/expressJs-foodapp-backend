@@ -1,4 +1,5 @@
 const e = require("express");
+const FoodCollection = require("../../collections/FoodCollection");
 const UserCollection = require("../../collections/User");
 const UserRepo = require("../../repo/UserRepo");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
@@ -16,9 +17,16 @@ module.exports = async (req, res) => {
 		let favFoods = [];
 
 		for (let index = 0; index < favFoodsId.length; index++) {
-			const element = favFoodsId[index];
+			let element = favFoodsId[index];
+			let favFood = await FoodCollection.findById(element);
+			if (favFood) {
+				favFoods.push(favFood);
+			}
 		}
-		res.send({ data: doc });
+		res.send({
+			data: favFoodsId,
+			favFoods: favFoods
+		});
 	} catch (error) {
 		return sendErrorResponse(res, 400, error.message);
 	}

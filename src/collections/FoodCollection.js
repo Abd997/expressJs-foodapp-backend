@@ -40,7 +40,6 @@ const FoodSchema = new mongoose.Schema(
 			type: Array,
 			default: ["bun", "chicken", "fries", "ketchup"]
 		},
-		isFavourite: { type: Boolean, require: true, default: false },
 		likes: { type: Number, default: 0 },
 		itemQuantity: { type: Number, default: 0 }
 	},
