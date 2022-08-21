@@ -1,7 +1,7 @@
 const FoodCollection = require("../collections/FoodCollection");
 const mongoose = require("mongoose");
 
-module.exports = FoodRepo = {
+const FoodRepo = {
 	getWeeklyFoods: async function (weekNumber) {
 		const doc = await FoodCollection.find(
 			{ weekNumber: weekNumber },
@@ -23,3 +23,5 @@ module.exports = FoodRepo = {
 		return doc;
 	}
 };
+
+module.exports = FoodRepo;

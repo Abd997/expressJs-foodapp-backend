@@ -1,3 +1,9 @@
+const bank_info = require("../controllers/bank-info");
+const user_story = require("../controllers/user-story");
+
+const multerUpload = require("../utils/multerUpload");
+const verifyToken = require("../utils/verifyToken");
+const route = require("express").Router();
 const {
 	reportUser,
 	blockUser,
@@ -42,12 +48,6 @@ const {
 	getUserAvatar,
 	getUserDashboardDetails
 } = require("../controllers");
-const bank_info = require("../controllers/bank-info");
-const user_story = require("../controllers/user-story");
-
-const multerUpload = require("../utils/multerUpload");
-const verifyToken = require("../utils/verifyToken");
-const route = require("express").Router();
 
 // ============ USER CHAT ============
 
@@ -95,11 +95,13 @@ route.post(
 	"/story",
 	multerUpload.single("story"),
 	verifyToken,
-	addUserStory
+	user_story.addUserStory
 );
-route.get("/story/:storyUserEmail", getStory);
-route.get("/stories", getAllStories);
+route.get("/story/comments", user_story.getAllStoryComments);
+route.get("/story/:storyUserEmail", user_story.getUserStory);
+route.get("/stories", user_story.getAllUserStories);
 route.put("/story/like", user_story.updateStoryLike);
+route.post("/story/comment", user_story.postStoryComment);
 
 // ============ USER POST ============
 route.post(

@@ -1,7 +1,7 @@
 const UserCollection = require("../collections/User");
 const sendErrorResponse = require("../utils/sendErrorResponse");
 
-module.exports = UserRepo = {
+const UserRepo = {
 	authenticateUser: async function (email, password) {
 		const doc = await UserCollection.findOne({
 			email: email,
@@ -82,3 +82,5 @@ module.exports = UserRepo = {
 		return doc.favouriteFoodIds;
 	}
 };
+
+module.exports = UserRepo;

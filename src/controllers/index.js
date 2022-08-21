@@ -1,18 +1,18 @@
 module.exports = {
-	// ------------ EXPLORE ------------
+	// =========== EXPLORE ===========
 	saveExplorePost: require("./explore/saveExplorePost"),
 	getExplorePost: require("./explore/getExplorePost"),
 	getUserSavedPosts: require("./explore/getUserSavedPosts"),
 	getAllExplorePost: require("./explore/getAllExplorePost"),
 
-	// ------------ CHECKOUT ------------
+	// =========== CHECKOUT ===========
 	createCheckoutSession: require("./checkout/createCheckoutSession"),
 	validateCoupon: require("./checkout/validateCoupon"),
 	checkoutSuccess: require("./checkout/checkoutSuccess"),
 	checkoutFailure: require("./checkout/checkoutFailure"),
 	checkoutCancel: require("./checkout/checkoutCancel"),
 
-	// ------------ FOOD ------------
+	// =========== FOOD ===========
 	addFood: require("./food/addFood"),
 	addFoodImage: require("./food/addFoodImage"),
 	updateMealLike: require("./food/updateMealLike"),
@@ -22,13 +22,13 @@ module.exports = {
 	updateFavouriteFood: require("./food/updateFavouriteFood"),
 	updateMealLike: require("./food/updateMealLike"),
 
-	// ------------ GROCERY ------------
+	// =========== GROCERY ===========
 	addGroceries: require("./grocery/addGroceries"),
 	getAllGroceries: require("./grocery/getAllGroceries"),
 	addGrocery: require("./grocery/addGrocery"),
 	getUserGroceries: require("./grocery/getUserGroceries"),
 
-	// ------------ USER ------------
+	// =========== USER ===========
 	addUser: require("./user/addUser"),
 	getFeed: require("./user/getUserFeed"),
 	getUserAuthentication: require("./user/getUserAuthentication"),
@@ -37,13 +37,13 @@ module.exports = {
 	getUserAvatar: require("./user/getUserAvatar"),
 	getUserDashboardDetails: require("./getUserDashoardDetails"),
 
-	// ------------ USER ADDRESS ------------
+	// =========== USER ADDRESS ===========
 	addAddress: require("./user-address/addAddress"),
 	getAddresses: require("./user-address/getAddresses"),
 	updateAddress: require("./user-address/updateAddress"),
 	removeAddress: require("./user-address/removeAddress"),
 
-	// ------------ USER POSTS ------------
+	// =========== USER POSTS ===========
 	addPostComment: require("./user-posts/addPostComment"),
 	addUserPost: require("./user-posts/addUserPost"),
 	getAllUserPosts: require("./user-posts/getAllUserPosts"),
@@ -51,17 +51,17 @@ module.exports = {
 	getUserComment: require("./user-posts/getUserComment"),
 	updatePostLike: require("./user-posts/updatePostLike"),
 
-	// ------------ USER SAFETY ------------
+	// =========== USER SAFETY ===========
 	reportUser: require("./user-safety/reportUser"),
 	blockUser: require("./user-safety/blockUser"),
 	flagUser: require("./user-safety/flagUser"),
 
-	// ------------ USER STORY ------------
+	// =========== USER STORY ===========
 	addUserStory: require("./user-story/addUserStory"),
 	getStory: require("./user-story/getUserStory"),
-	getAllStories: require("./user-story/getAllStories"),
+	getAllStories: require("./user-story/getAllUserStories"),
 
-	// ------------ OTHERS ------------
+	// =========== OTHERS ===========
 	addFeedback: require("./addFeedback"),
 	getDiscoverDeals: require("./getDiscoverDeals"),
 	updateUser: require("./updateUser"),

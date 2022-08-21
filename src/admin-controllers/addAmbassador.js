@@ -2,6 +2,7 @@ const e = require("express");
 const UserCollection = require("../collections/User");
 const { BadRequestError } = require("../custom-error");
 const sendErrorResponse = require("../utils/sendErrorResponse");
+const bcrypt = require("bcrypt");
 
 /**
  *
@@ -33,11 +34,13 @@ module.exports = async (req, res) => {
 		if (user) {
 			throw new BadRequestError("Ambassador is already registered");
 		}
+		const salt = await bcrypt.genSalt(10);
+		const hashPassword = await bcrypt.hash(password, salt);
 		await UserCollection.create({
 			email: userEmail,
 			firstName: firstName,
 			lastName: lastName,
-			password: password,
+			password: hashPassword,
 			isAmbassador: true
 		});
 		return res.json({ msg: "Ambassador has been created" });

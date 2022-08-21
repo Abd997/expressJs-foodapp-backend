@@ -23,9 +23,15 @@ const UserSchema = new mongoose.Schema(
 		hasPostedStory: { type: Boolean, default: false },
 		storyUrl: { type: String },
 		storyLikes: [String],
+		storyComments: [
+			{
+				commentUserEmail: String,
+				commentText: String
+			}
+		],
 
 		postIds: [],
-		favouriteFoodIds: [],
+		favouriteFoodIds: [mongoose.Schema.Types.ObjectId],
 		groceries: [
 			{
 				groceryId: mongoose.Schema.Types.ObjectId,

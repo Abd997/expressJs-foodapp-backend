@@ -1,6 +1,6 @@
 const AdminCollection = require("../collections/Admin");
 
-module.exports = {
+const AdminRepo = {
 	authenticateUser: async function (email, password) {
 		const doc = await AdminCollection.findOne({
 			email: email,
@@ -31,3 +31,5 @@ module.exports = {
 		return doc;
 	}
 };
+
+module.exports = AdminRepo;
