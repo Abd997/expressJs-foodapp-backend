@@ -114,14 +114,35 @@
 			<form
 				style="margin-top: 30px; width: 100%"
 				name="addFoodItemsForm"
-				onsubmit="event.preventDefault(); addFoodItems();"
+				action="/auth/admin/weeklyfood"
+				method="post"
+				enctype="multipart/form-data"
 			>
 				<label>Name</label>
-				<input type="text" name="foodName" required />
+				<input type="text" name="name" required />
 				<label>Price</label>
-				<input type="number" name="foodPrice" required />
+				<input type="number" name="price" required />
 				<label>Quantity</label>
-				<input type="number" name="foodQuantity" required />
+				<input type="number" name="itemQuantity" required />
+				<label>Tags</label>
+				<input
+					placeholder="separate tags with comma"
+					type="text"
+					name="tags"
+					required
+				/>
+				<label>Calories</label>
+				<input type="number" name="calories" required />
+				<label>carbs</label>
+				<input type="number" name="carbs" required />
+				<label>fats</label>
+				<input type="number" name="fats" required />
+				<label>proteins</label>
+				<input type="number" name="proteins" required />
+				<label>week number</label>
+				<input type="number" name="weekNumber" required />
+				<label>food image</label>
+				<input type="file" name="image" required />
 				<button type="submit" class="submit__btn">Add</button>
 			</form>
 		</div>

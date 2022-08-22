@@ -68,7 +68,8 @@ module.exports = async (req, res) => {
 		}
 		return res.json({
 			storyUrl: user.storyUrl,
-			avatar: user.profileImageUrl
+			avatar: user.profileImageUrl,
+			name: user.firstName
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

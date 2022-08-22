@@ -1,5 +1,6 @@
 const e = require("express");
 const UserPosts = require("../../collections/UserPosts");
+const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
 /**
@@ -25,11 +26,9 @@ module.exports = async (req, res) => {
 	try {
 		await validate(req);
 		const { email, postId } = req.body;
-		let post = await UserPosts.findOne({
-			_id: postId
-		});
+		let post = await UserPosts.findById(postId);
 		if (!post) {
-			throw new Error("Post does not exists");
+			throw new BadRequestError("Post does not exists");
 		}
 		/** @type {Array<string>} */
 		const likedUsers = post.likedBy;
@@ -55,6 +54,9 @@ module.exports = async (req, res) => {
 			return res.json({ msg: "User like added" });
 		}
 	} catch (error) {
-		sendErrorResponse(res, 500, error.message);
+		if (error instanceof BadRequestError) {
+			return sendErrorResponse(res, error.statusCode, error.message);
+		}
+		return sendErrorResponse(res, 500, error.message);
 	}
 };

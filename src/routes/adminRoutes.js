@@ -16,7 +16,11 @@ const route = express();
 // ============ FOOD REST APIS ============
 route.post("/food", admin_food.addFood);
 
-route.post("/weeklyfood", addWeeklyFood);
+route.post(
+	"/weeklyfood",
+	multerUpload.single("image"),
+	addWeeklyFood
+);
 
 route.put(
 	"/food-image",
@@ -43,9 +47,11 @@ route.get("/add/grocery.html", async (req, res) => {
 route.get("/add/food.html", async (req, res) => {
 	res.render("pages/addFood");
 });
+
 route.get("/list/food.html", async (req, res) => {
 	res.render("pages/listFood");
 });
+
 route.get("/list/grocery.html", admin_grocery.listGrocery);
 
 route.post("/grocery", admin_grocery.addGrocery);

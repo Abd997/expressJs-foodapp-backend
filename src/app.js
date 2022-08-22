@@ -13,7 +13,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const server = http.createServer(app);
 
-const VERSION = "1.10.4";
+const VERSION = "1.13.0";
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
