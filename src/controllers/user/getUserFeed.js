@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
 		const data = await UserPosts.find(
 			{},
 			`
+		id
         title 
         email 
         imageUrl 
