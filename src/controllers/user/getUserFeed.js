@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
 		const data = await UserPosts.find(
 			{},
 			`
-		id
+		_id
         title 
         email 
         imageUrl 
@@ -31,6 +31,7 @@ module.exports = async (req, res) => {
 				email: data[i].email
 			});
 			feedPosts.push({
+				id: data[i]._id,
 				title: data[i].title,
 				imageUrl: data[i].imageUrl,
 				email: data[i].email,
