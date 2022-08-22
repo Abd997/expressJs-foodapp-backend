@@ -1,6 +1,5 @@
 require("./custom-error");
 const express = require("express");
-const http = require("http");
 const {
 	authorizedRoute,
 	normalRoutes,
@@ -11,7 +10,7 @@ const verifyToken = require("./utils/verifyToken");
 const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const server = http.createServer(app);
+
 
 const VERSION = "1.13.0";
 
@@ -41,4 +40,4 @@ app.all("/", (req, res) => {
 	res.status(200).send("welcome to app");
 });
 
-module.exports = server;
+module.exports = app;
