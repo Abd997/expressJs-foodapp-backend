@@ -6,7 +6,7 @@ COPY . .
 
 ENV NODE_ENV=production
 
-RUN npm ci --production
+RUN npm i --production
 
 EXPOSE 8080
 
