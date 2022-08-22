@@ -1,5 +1,6 @@
 require("./custom-error");
 const express = require("express");
+const http = require("http");
 const {
 	authorizedRoute,
 	normalRoutes,
@@ -10,6 +11,7 @@ const verifyToken = require("./utils/verifyToken");
 const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const server = http.createServer(app);
 
 const VERSION = "1.10.4";
 
@@ -35,8 +37,8 @@ app.get("/version", (req, res) => {
 	res.send(`${VERSION}`);
 });
 
-app.all("*", (req, res) => {
-	res.status(404).send("Route not exists");
+app.all("/", (req, res) => {
+	res.status(200).send("welcome to app");
 });
 
-module.exports = app;
+module.exports = server;

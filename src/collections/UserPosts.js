@@ -12,7 +12,7 @@ const UserPostSchema = new mongoose.Schema(
 		comments: [
 			{
 				email: { type: String, required: true },
-				caption: { type: String, required: true, default: "empty" },
+				comment: { type: String, required: true, default: "empty" },
 				dateCreated: { type: Date, default: Date.now() },
 				dateUpdated: { type: Date, default: Date.now() }
 			}

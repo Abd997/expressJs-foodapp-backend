@@ -7,14 +7,12 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  * @param {e.Request} req
  */
 const validate = async (req) => {
-	const { postId, title, description } = req.body;
+	const { postId, comment } = req.body;
 	if (!postId) {
 		throw new Error("Post id not sent");
-	} else if (!title) {
-		throw new Error("Title not sent");
-	} else if (!description) {
-		throw new Error("Description not sent");
-	}
+	} else if (!comment) {
+		throw new Error("Comment not sent");
+	} 
 };
 
 /**
@@ -25,27 +23,19 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		await validate(req);
-		const { postId, email, title, description } = req.body;
-		const comment = {
+		const { postId, email, comment} = req.body;
+		const NewComment = {
 			email: email,
-			title: title,
-			description: description,
+			comment: comment,
 			dateCreated: Date.now(),
 			dateUpdated: Date.now()
 		};
+
 		const post = await UserPosts.findById(postId);
-		/** @type {Array} */
-		const comments = post.comments;
-		let totalComments = post.totalComments;
-		totalComments++;
-		comments.push(comment);
-		await UserPosts.updateOne(
-			{ _id: postId },
-			{
-				comments: comments,
-				totalComments: totalComments
-			}
-		);
+		post.totalComments += 1;
+		post.comments.push(NewComment);
+		await post.save();
+
 		res.json({
 			msg: "Comment added to post"
 		});

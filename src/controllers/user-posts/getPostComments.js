@@ -40,8 +40,10 @@ module.exports = async (req, res) => {
 				email: comment.email
 			});
 			commentData.push({
-				email: comment.email,
-				caption: comment.caption,
+				postId: post._id,
+				userId: commentUser._id,
+				time: comment.dateUpdated,
+				comment: comment.comment,
 				username: commentUser.firstName,
 				profileImageUrl: commentUser.profileImageUrl
 			});
