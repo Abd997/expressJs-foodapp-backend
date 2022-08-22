@@ -1,6 +1,5 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const http = require("http");	
 const app = require("./app");
 
 mongoose
@@ -17,4 +16,3 @@ app.listen(PORT, () => {
 	);
 });
 
-require("./controllers/user-chat/index");
