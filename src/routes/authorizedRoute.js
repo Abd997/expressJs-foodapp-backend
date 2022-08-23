@@ -46,7 +46,8 @@ const {
 	getAllStories,
 	addUserAvatar,
 	getUserAvatar,
-	getUserDashboardDetails
+	getUserDashboardDetails,
+	getAllFoods
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -131,6 +132,7 @@ route.post("/grocery", addGrocery);
 // ============ FAVOURITE FOOD ============
 route.put("/favouritefood", updateFavouriteFood);
 route.get("/favouritefoods", getFavouriteFoods);
+route.get("/all-food",getAllFoods)
 
 // ============ ADDRESSES ============
 route.get("/addresses", getAddresses);

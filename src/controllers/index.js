@@ -17,6 +17,7 @@ module.exports = {
 	addFoodImage: require("./food/addFoodImage"),
 	updateMealLike: require("./food/updateMealLike"),
 	getFavouriteFoods: require("./food/getFavouriteFoods"),
+	getAllFoods: require('./food/getAllFoods'),
 	getFoodDetails: require("./food/getFoodDetails"),
 	getWeeklyFoods: require("./getWeeklyFoods"),
 	updateFavouriteFood: require("./food/updateFavouriteFood"),
