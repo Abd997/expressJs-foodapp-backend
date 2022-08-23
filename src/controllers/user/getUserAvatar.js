@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 		const user = req.body.user;
 		const avatar = user.profileImageUrl;
 		return res.json({
-			avatar: await UserCollection.find({email:req.body.email}).select("profileImageUrl")
+			avatar: avatar
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
