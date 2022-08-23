@@ -1,4 +1,5 @@
 const e = require("express");
+const UserCollection = require("../../collections/User");
 const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
@@ -12,7 +13,7 @@ module.exports = async (req, res) => {
 		const user = req.body.user;
 		const avatar = user.profileImageUrl;
 		return res.json({
-			avatar: avatar
+			avatar: await UserCollection.find({email:req.body.email}).select("profileImageUrl")
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
 		await uploadToAzure(req);
-		await UserCollection.updateOne(
+		await UserCollection.findOneAndUpdate(
 			{ email: email },
 			{
 				profileImageUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
