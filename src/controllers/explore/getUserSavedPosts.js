@@ -18,15 +18,12 @@ const validate = async (req) => {};
 module.exports = async (req, res) => {
 	try {
 		const { user, email } = req.body;
-		/** @type {Array} */
+		const posts =  await UserCollection.find({ email: email }).select("savedExplorePosts").populate("savedExplorePosts");
 		
 		return res.json({
-			posts: await UserCollection.find({email:email}).select("savedExplorePosts").populate('savedExplorePosts')
+			posts: posts
 		});
 	} catch (error) {
-		if (error instanceof BadRequestError) {
-			return sendErrorResponse(res, error.statusCode, error.message);
-		}
 		return sendErrorResponse(res, 500, error.message);
 	}
 };
