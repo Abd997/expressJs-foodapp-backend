@@ -43,7 +43,8 @@ module.exports = async (req, res) => {
 				{ likedBy: likedUsers, totalLikes: totalLikes }
 			);
 
-			await UserCollection.findByIdAndUpdate({_id:req.body.loggedInUser._id.toString()},{$push:{likedPosts:postId}})
+			await UserCollection.findByIdAndUpdate({_id:req.body.loggedInUser._id.toString()},{$pull:{likedPosts:postId.toString()}})
+			
 			return res.json({ msg: "User like removed" });
 		} else {
 			likedUsers.push(email);
