@@ -19,6 +19,11 @@ module.exports = async (req, res) => {
 			currency: req.body.currency,
 			tags: req.body.tags
 		};
+		const foodTypes = ["meal","babyfood","shakes","snacks","drinks"]
+		console.log(!foodTypes.includes(req.body.foodType))
+		if(!foodTypes.includes(req.body.foodType)){
+			return sendErrorResponse(res, 500, "Food Type is not valid.");
+		}
 		const doc = await FoodCollection.create(data);
 		if (!doc) {
 			throw new Error("Data not added");

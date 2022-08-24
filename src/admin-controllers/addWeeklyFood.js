@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
 			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
 		};
 
-		const foodTypes = ["meal","babyfood","shakes","snakes","drinks"]
+		const foodTypes = ["meal","babyfood","shakes","snacks","drinks"]
 		if(!foodTypes.includes(data.foodType)){
 			return sendErrorResponse(res, 500, "Food Type is not valid.");
 		}

@@ -16,7 +16,7 @@ const validate = async (req) => {};
  */
 module.exports = async (req, res) => {
 	try {
-		const foodTypes = ["meal","babyfood","shakes","snakes","drinks"]
+		const foodTypes = ["meal","babyfood","shakes","snacks","drinks"]
 		console.log(!foodTypes.includes(req.body.foodType))
 		if(!foodTypes.includes(req.body.foodType)){
 			return sendErrorResponse(res, 500, "Food Type is not valid.");
