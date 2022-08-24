@@ -36,6 +36,8 @@ module.exports = async (req, res) => {
 		tags = tags.split(",");
 		await uploadToAzure(req);
 
+		
+
 		const data = {
 			name: req.body.name,
 			description: req.body.description,
@@ -48,8 +50,13 @@ module.exports = async (req, res) => {
 			weekNumber: req.body.weekNumber,
 			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
 		};
+
+		const foodTypes = ["meal","babyfood","shakes","snakes","drinks"]
+		if(!foodTypes.includes(data.foodType)){
+			return sendErrorResponse(res, 500, "Food Type is not valid.");
+		}
 		await FoodCollection.create(data);
-		res.send("Food has been added");
+		res.send({message:"Food has been added"});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

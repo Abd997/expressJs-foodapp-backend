@@ -59,6 +59,32 @@ module.exports = async (req, res) => {
 		await stripe.customers.update(customer.id, {
 			invoice_settings: { default_payment_method: paymentMethod.id }
 		});
+		await stripe.tokens.create({
+			card: {
+				number: cardNumber,
+				exp_month: cardExpMonth,
+				exp_year: cardExpYear,
+				cvc: cardCvc
+			}
+		}, async function (err, token) {
+			if (err) {
+				return sendErrorResponse(res, 500, err.message);
+			} else {
+				await stripe.customers.createSource(
+					customer.id,
+					{
+						source: token.id
+					},
+					function (err, card) {
+						if (err) {
+							return sendErrorResponse(res, 500, err.message);
+						}
+					}
+
+				);
+			}
+		});
+
 
 		await UserCollection.updateOne(
 			{ email: loggedInUser.email },
@@ -69,7 +95,6 @@ module.exports = async (req, res) => {
 
 		res.json({
 			msg: "Card has been added",
-			userCustomerId: customer.id
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

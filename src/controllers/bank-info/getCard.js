@@ -24,8 +24,21 @@ module.exports = async (req, res) => {
 		}
 
 		const customer = await stripe.customers.retrieve(
-			loggedInUser.stripeCustomerId
-		);
+			loggedInUser.stripeCustomerId,
+			
+		)
+		.then(async function(customer) {
+			let sources = []
+			await stripe.customers.listSources(
+				customer.id, 
+				{limit: 3}
+			  ).autoPagingEach(async(source)=>{
+				console.log(source)
+				sources.push({id:source.id,brand:source.brand,name:source.name,last4:source.last4})
+			
+			  })
+			return sources;
+		})
 
 		res.json({
 			msg: "User has a saved card",
