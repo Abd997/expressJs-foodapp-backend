@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema(
 		],
 
 		savedExplorePosts: [{type:mongoose.Schema.Types.ObjectId, ref: "ExplorePostCollection"}],
-
+		likedPosts: [{type:mongoose.Schema.Types.ObjectId, ref: "UserPosts"}],
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String],
 

@@ -1,4 +1,5 @@
 const e = require("express");
+const UserCollection = require("../../collections/User");
 const UserPosts = require("../../collections/UserPosts");
 const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
@@ -42,6 +43,7 @@ module.exports = async (req, res) => {
 				{ likedBy: likedUsers, totalLikes: totalLikes }
 			);
 
+			await UserCollection.findByIdAndUpdate({_id:req.body.loggedInUser._id.toString()},{$push:{likedPosts:postId}})
 			return res.json({ msg: "User like removed" });
 		} else {
 			likedUsers.push(email);
@@ -51,6 +53,7 @@ module.exports = async (req, res) => {
 				{ likedBy: likedUsers, totalLikes: totalLikes }
 			);
 
+			await UserCollection.findByIdAndUpdate({_id:req.body.loggedInUser._id.toString()},{$push:{likedPosts:postId}})
 			return res.json({ msg: "User like added" });
 		}
 	} catch (error) {

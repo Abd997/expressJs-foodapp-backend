@@ -10,6 +10,13 @@ const uploadToAzure = require("../utils/uploadToAzure");
  * @param {e.Request} req
  * @param {e.Response} res
  */
+
+const getColor = () =>{
+	const colors = ["red","orange","green","purple","black","yellow"]
+	const random = Math.floor(Math.random()*(5-0)) + 0
+	return colors[random];
+}
+
 module.exports = async (req, res) => {
 	try {
 		let facts = [
@@ -34,6 +41,12 @@ module.exports = async (req, res) => {
 		/** @type {string} */
 		let tags = req.body.tags;
 		tags = tags.split(",");
+		tags = tags.map(element => {
+			return {
+				text: element,
+				color: getColor()
+			}
+		});
 		await uploadToAzure(req);
 
 		

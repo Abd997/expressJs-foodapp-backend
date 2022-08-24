@@ -11,6 +11,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
 module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
+		const user = req.body.loggedInUser
 		const data = await UserPosts.find(
 			{},
 			`
@@ -43,8 +44,17 @@ module.exports = async (req, res) => {
 				profileImageUrl: postUser.profileImageUrl
 			});
 		}
+		let likedPosts = []
+		console.log(user.likedPosts)
+		for(let post of feedPosts){
+			if(user.likedPosts.includes(post.id)){
+				likedPosts.push({post,isLiked:true})
+			}else{
+				likedPosts.push({post,isLiked:false})
+			}
+		}
 		return res.json({
-			posts: feedPosts
+			posts: likedPosts
 		});
 	} catch (error) {
 		sendErrorResponse(res, 500, error.message);
