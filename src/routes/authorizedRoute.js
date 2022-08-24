@@ -49,6 +49,7 @@ const {
 	getUserDashboardDetails,
 	getAllFoods
 } = require("../controllers");
+const getWeeklyFoodTypes = require("../controllers/getWeeklyFoodTypes");
 
 // ============ USER CHAT ============
 
@@ -150,5 +151,8 @@ route.put("/meal/like", updateMealLike);
 
 // ============ FEED ============
 route.get("/feed", getFeed);
+
+// ============ Food ============
+route.get('/weeklyfood/:weekNumber/:foodType', getWeeklyFoodTypes)
 
 module.exports = route;
