@@ -9,8 +9,8 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  */
 const validate = async (req) => {
 	const { type } = req.params;
-	const valid = ["deals", "blogs", "recipes"].find((e) => e === type);
-	if (!valid) {
+	// const valid = ["deals", "blogs", "recipes"].find((e) => e === type);
+	if (!type) {
 		throw new BadRequestError("Explore post type is not valid");
 	}
 };
@@ -24,11 +24,9 @@ module.exports = async (req, res) => {
 	try {
 		await validate(req);
 		const { type } = req.params;
-
-		const posts = await ExplorePostCollection.find({
-			postType: type
-		});
-		return res.json({
+		console.log(type)
+		const posts = await ExplorePostCollection.find({ postType: { $regex: type, $options: "i" }});
+		res.json({
 			posts: posts
 		});
 	} catch (error) {

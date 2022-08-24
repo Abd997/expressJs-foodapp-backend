@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
 		let foodName = req.body.foodName;
 		await uploadToAzure(req);
 		// if (foodName.) foodName = foodName.replaceAll("-", " ");
-		await FoodCollection.updateMany(
+		const data = await FoodCollection.updateMany(
 			{ name: foodName },
 			{
 				imageURL:
@@ -35,7 +35,8 @@ module.exports = async (req, res) => {
 			}
 		);
 		res.json({
-			msg: "Food image added"
+			msg: "Food image added",
+			data: data
 		});
 	} catch (error) {
 		return sendErrorResponse(res, 500, error.message);
