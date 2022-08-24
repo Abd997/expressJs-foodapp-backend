@@ -23,12 +23,13 @@ module.exports = async (req, res) => {
 			throw new BadRequestError("User has not added a card");
 		}
 
-		// const customer = await stripe.customers.retrieve(
-		// 	loggedInUser.stripeCustomerId
-		// );
+		const customer = await stripe.customers.retrieve(
+			loggedInUser.stripeCustomerId
+		);
 
 		res.json({
-			msg: "User has a saved card"
+			msg: "User has a saved card",
+			customer:customer
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
