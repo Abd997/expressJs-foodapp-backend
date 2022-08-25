@@ -12,5 +12,15 @@ module.exports = async (req, res) => {
 		{ weekNumber: weekNumber },
 		"id name price foodType tags imageURL currency"
 	)
-	res.send(docs);
+	const userFavouriteFoodIds = req.body.user.favouriteFoodIds;
+
+	let favouriteFood = [];
+	for (let food of docs) {
+		if (userFavouriteFoodIds.includes(food._id)) {
+			favouriteFood.push({ food, isFavourite: true });
+		} else {
+			favouriteFood.push({ food, isFavourite: false });
+		}
+	}
+	res.send(favouriteFood);
 };

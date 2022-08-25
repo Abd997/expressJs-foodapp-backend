@@ -49,7 +49,8 @@ const {
 	getUserDashboardDetails,
 	getAllFoods,
 	getWeeklyFoodTypes,
-	getUserRefreshData
+	getUserRefreshData,
+	getWeeklyFoods,
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -156,5 +157,6 @@ route.get("/feed", getFeed);
 
 // ============ Food ============
 route.get('/weeklyfood/:weekNumber/:foodType', getWeeklyFoodTypes)
+route.get("/weeklyfood/:weekNumber", getWeeklyFoods);
 
 module.exports = route;
