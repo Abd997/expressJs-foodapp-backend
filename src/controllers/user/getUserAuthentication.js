@@ -53,12 +53,36 @@ module.exports = async (req, res) => {
 
 		// create jwt token
 		const token = await jwt.sign(email, process.env.JWT_KEY);
+
+		/* This is just a way to get the user details and return it to the client. */
+		const user_details = await UserCollection.findOne({
+			email: email
+		});
+		const dietMeasurement = user_details.dietMeasurement;
+		let dashboard = {
+			balance: user_details.balance || 0,
+			dietMeasurement: dietMeasurement,
+			loginStreak: user_details.loginStreak
+		};
+
+		/* Returning the response to the client. */
 		return res.json({
 			msg: "User successfully authenticated",
-			email: email,
-			firstName: user.firstName,
-			token: token
+			data: {
+				firstName: user_details.firstName,
+				lastName: user_details.lastName,
+				email: user_details.email,
+				token: token,
+				isAmbassador: user_details.isAmbassador,
+				profileImageUrl: user_details.profileImageUrl,
+				gender: user_details.gender,
+				weight: user_details.weight,
+				weightGoal: user_details.weightGoal,
+				height: user_details.height,
+				dashboard: dashboard,
+			}
 		});
+
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			return sendErrorResponse(

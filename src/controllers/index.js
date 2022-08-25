@@ -38,6 +38,7 @@ module.exports = {
 	addUserAvatar: require("./user/addUserAvatar"),
 	getUserAvatar: require("./user/getUserAvatar"),
 	getUserDashboardDetails: require("./getUserDashoardDetails"),
+	getUserRefreshData : require("./user/getUserRefreshData"),
 
 	// =========== USER ADDRESS ===========
 	addAddress: require("./user-address/addAddress"),

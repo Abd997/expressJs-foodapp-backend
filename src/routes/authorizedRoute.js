@@ -48,8 +48,8 @@ const {
 	getUserAvatar,
 	getUserDashboardDetails,
 	getAllFoods,
-	getWeeklyFoodTypes
-
+	getWeeklyFoodTypes,
+	getUserRefreshData
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -87,6 +87,7 @@ route.put(
 	addUserAvatar
 );
 route.get("/avatar", getUserAvatar);
+route.get("/refresh-data", getUserRefreshData);
 
 // ============ USER SAFETY ============
 route.post("/report-user", reportUser);
