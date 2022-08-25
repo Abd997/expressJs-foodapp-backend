@@ -23,9 +23,15 @@ module.exports = async (req, res) => {
 				favFoods.push(favFood);
 			}
 		}
-		res.send({
-			data:  favFoods
-		});
+		let favouriteFood = [];
+		for (let food of favFoods) {
+			if (favFoodsId.includes(food._id)) {
+				favouriteFood.push({ food, isFavourite: true });
+			} else {
+				favouriteFood.push({ food, isFavourite: false });
+			}
+		}
+		res.send(favouriteFood);
 	} catch (error) {
 		return sendErrorResponse(res, 400, error.message);
 	}
