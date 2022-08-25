@@ -47,9 +47,10 @@ const {
 	addUserAvatar,
 	getUserAvatar,
 	getUserDashboardDetails,
-	getAllFoods
+	getAllFoods,
+	getWeeklyFoodTypes
+
 } = require("../controllers");
-const getWeeklyFoodTypes = require("../controllers/getWeeklyFoodTypes");
 
 // ============ USER CHAT ============
 

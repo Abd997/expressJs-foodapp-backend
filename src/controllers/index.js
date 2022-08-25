@@ -22,6 +22,7 @@ module.exports = {
 	getWeeklyFoods: require("./getWeeklyFoods"),
 	updateFavouriteFood: require("./food/updateFavouriteFood"),
 	updateMealLike: require("./food/updateMealLike"),
+	getWeeklyFoodTypes: require("./getWeeklyFoodTypes"),
 
 	// =========== GROCERY ===========
 	addGroceries: require("./grocery/addGroceries"),

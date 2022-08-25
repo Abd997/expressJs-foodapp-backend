@@ -7,10 +7,23 @@ const FoodCollection = require("../collections/FoodCollection");
  * @param {e.Response} res
  */
 module.exports = async (req, res) => {
-	const weekNumber = req.params.weekNumber;
-	const docs = await FoodCollection.find(
-		{ weekNumber: weekNumber },
-		"id name price foodType tags imageURL currency"
-	).where('foodType').equals(req.params.foodType)
-	res.send(docs);
+  const weekNumber = req.params.weekNumber;
+  const docs = await FoodCollection.find(
+    { weekNumber: weekNumber },
+    "id name price foodType tags imageURL currency"
+  )
+    .where("foodType")
+    .equals(req.params.foodType);
+
+  const userFavouriteFoodIds = req.body.user.favouriteFoodIds;
+
+  let favouriteFood = [];
+  for (let food of docs) {
+    if (userFavouriteFoodIds.includes(food._id)) {
+      favouriteFood.push({ food, isFavourite: true });
+    } else {
+      favouriteFood.push({ food, isFavourite: false });
+    }
+  }
+  res.send(favouriteFood);
 };

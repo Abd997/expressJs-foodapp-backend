@@ -39,29 +39,31 @@ const UserSchema = new mongoose.Schema(
 			}
 		],
 
-		savedExplorePosts: [{type:mongoose.Schema.Types.ObjectId, ref: "ExplorePostCollection"}],
-		likedPosts: [{type:mongoose.Schema.Types.ObjectId, ref: "UserPosts"}],
+		savedExplorePosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "ExplorePostCollection" }],
+		likedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "UserPosts" }],
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String],
 
-		dietMeasurement: {
-			caloriesRequired: {
-				type: Number,
-				required: true,
-				default: 0
-			},
-			caloriesTaken: { type: Number, required: true, default: 0 },
-			carbsRequired: { type: Number, default: 0 },
-			carbsTaken: { type: Number, default: 0 },
-			fatsRequired: { type: Number, default: 0 },
-			fatsTaken: { type: Number, default: 0 },
-			proteinRequired: { type: Number, default: 0 },
-			proteinTaken: { type: Number, default: 0 },
-			waterRequired: { type: Number, default: 0 },
-			waterTaken: { type: Number, default: 0 },
-			movementSteps: { type: Number, default: 0 },
-			bmi: { type: Number, default: 0 }
-		},
+		dietMeasurement: [
+			{
+				caloriesRequired: {
+					type: Number,
+					required: true,
+					default: 0
+				},
+				caloriesTaken: { type: Number, required: true, default: 0 },
+				carbsRequired: { type: Number, default: 0 },
+				carbsTaken: { type: Number, default: 0 },
+				fatsRequired: { type: Number, default: 0 },
+				fatsTaken: { type: Number, default: 0 },
+				proteinRequired: { type: Number, default: 0 },
+				proteinTaken: { type: Number, default: 0 },
+				waterRequired: { type: Number, default: 0 },
+				waterTaken: { type: Number, default: 0 },
+				movementSteps: { type: Number, default: 0 },
+				bmi: { type: Number, default: 0 }
+			}
+		],
 
 		loginStreak: { type: Number, default: 1 },
 		lastLogin: {

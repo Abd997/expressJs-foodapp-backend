@@ -39,7 +39,10 @@ module.exports = async (req, res) => {
 		} = req.body;
 
 		const customer = await stripe.customers.create({
-			email: loggedInUser.email
+			email: loggedInUser.email,
+			address: req.body.address,
+			name: req.body.name,
+			phone: req.body.phone
 		});
 
 		const paymentMethod = await stripe.paymentMethods.create({
@@ -74,14 +77,9 @@ module.exports = async (req, res) => {
 					customer.id,
 					{
 						source: token.id
-					},
-					function (err, card) {
-						if (err) {
-							return sendErrorResponse(res, 500, err.message);
-						}
 					}
+				)
 
-				);
 			}
 		});
 

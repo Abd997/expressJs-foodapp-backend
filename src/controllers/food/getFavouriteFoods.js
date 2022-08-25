@@ -24,8 +24,7 @@ module.exports = async (req, res) => {
 			}
 		}
 		res.send({
-			data: favFoodsId,
-			favFoods: favFoods
+			data:  favFoods
 		});
 	} catch (error) {
 		return sendErrorResponse(res, 400, error.message);
