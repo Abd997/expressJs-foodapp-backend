@@ -12,13 +12,11 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
  * @param {e.Request} req
  */
 const validate = async (req) => {
-	const { itemId, itemQuantity, deliveryMethod, deliveryDay } =
+	const { orderId } =
 		req.body;
-	if (!itemId) {
+	if (!orderId) {
 		throw new BadRequestError("Item Id not sent");
-	} else if (!itemQuantity) {
-		throw new BadRequestError("Item quantity not sent");
-	}
+	} 
 };
 
 /**
@@ -30,35 +28,29 @@ module.exports = async (req, res) => {
 	try {
 		await validate(req);
 		const {
-			email,
-			itemId,
-			itemQuantity,
-			deliveryMethod,
-			deliveryDate,
+			orderId,
 			loggedInUser,
-			description
 		} = req.body;
 
 		if (!loggedInUser.stripeCustomerId) {
 			throw new BadRequestError(
 				"Customer does not have a saved payment method"
-			);
+			); 
 		}
+		// const itemToBuy = await FoodCollection.findById(itemId);
+		// if (!itemToBuy) {
+		// 	throw new BadRequestError("Item does not exists");
+		// }
+		// if (itemToBuy.itemQuantity === 0) {
+		// 	throw new BadRequestError("Item is not in stock");
+		// }
 
-		const itemToBuy = await FoodCollection.findById(itemId);
-		if (!itemToBuy) {
-			throw new BadRequestError("Item does not exists");
-		}
-		if (itemToBuy.itemQuantity === 0) {
-			throw new BadRequestError("Item is not in stock");
-		}
+		// let price = itemToBuy.priceInCents * itemQuantity;
+		// const deliveryChargeInCents = 1000;
 
-		let price = itemToBuy.priceInCents * itemQuantity;
-		const deliveryChargeInCents = 1000;
-
-		if (price < 9 * 10_000) {
-			price += deliveryChargeInCents;
-		}
+		// if (price < 9 * 10_000) {
+		// 	price += deliveryChargeInCents;
+		// }
 
 		// const payment = await stripe.paymentMethods.create({
 		// 	type: "card",
@@ -78,22 +70,24 @@ module.exports = async (req, res) => {
 		// 	payment_method_types: ["card"],
 		// 	metadata: { uid: "some_userID" }
 		// });
+		const order = await OrderCollection.findById({ "_id": orderId })
+		console.log(order.totalCost)
 		await stripe.charges.create({
-			amount:price,
-			description: description,
+			amount: `${order.totalCost}`,
+			description: "description",
 			currency: "eur",
 			customer: loggedInUser.stripeCustomerId
-		}).then(async(charges) => {
-            await OrderCollection.create({
-				deliveryMethod: deliveryMethod,
-				deliveryDate: deliveryDate
-			});
-            res.json({ status:"Payment Success!!!", charges: charges })
-        })
-        .catch(err=> {
-            return sendErrorResponse(res, 500, err.message);
-        })
-		
+		}).then(async (charges) => {
+			order.paymentStatus = "completed",
+				await order.save();
+			res.json({ status: "Payment Success!!!", charges: charges })
+		})
+			.catch(async (err) => {
+				order.paymentStatus = "failed",
+					await order.save();
+				return sendErrorResponse(res, 500, err.message);
+			})
+
 		// return res.json({ status: paymentIntent.status });
 	} catch (error) {
 		// console.log(error);

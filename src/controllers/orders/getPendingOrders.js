@@ -15,7 +15,7 @@ const validate = async (req) => {};
 module.exports = async (req, res) => {
 	try {
 		const userId = req.body.user._id;
-		const order = await OrderCollection.find({userId: userId}).where({"status": "delivered"})
+		const order = await OrderCollection.find({userId: userId}).where({"status":{$ne:"delivered"}})
 		res.json({
 			success: true,
 			data:order

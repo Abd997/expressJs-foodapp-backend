@@ -2,7 +2,9 @@ const express = require("express");
 const {
 	addWeeklyFood,
 	addWeeklyFoodImage,
-	addExplorePost
+	addExplorePost,
+	getAllOrders,
+
 } = require("../admin-controllers");
 const addAmbassador = require("../admin-controllers/addAmbassador");
 const admin_food = require("../admin-controllers/admin-food");
@@ -55,5 +57,11 @@ route.get("/list/food.html", async (req, res) => {
 route.get("/list/grocery.html", admin_grocery.listGrocery);
 
 route.post("/grocery", admin_grocery.addGrocery);
+
+// =========== ORDERS ===========
+
+route.get("/orders",getAllOrders )
+
+
 
 module.exports = route;

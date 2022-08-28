@@ -51,6 +51,9 @@ const {
 	getWeeklyFoodTypes,
 	getUserRefreshData,
 	getWeeklyFoods,
+	addNewOrder,
+	getPreviousOrders,
+	getPendingOrders,
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -158,5 +161,10 @@ route.get("/feed", getFeed);
 // ============ Food ============
 route.get('/weeklyfood/:weekNumber/:foodType', getWeeklyFoodTypes)
 route.get("/weeklyfood/:weekNumber", getWeeklyFoods);
+
+// ============ ORDERS ============
+route.post("/order", addNewOrder);
+route.get("/previousOrders", getPreviousOrders);
+route.get("/pendingOrders",getPendingOrders);
 
 module.exports = route;

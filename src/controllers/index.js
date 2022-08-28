@@ -1,3 +1,5 @@
+const getAllOrder = require("../admin-controllers/getAllOrders");
+
 module.exports = {
 	// =========== EXPLORE ===========
 	saveExplorePost: require("./explore/saveExplorePost"),
@@ -69,5 +71,11 @@ module.exports = {
 	getDiscoverDeals: require("./getDiscoverDeals"),
 	updateUser: require("./updateUser"),
 	updateUserExtraDetails: require("./updateUserExtraDetails"),
-	updateUserWeightGoal: require("./updateUserWeightGoal")
+	updateUserWeightGoal: require("./updateUserWeightGoal"),
+
+	// =========== ORDERS ===========
+
+	addNewOrder: require("./orders/addOrder"),
+	getPreviousOrders: require("./orders/getPreviousOrders"),
+	getPendingOrders: require("./orders/getPendingOrders"),
 };
