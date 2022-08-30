@@ -7,7 +7,8 @@ const AdminSchema = new mongoose.Schema(
 		email: { type: String, required: true, unique: true },
 		password: { type: String, required: true },
 		gender: { type: String, default: "empty" },
-		dateOfBirth: { type: String, default: "empty" }
+		dateOfBirth: { type: String, default: "empty" },
+		socketId: {type: String}
 	},
 	{ collection: "AdminCollection" }
 );

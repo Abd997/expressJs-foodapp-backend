@@ -70,7 +70,8 @@ const UserSchema = new mongoose.Schema(
 			type: Date,
 			default: new Date().toISOString().slice(0, 10)
 		},
-		balance: { type: Number, default: 0 }
+		balance: { type: Number, default: 0 },
+		socketId: {type: String}
 	},
 	{ collection: "UserCollection" }
 );
