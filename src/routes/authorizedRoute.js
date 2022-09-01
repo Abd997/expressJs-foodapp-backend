@@ -54,6 +54,10 @@ const {
 	addNewOrder,
 	getPreviousOrders,
 	getPendingOrders,
+	getComingEvent,
+	getPreviousEvent,
+	bookEventTicket,
+	willingToAttend,
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -139,7 +143,7 @@ route.post("/grocery", addGrocery);
 // ============ FAVOURITE FOOD ============
 route.put("/favouritefood", updateFavouriteFood);
 route.get("/favouritefoods", getFavouriteFoods);
-route.get("/all-food",getAllFoods)
+route.get("/all-food", getAllFoods)
 
 // ============ ADDRESSES ============
 route.get("/addresses", getAddresses);
@@ -165,6 +169,12 @@ route.get("/weeklyfood/:weekNumber", getWeeklyFoods);
 // ============ ORDERS ============
 route.post("/order", addNewOrder);
 route.get("/previousOrders", getPreviousOrders);
-route.get("/pendingOrders",getPendingOrders);
+route.get("/pendingOrders", getPendingOrders);
+
+// ============ EVENTS ============
+route.get("/previousEvent", getPreviousEvent);
+route.get("/comingEvent", getComingEvent);
+route.post("/bookEventTicket", bookEventTicket);
+route.post("/willingToAttend",willingToAttend);
 
 module.exports = route;

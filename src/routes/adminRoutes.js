@@ -7,6 +7,7 @@ const {
 
 } = require("../admin-controllers");
 const addAmbassador = require("../admin-controllers/addAmbassador");
+const { addEvent } = require("../admin-controllers/admin-event");
 const admin_food = require("../admin-controllers/admin-food");
 const admin_grocery = require("../admin-controllers/admin-grocery");
 const multerUpload = require("../utils/multerUpload");
@@ -62,6 +63,9 @@ route.post("/grocery", admin_grocery.addGrocery);
 
 route.get("/orders",getAllOrders )
 
+// =========== Events ===========
+
+route.post("/addEvent",multerUpload.single("image"),addEvent)
 
 
 module.exports = route;

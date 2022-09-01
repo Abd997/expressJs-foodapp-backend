@@ -78,4 +78,11 @@ module.exports = {
 	addNewOrder: require("./orders/addOrder"),
 	getPreviousOrders: require("./orders/getPreviousOrders"),
 	getPendingOrders: require("./orders/getPendingOrders"),
+
+	// =========== EVENTS ===========	
+
+	getComingEvent: require("./events/getComingEvent"),
+	getPreviousEvent: require("./events/getPreviousEvent"),
+	bookEventTicket: require("./events/bookEventTicket"),
+	willingToAttend: require("./events/willingToGoOnEvent"),
 };
