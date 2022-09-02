@@ -38,30 +38,42 @@ module.exports = async (req, res) => {
 			cardCvc
 		} = req.body;
 
-		const customer = await stripe.customers.create({
-			email: loggedInUser.email,
-			address: req.body.address,
-			name: req.body.name,
-			phone: req.body.phone
-		});
+		const customer = loggedInUser.stripeCustomerId
 
-		const paymentMethod = await stripe.paymentMethods.create({
-			type: "card",
-			card: {
-				number: cardNumber,
-				exp_month: cardExpMonth,
-				exp_year: cardExpYear,
-				cvc: cardCvc
-			}
-		});
+		if(!customer){
+			 customer = await stripe.customers.create({
+				email: loggedInUser.email,
+				address: req.body.address,
+				name: req.body.name,
+				phone: req.body.phone
+			});
+			await UserCollection.updateOne(
+				{ email: loggedInUser.email },
+				{
+					stripeCustomerId: customer.id
+				}
+			);
+			customer = await customer.id;
+	
+		}
 
-		await stripe.paymentMethods.attach(paymentMethod.id, {
-			customer: customer.id
-		});
+		// const paymentMethod = await stripe.paymentMethods.create({
+		// 	type: "card",
+		// 	card: {
+		// 		number: cardNumber,
+		// 		exp_month: cardExpMonth,
+		// 		exp_year: cardExpYear,
+		// 		cvc: cardCvc
+		// 	}
+		// });
 
-		await stripe.customers.update(customer.id, {
-			invoice_settings: { default_payment_method: paymentMethod.id }
-		});
+		// await stripe.paymentMethods.attach(paymentMethod.id, {
+		// 	customer: customer.id
+		// });
+
+		// await stripe.customers.update(customer.id, {
+		// 	invoice_settings: { default_payment_method: paymentMethod.id }
+		// });
 		await stripe.tokens.create({
 			card: {
 				number: cardNumber,
@@ -74,7 +86,7 @@ module.exports = async (req, res) => {
 				return sendErrorResponse(res, 500, err.message);
 			} else {
 				await stripe.customers.createSource(
-					customer.id,
+					customer,
 					{
 						source: token.id
 					}
@@ -84,15 +96,10 @@ module.exports = async (req, res) => {
 		});
 
 
-		await UserCollection.updateOne(
-			{ email: loggedInUser.email },
-			{
-				stripeCustomerId: customer.id
-			}
-		);
-
+		
 		res.json({
 			msg: "Card has been added",
+			
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

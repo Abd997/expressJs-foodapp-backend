@@ -50,6 +50,10 @@ module.exports = async (req, res) => {
         let location = {
             lat: req.body.lat, lng: req.body.lng
         }
+        const matches = eventDate.match(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?/gm)
+        if(matches === null ){
+            return sendErrorResponse(res, 400, 'Date format not Correct.')
+        }
         const data = {
             title: req.body.title,
             description: req.body.description,

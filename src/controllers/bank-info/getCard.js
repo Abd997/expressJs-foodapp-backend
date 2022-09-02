@@ -37,13 +37,11 @@ module.exports = async (req, res) => {
 				sources.push({id:source.id,brand:source.brand,name:source.name,last4:source.last4})
 			
 			  })
-			return sources;
+			return res.json({
+				sources
+			});
 		})
 
-		res.json({
-			msg: "User has a saved card",
-			customer:customer
-		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

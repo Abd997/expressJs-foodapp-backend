@@ -44,15 +44,15 @@ const OrderSchema = new mongoose.Schema(
 		paymentStatus:{
 			type: String,
 			default: "pending",
-			enum: ["pending", "completed", " "]
+			enum: ["pending", "completed", "failed"]
 		},
 		deliveryAddress: { type: String, required: true },
 		deliveryMethod: {
 			type: String,
-			default: "door delivery",
-			enum: ["door delivery", "pickup"]
+			default: "doorDelivery",
+			enum: ["doorDelivery", "pickUp"]
 		},
-		dileveryDate: { type: Date, required: true },
+		deliveryDate: { type: Date, required: true },
 		dateOfCreation: {
 			type: Date,
 			default: new Date().toISOString().slice(0, 10)

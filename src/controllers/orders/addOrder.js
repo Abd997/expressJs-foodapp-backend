@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
         const {
             orderDetails,
             deliveryAddress,
-            dileveryDate,
+            deliveryDate,
             deliveryMethod,
             status
         } = req.body;
@@ -42,16 +42,18 @@ module.exports = async (req, res) => {
             deliveryCharges = 10;
             totalCost = totalCost + deliveryCharges
         }
-
-        let dateParts = dileveryDate.split('-');
-        let dileverydate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]); 
+        const matches = deliveryDate.match(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?/gm)
+        if(matches ===null ){
+            return sendErrorResponse(res, 400, 'Date format not Correct.')
+        }
+        let deliverydate = new Date(deliveryDate); 
         
 
         const order = await OrderCollection.create({
             userId,
             orderDetails,
             deliveryAddress,
-            dileveryDate:dileverydate,
+            deliveryDate:deliverydate,
             deliveryMethod,
             totalCost,
             deliveryCharges,
