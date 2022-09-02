@@ -81,7 +81,7 @@ module.exports = async (req, res) => {
 			order.paymentStatus = "completed",
 			await order.save();
 		}
-		return res.json({ status: paymentIntent.status });
+		return res.json({ status: paymentIntent.status,order });
 		// const order = await OrderCollection.findById({ "_id": orderId })
 		// console.log(order.totalCost)
 		// await stripe.charges.create({
