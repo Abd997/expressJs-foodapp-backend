@@ -58,6 +58,7 @@ const {
 	getPreviousEvent,
 	bookEventTicket,
 	willingToAttend,
+	updateUserPassword,
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -96,6 +97,7 @@ route.put(
 );
 route.get("/avatar", getUserAvatar);
 route.get("/refresh-data", getUserRefreshData);
+route.post("/updatePassword",updateUserPassword);
 
 // ============ USER SAFETY ============
 route.post("/report-user", reportUser);
