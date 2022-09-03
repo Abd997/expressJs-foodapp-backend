@@ -28,12 +28,13 @@ module.exports = async (req, res) => {
 			weekNumber: req.body.weekNumber,
 			tags: req.body.tags,
 			facts: req.body.facts,
-			itemQuantity: req.body.itemQuantity
+			itemQuantity: req.body.itemQuantity,
+			ingredients: req.body.ingredients
 		});
 		
 		res.json({
 			msg: "Food item has been added",
-			food: food
+			food: await FoodCollection.findById({_id: food._id}).populate({path: "ingredients", select:"name imageURL"})
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

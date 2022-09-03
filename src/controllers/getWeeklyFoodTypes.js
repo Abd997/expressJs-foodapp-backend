@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
   const docs = await FoodCollection.find(
     { weekNumber: weekNumber },
     "id name price foodType tags imageURL currency"
-  )
+  ).populate({ path: "ingredients", select: "name imageURL" })
     .where("foodType")
     .equals(req.params.foodType);
 

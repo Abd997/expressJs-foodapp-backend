@@ -11,7 +11,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
 module.exports = async (req, res) => {
 	try { 
 		const userFavouriteFoodIds = req.body.user.favouriteFoodIds;
-		const foods = await FoodCollection.find({});
+		const foods = await FoodCollection.find({}).populate({path: "ingredients", select:"name imageURL"});
 
 		let favouriteFood = [];
 		for(let food of foods){

@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
 
 		for (let index = 0; index < favFoodsId.length; index++) {
 			let element = favFoodsId[index];
-			let favFood = await FoodCollection.findById(element);
+			let favFood = await FoodCollection.findById(element).populate({path: "ingredients", select:"name imageURL"});
 			if (favFood) {
 				favFoods.push(favFood);
 			}

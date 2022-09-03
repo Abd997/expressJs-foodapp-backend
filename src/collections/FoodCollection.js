@@ -36,10 +36,12 @@ const FoodSchema = new mongoose.Schema(
 			type: Array,
 			default: ["No carbs", "Halal", "Double veggies"]
 		},
-		ingredients: {
-			type: Array,
-			default: ["bun", "chicken", "fries", "ketchup"]
-		},
+		ingredients: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "FoodIngredients"
+			}
+		],
 		likes: { type: Number, default: 0 },
 		itemQuantity: { type: Number, default: 0 }
 	},

@@ -18,6 +18,8 @@ const route = express();
 
 // ============ FOOD REST APIS ============
 route.post("/food", admin_food.addFood);
+route.post("/food/ingredients", multerUpload.single("image"), admin_food.addIngredient);
+route.get("/food/ingredients", admin_food.getIngredients);
 
 route.post(
 	"/weeklyfood",
@@ -61,11 +63,11 @@ route.post("/grocery", admin_grocery.addGrocery);
 
 // =========== ORDERS ===========
 
-route.get("/orders",getAllOrders )
+route.get("/orders", getAllOrders)
 
 // =========== Events ===========
 
-route.post("/addEvent",multerUpload.single("image"),addEvent)
+route.post("/addEvent", multerUpload.single("image"), addEvent)
 
 
 module.exports = route;

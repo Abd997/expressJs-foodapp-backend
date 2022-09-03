@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
 		});
 		await uploadToAzure(req);
 
-		
+		const ingredients = req.body.ingredients.split(",");
 
 		const data = {
 			name: req.body.name,
@@ -61,15 +61,16 @@ module.exports = async (req, res) => {
 			itemQuantity: req.body.itemQuantity,
 			facts: facts,
 			weekNumber: req.body.weekNumber,
-			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
+			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,
+			ingredients: ingredients,
 		};
 
 		const foodTypes = ["meal","babyfood","shakes","snacks","drinks"]
 		if(!foodTypes.includes(data.foodType)){
 			return sendErrorResponse(res, 500, "Food Type is not valid.");
 		}
-		await FoodCollection.create(data);
-		res.send({message:"Food has been added"});
+		const result = await FoodCollection.create(data);
+		res.send({message:"Food has been added", data: await FoodCollection.findById({_id: result._id}).populate({path: "ingredients", select:"name imageURL"}) });
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);
