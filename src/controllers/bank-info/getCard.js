@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 			let sources = []
 			await stripe.customers.listSources(
 				customer.id, 
-				{limit: 3}
+				{object: 'card',limit: 3}
 			  ).autoPagingEach(async(source)=>{
 				console.log(source)
 				sources.push({id:source.id,brand:source.brand,name:source.name,last4:source.last4})
