@@ -26,7 +26,6 @@ const UserSchema = new mongoose.Schema(
 				required: { type: Number, default: 0 },
 				taken: { type: Number, default: 0 },
 				unit: { type: String, default: "g", },
-				date: {type: Date}
 			}
 		],
 		water: [{

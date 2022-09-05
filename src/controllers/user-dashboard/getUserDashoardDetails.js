@@ -38,6 +38,7 @@ module.exports = async (req, res) => {
 				loginStreak: user_details.loginStreak,
 				bestStreak: user_details.bestStreak,
 				balance: user_details.balance,
+				nutritions: user_details.nutritions,
 			}
 		});
 	} catch (error) {
