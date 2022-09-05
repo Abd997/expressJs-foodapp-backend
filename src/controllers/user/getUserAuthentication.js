@@ -59,7 +59,21 @@ module.exports = async (req, res) => {
 			email: email
 		});
 		
-
+		const nowDate = new Date();
+        if(user_details.lastLogin.getFullYear() == nowDate.getFullYear() && user_details.lastLogin.getMonth() == nowDate.getMonth() && user_details.lastLogin.getDate() == nowDate.getDate()-1) {
+            user_details.loginStreak +=  1 ;
+            if(user_details.bestStreak < user_details.loginStreak){
+                user_details.bestStreak = user_details.loginStreak;
+            }
+            user_details.lastLogin.setDate(newDate.getDate());
+            await user_details.save();
+        }
+        else{
+            user_details.loginStreak = 1;
+            user_details.lastLogin.setDate(newDate.getDate());
+            await user_details.save();
+        }
+		
 		/* Returning the response to the client. */
 		return res.json({
 			msg: "User successfully authenticated",
