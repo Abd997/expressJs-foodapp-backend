@@ -14,44 +14,58 @@ const UserSchema = new mongoose.Schema(
 		profileImageUrl: { type: String, default: "empty" },
 
 		gender: String,
-		weight: {value: {type: Number}, unit: {type: String,default: "kg",},},
+		weight: { value: { type: Number, default: null }, unit: { type: String, default: "kg", }, },
 		weightGoal: String,
 		currentActivityLevel: String,
 		dateOfBirth: String,
-		height: {value: {type: Number}, unit: {type: String,default: "cm",},},
+		height: { value: { type: Number, default: null }, unit: { type: String, default: "cm", }, },
 		bmi: { type: Number, default: 0 },
-		calories: [
+		nutritions: [
 			{
-				name: {type: String},
-				required: {type: Number, default:0},
-				taken: {type: Number, default:0},
+				name: { type: String },
+				required: { type: Number, default: 0 },
+				taken: { type: Number, default: 0 },
+				unit: { type: String, default: "g", },
+				date: {type: Date}
 			}
 		],
-		water: {
-			required: {type: Number, default:0},
-			taken: {type: Number, default:0},
-		},
-		steps: { type: Number, default: 0 },
-		food: {
-			breakfast: [
-				{
-					name : {type: String},
-					calories: {type: Number, default:0},
-				}
-			],
-			lunch:[
-				{
-					name : {type: String},
-					calories: {type: Number, default:0},
-				}
-			],
-			dinner:[
-				{
-					name : {type: String},
-					calories: {type: Number, default:0},
-				}
-			],
-		},
+		water: [{
+			date: {type: Date},
+			required: { type: Number, default: 7,},
+			taken: { type: Number, default: null, maxLength:7, minLength:0 },
+		}],
+		steps: [{date: {type: Date, default: null}, steps: {type: Number, default: 0 }}],
+		food: [
+			{
+				date: {
+					type: Date
+				},
+				breakfast: [
+					{
+						name: { type: String },
+						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}],
+					}
+				],
+				lunch: [
+					{
+						name: { type: String },
+						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
+					}
+				],
+				dinner: [
+					{
+						name: { type: String },
+						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
+					}
+				],
+				snacks: [
+					{
+						name: { type: String },
+						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
+					}
+				],
+			},
+		],
 
 		hasPostedStory: { type: Boolean, default: false },
 		storyUrl: { type: String },
@@ -77,16 +91,16 @@ const UserSchema = new mongoose.Schema(
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String],
 
-		
+
 
 		loginStreak: { type: Number, default: 1 },
-		bestStreak : { type: Number, default: 1 },
+		bestStreak: { type: Number, default: 1 },
 		lastLogin: {
 			type: Date,
-			default: new Date().toISOString().slice(0, 10)
+			default: new Date()
 		},
 		balance: { type: Number, default: 0 },
-		socketId: {type: String}
+		socketId: { type: String }
 	},
 	{ collection: "UserCollection" }
 );

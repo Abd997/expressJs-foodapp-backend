@@ -1,7 +1,7 @@
 const e = require("express");
-const UserCollection = require("../collections/User");
-const { BadRequestError } = require("../custom-error");
-const sendErrorResponse = require("../utils/sendErrorResponse");
+const UserCollection = require("../../collections/User");
+const { BadRequestError } = require("../../custom-error");
+const sendErrorResponse = require("../../utils/sendErrorResponse");
 
 /**
  *

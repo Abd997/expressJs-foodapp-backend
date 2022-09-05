@@ -59,6 +59,12 @@ const {
 	bookEventTicket,
 	willingToAttend,
 	updateUserPassword,
+	addUserFoodToDashboard,
+	updateUserSteps,
+	updateUserHeight,
+	updateUserWeight,
+	updateUserWater,
+	userLoginStreak,
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -74,10 +80,16 @@ route.get("/balance", bank_info.getBalance);
 
 // ============ DASHBOARD ============
 route.get("/dashboard", getUserDashboardDetails);
+route.post("/dashboard/add-food", addUserFoodToDashboard)
+route.post("/dashboard/steps", updateUserSteps)
+route.post("/dashboard/height", updateUserHeight);
+route.post("/dashboard/weight",updateUserWeight);
+route.post("/dashboard/water", updateUserWater);
+route.post("/login-streak",userLoginStreak)
 
 // ============ EXPLORE ============
 route.get("/explore", getAllExplorePost);
-route.get("/explore/type/:type", getExplorePost);
+route.get("/explore/type/:type", getExplorePost); 
 route.get("/explore/saved-posts", getUserSavedPosts);
 route.put("/explore/save-post", saveExplorePost);
 

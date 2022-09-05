@@ -39,10 +39,17 @@ module.exports = {
 	getUserDetails: require("./user/getUserDetails"),
 	addUserAvatar: require("./user/addUserAvatar"),
 	getUserAvatar: require("./user/getUserAvatar"),
-	getUserDashboardDetails: require("./getUserDashoardDetails"),
 	getUserRefreshData : require("./user/getUserRefreshData"),
 	updateUserPassword: require("./user/updatePassword"),
 
+	// =========== USER DASHBOARD ===========
+	getUserDashboardDetails: require("./user-dashboard/getUserDashoardDetails"),
+	addUserFoodToDashboard: require("./user-dashboard/addUserFood"),
+	updateUserSteps: require("./user-dashboard/updateUserSteps"),
+	updateUserHeight: require("./user-dashboard/updateUserHieght"), 
+	updateUserWeight: require("./user-dashboard/updateUserWeight"),
+	updateUserWater: require("./user-dashboard/updateUserWater"),
+	userLoginStreak: require("./user-dashboard/userLoginStreak"),
 	// =========== USER ADDRESS ===========
 	addAddress: require("./user-address/addAddress"),
 	getAddresses: require("./user-address/getAddresses"),
