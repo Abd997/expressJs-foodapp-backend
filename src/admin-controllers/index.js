@@ -3,5 +3,6 @@ module.exports = {
 	addWeeklyFoodImage: require("./addWeeklyFoodImage"),
 	authenticateAdmin: require("./getAdminAuthentication"),
 	addExplorePost: require("./addExplorePost"),
-	getAllOrders: require("./getAllOrders")
+	getAllOrders: require("./getAllOrders"),
+	deletUser: require("./deleteUser"),
 };

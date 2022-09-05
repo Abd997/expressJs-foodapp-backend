@@ -1,13 +1,20 @@
+require("dotenv").config();
 const e = require("express");
 const FoodCollection = require("../../collections/FoodCollection");
 const OrderCollection = require("../../collections/OrderCollection");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
-
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 /**
  *
  * @param {e.Request} req
  */
-const validate = async (req) => {};
+const validate = async (req) => {
+    const {  cardId } =
+		req.body;
+	if (!cardId) {
+		throw new BadRequestError("cardId  not sent");
+	}
+};
 
 /**
  *
@@ -23,7 +30,9 @@ module.exports = async (req, res) => {
             deliveryAddress,
             deliveryDate,
             deliveryMethod,
-            status
+            status,
+            cardId,
+            loggedInUser
         } = req.body;
  
         let totalCost = 0;
@@ -59,6 +68,27 @@ module.exports = async (req, res) => {
             deliveryCharges,
             status
         })
+        if (!loggedInUser.stripeCustomerId) {
+			throw new BadRequestError(
+				"Customer does not have a saved payment method"
+			);
+		}
+
+		const customer = loggedInUser.stripeCustomerId
+		
+        const paymentIntent = await stripe.paymentIntents.create({
+			payment_method: cardId,
+			customer: customer,
+			amount: `${order.totalCost}`,
+			currency: "eur",
+			confirm: "true",
+			payment_method_types: ["card"],
+			metadata: { order_id: order._id }
+		})
+		if (paymentIntent.status === "succeeded") {
+			order.paymentStatus = "completed",
+			await order.save();
+		}
 
         res.json({
             success: true,

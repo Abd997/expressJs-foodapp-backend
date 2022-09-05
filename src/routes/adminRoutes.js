@@ -10,10 +10,13 @@ const addAmbassador = require("../admin-controllers/addAmbassador");
 const { addEvent } = require("../admin-controllers/admin-event");
 const admin_food = require("../admin-controllers/admin-food");
 const admin_grocery = require("../admin-controllers/admin-grocery");
+const deleteUser = require("../admin-controllers/deleteUser");
 const multerUpload = require("../utils/multerUpload");
 const verifyAdminToken = require("../utils/verifyAdminToken");
 const route = express();
 
+// ============ USERS ============
+route.post("/users/delete",deleteUser)
 // ============ ADMIN CHAT ============
 
 // ============ FOOD REST APIS ============

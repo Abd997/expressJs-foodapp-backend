@@ -14,11 +14,44 @@ const UserSchema = new mongoose.Schema(
 		profileImageUrl: { type: String, default: "empty" },
 
 		gender: String,
-		weight: String,
+		weight: {value: {type: Number}, unit: {type: String,default: "kg",},},
 		weightGoal: String,
 		currentActivityLevel: String,
 		dateOfBirth: String,
-		height: String,
+		height: {value: {type: Number}, unit: {type: String,default: "cm",},},
+		bmi: { type: Number, default: 0 },
+		calories: [
+			{
+				name: {type: String},
+				required: {type: Number, default:0},
+				taken: {type: Number, default:0},
+			}
+		],
+		water: {
+			required: {type: Number, default:0},
+			taken: {type: Number, default:0},
+		},
+		steps: { type: Number, default: 0 },
+		food: {
+			breakfast: [
+				{
+					name : {type: String},
+					calories: {type: Number, default:0},
+				}
+			],
+			lunch:[
+				{
+					name : {type: String},
+					calories: {type: Number, default:0},
+				}
+			],
+			dinner:[
+				{
+					name : {type: String},
+					calories: {type: Number, default:0},
+				}
+			],
+		},
 
 		hasPostedStory: { type: Boolean, default: false },
 		storyUrl: { type: String },
@@ -44,28 +77,10 @@ const UserSchema = new mongoose.Schema(
 		totalReportsByOtherUsers: { type: Number, default: 0 },
 		otherBlockedUsers: [String],
 
-		dietMeasurement: [
-			{
-				caloriesRequired: {
-					type: Number,
-					required: true,
-					default: 0
-				},
-				caloriesTaken: { type: Number, required: true, default: 0 },
-				carbsRequired: { type: Number, default: 0 },
-				carbsTaken: { type: Number, default: 0 },
-				fatsRequired: { type: Number, default: 0 },
-				fatsTaken: { type: Number, default: 0 },
-				proteinRequired: { type: Number, default: 0 },
-				proteinTaken: { type: Number, default: 0 },
-				waterRequired: { type: Number, default: 0 },
-				waterTaken: { type: Number, default: 0 },
-				movementSteps: { type: Number, default: 0 },
-				bmi: { type: Number, default: 0 }
-			}
-		],
+		
 
 		loginStreak: { type: Number, default: 1 },
+		bestStreak : { type: Number, default: 1 },
 		lastLogin: {
 			type: Date,
 			default: new Date().toISOString().slice(0, 10)

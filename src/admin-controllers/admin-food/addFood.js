@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
 		}
 		const food = await FoodCollection.create({
 			name: req.body.name,
+			description: req.body.description,
 			price: req.body.price,
 			foodType: req.body.foodType,
 			weekNumber: req.body.weekNumber,

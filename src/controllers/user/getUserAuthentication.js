@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
 				lastLogin: userLastLogin
 			}
 		);
-
+ 
 		// create jwt token
 		const token = await jwt.sign(email, process.env.JWT_KEY);
 
@@ -58,17 +58,13 @@ module.exports = async (req, res) => {
 		const user_details = await UserCollection.findOne({
 			email: email
 		});
-		const dietMeasurement = user_details.dietMeasurement;
-		let dashboard = {
-			balance: user_details.balance || 0,
-			dietMeasurement: dietMeasurement,
-			loginStreak: user_details.loginStreak
-		};
+		
 
 		/* Returning the response to the client. */
 		return res.json({
 			msg: "User successfully authenticated",
 			data: {
+				id: user_details._id,
 				firstName: user_details.firstName,
 				lastName: user_details.lastName,
 				email: user_details.email,
@@ -79,7 +75,13 @@ module.exports = async (req, res) => {
 				weight: user_details.weight,
 				weightGoal: user_details.weightGoal,
 				height: user_details.height,
-				dashboard: dashboard,
+				bmi: user_details.bmi,
+				calories: user_details.calories,
+				water: user_details.water,
+				steps: user_details.steps,
+				food: user_details.food,
+				loginStreak: user_details.loginStreak,
+				bestStreak: user_details.bestStreak,
 			}
 		});
 

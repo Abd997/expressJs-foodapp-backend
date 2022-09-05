@@ -42,11 +42,14 @@ module.exports = async (req, res) => {
 
 	try {
 		const token = jwt.sign(email, process.env.JWT_KEY);
+		const user = await UserRepo.findUser(email)
+
 		return res.status(201).json({
 			msg: "New user has been added successfully",
-			email: email,
-			firstName: firstName,
-			token: token
+			id: user._id,
+			email:  user.email,
+			firstName:  user.firstName,
+			token:  token
 		});
 	} catch (err) {
 		return res.status(201).json({
