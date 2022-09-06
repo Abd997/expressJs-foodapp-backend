@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
 			cardCvc
 		} = req.body;
 
-		const customer = loggedInUser.stripeCustomerId
+		let customer = loggedInUser.stripeCustomerId
 
 		if(!customer){
 			 customer = await stripe.customers.create({
