@@ -10,6 +10,7 @@ const addAmbassador = require("../admin-controllers/addAmbassador");
 const { addEvent } = require("../admin-controllers/admin-event");
 const admin_food = require("../admin-controllers/admin-food");
 const admin_grocery = require("../admin-controllers/admin-grocery");
+const admin_stories = require("../admin-controllers/admin-stories");
 const deleteUser = require("../admin-controllers/deleteUser");
 const multerUpload = require("../utils/multerUpload");
 const verifyAdminToken = require("../utils/verifyAdminToken");
@@ -71,6 +72,12 @@ route.get("/orders", getAllOrders)
 // =========== Events ===========
 
 route.post("/addEvent", multerUpload.single("image"), addEvent)
+
+// =========== Stories ===========
+
+route.post("/story", multerUpload.single("story"),admin_stories.addStory)
+route.get("/stories", admin_stories.getStories)
+
 
 
 module.exports = route;

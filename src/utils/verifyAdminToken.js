@@ -31,6 +31,7 @@ module.exports = async (req, res, next) => {
 		req.body.email = email;
 		req.body.admin = admin;
 		req.body.adminUser = admin;
+		
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			return sendErrorResponse(res, 400, "Token is invalid");

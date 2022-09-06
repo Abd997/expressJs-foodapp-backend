@@ -24,12 +24,8 @@ module.exports = async (req, res) => {
 		if (!admin) {
 			throw new BadRequestError("Admin is not registered");
 		}
-
-        await uploadToAzure(req);
-		admin.stories.push({storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,caption: req.body.caption})
-		await admin.save();
 		res.json({
-			msg: "story has been added",
+			msg: "story has been found",
 			stories: admin.stories
 		});
 	} catch (error) {
