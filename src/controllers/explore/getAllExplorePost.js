@@ -10,9 +10,21 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  */
 module.exports = async (req, res) => {
 	try {
+		const savedExplorePosts = req.body.user.savedExplorePosts;
+
 		const posts = await ExplorePostCollection.find({});
+		
+		let savedPosts = [];
+		for(let post of posts){
+			if(savedExplorePosts.includes(post._id)){
+				savedPosts.push({post,isSaved:true})
+			}
+			else{ 
+				savedPosts.push({post,isSaved:false})
+			}
+		}
 		return res.json({
-			posts: posts
+			posts: savedPosts
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
