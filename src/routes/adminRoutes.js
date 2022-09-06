@@ -75,8 +75,11 @@ route.post("/addEvent", multerUpload.single("image"), addEvent)
 
 // =========== Stories ===========
 
-route.post("/story", multerUpload.single("story"),admin_stories.addStory)
-route.get("/stories", admin_stories.getStories)
+route.post("/story", multerUpload.single("story"),verifyAdminToken,admin_stories.addStory)
+route.get("/stories",verifyAdminToken, admin_stories.getStories)
+
+// =========== Channels =========
+route.post("/channel", multerUpload.single("cover"),verifyAdminToken, admin_stories.addChannel)
 
 
 

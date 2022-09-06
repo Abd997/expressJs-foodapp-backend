@@ -129,6 +129,9 @@ route.get("/stories", user_story.getAllUserStories);
 route.put("/story/like", user_story.updateStoryLike);
 route.post("/story/comment", user_story.postStoryComment);
 
+// =========== USER CHANNELS =================================
+
+route.post("/channel",multerUpload.single("cover"),verifyToken, user_story.addUserChannel);
 // ============ USER POST ============
 route.post(
 	"/userpost",

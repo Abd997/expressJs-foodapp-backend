@@ -66,6 +66,7 @@ module.exports = async (req, res) => {
 		
 		return res.json({
 			stories: user_details.stories,
+			channels: user_details.channels,
 			avatar: user_details.profileImageUrl,
 			name: user_details.firstName
 		});
