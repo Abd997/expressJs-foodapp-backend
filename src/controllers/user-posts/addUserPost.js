@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
 				? `https://foodappstorageaccount.blob.core.windows.net/container/${req.file.filename}`
 				: "empty",
 			description: req.body.description,
+			userProfileImage: doc.profileImageUrl,
 			title: req.body.title
 		});
 		postIds.push(newPost._id);
