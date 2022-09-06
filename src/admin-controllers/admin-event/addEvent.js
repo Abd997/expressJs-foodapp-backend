@@ -41,7 +41,6 @@ const convertToDate = (eventDate) =>{
  */
 module.exports = async (req, res) => {
     try {
-        console.log()
         await validate(req);
         await uploadToAzure(req);
 
@@ -50,7 +49,7 @@ module.exports = async (req, res) => {
         let location = {
             lat: req.body.lat, lng: req.body.lng
         }
-        const matches = eventDate.match(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?/gm)
+        const matches = req.body.eventDate.match(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?/gm)
         if(matches === null ){
             return sendErrorResponse(res, 400, 'Date format not Correct.')
         }
@@ -58,14 +57,15 @@ module.exports = async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             eventDate: eventDate ,
+            eventType: req.body.eventType,
             image: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,
             fee: parseInt(req.body.fee),
             location: location,
         };
 
 
-        await EventCollection.create(data);
-        res.send({ message: "Event has been added" });
+        const result = await EventCollection.create(data);
+        res.send({ message: "Event has been added" , data: result });
     } catch (error) {
         if (error instanceof BadRequestError) {
             return sendErrorResponse(res, error.statusCode, error.message);

@@ -8,7 +8,9 @@ const AdminSchema = new mongoose.Schema(
 		password: { type: String, required: true },
 		gender: { type: String, default: "empty" },
 		dateOfBirth: { type: String, default: "empty" },
-		socketId: {type: String}
+		socketId: {type: String},
+		stories: [{storyUrl:{type: String} , caption:{type: String}}],
+		channels: [{title:{type: String} ,coverUrl:{type: String} ,videoUrl:{type: String} , channelType:{type: String}}],
 	},
 	{ collection: "AdminCollection" }
 );

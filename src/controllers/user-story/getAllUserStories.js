@@ -19,12 +19,11 @@ module.exports = async (req, res) => {
 		let stories = [];
 		const ambassadors = await UserCollection.find({
 			isAmbassador: true,
-			hasPostedStory: true
 		});
 
 		for (let i = 0; i < ambassadors.length; i++) {
 			stories.push({
-				storyUrl: ambassadors[i].storyUrl,
+				stories: ambassadors[i].stories,
 				email: ambassadors[i].email,
 				profileImageUrl: ambassadors[i].profileImageUrl,
 				username: ambassadors[i].firstName

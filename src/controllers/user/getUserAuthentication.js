@@ -65,12 +65,12 @@ module.exports = async (req, res) => {
             if(user_details.bestStreak < user_details.loginStreak){
                 user_details.bestStreak = user_details.loginStreak;
             }
-            user_details.lastLogin.setDate(newDate.getDate());
+            user_details.lastLogin = nowDate
             await user_details.save();
         }
         else{
             user_details.loginStreak = 1;
-            user_details.lastLogin.setDate(newDate.getDate());
+            user_details.lastLogin = nowDate
             await user_details.save();
         }
 		

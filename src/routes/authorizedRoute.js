@@ -124,7 +124,7 @@ route.post(
 	user_story.addUserStory
 );
 route.get("/story/comments", user_story.getAllStoryComments);
-route.get("/story/:storyUserEmail", user_story.getUserStory);
+route.get("/story/:email", user_story.getUserStory);
 route.get("/stories", user_story.getAllUserStories);
 route.put("/story/like", user_story.updateStoryLike);
 route.post("/story/comment", user_story.postStoryComment);

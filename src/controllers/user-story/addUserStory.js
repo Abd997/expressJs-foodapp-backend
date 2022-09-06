@@ -18,18 +18,14 @@ module.exports = async function (req, res) {
 				"User is not allowed to post stories"
 			);
 		}
-		if (user.hasPostedStory) {
-			throw new BadRequestError("User has already posted a story");
-		}
+		
 		await uploadToAzure(req);
-		await UserCollection.updateOne(
-			{ email: user.email },
-			{
-				hasPostedStory: true,
-				storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`
-			}
+		const user_details = await UserCollection.findOne(
+			{ email: user.email }
 		);
-		res.json({ msg: "Story uploaded successfully" });
+		user_details.stories.push({storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,caption: req.body.caption})
+		await user_details.save();
+		res.json({ msg: "Story uploaded successfully" ,stories: user_details.stories});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

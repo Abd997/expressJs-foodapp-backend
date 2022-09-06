@@ -75,7 +75,8 @@ const UserSchema = new mongoose.Schema(
 				commentText: String
 			}
 		],
-
+		stories: [{storyUrl:{type: String} , caption:{type: String}, date: {type:Date, default: Date.now()}}],
+		channels: [{title:{type: String} ,coverUrl:{type: String} ,videoUrl:{type: String} , channelType:{type: String},date: {type:Date, default: Date.now()}}],
 		postIds: [],
 		favouriteFoodIds: [mongoose.Schema.Types.ObjectId],
 		groceries: [

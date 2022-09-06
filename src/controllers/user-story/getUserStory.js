@@ -55,21 +55,19 @@ const validate = async (req) => {
  */
 module.exports = async (req, res) => {
 	try {
-		await validate(req);
-		const { storyUserEmail } = req.params;
-		const user = await UserCollection.findOne({
-			email: storyUserEmail
+		// await validate(req);
+		const { email } = req.params;
+		const user_details = await UserCollection.findOne({
+			email: email,
 		});
-		if (!user) {
-			throw new BadRequestError("Story user does not exist");
+		if (!user_details) {
+			throw new BadRequestError("user does not exist");
 		}
-		if (!user.hasPostedStory) {
-			throw new BadRequestError("User has not posted any story");
-		}
+		
 		return res.json({
-			storyUrl: user.storyUrl,
-			avatar: user.profileImageUrl,
-			name: user.firstName
+			stories: user_details.stories,
+			avatar: user_details.profileImageUrl,
+			name: user_details.firstName
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
