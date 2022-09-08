@@ -52,7 +52,6 @@ module.exports = async (req, res) => {
 				});
 			})
 
-
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);
