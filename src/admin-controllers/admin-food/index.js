@@ -3,5 +3,4 @@ const admin_food = {
 	addIngredient: require("./addIngredient"),
 	getIngredients: require("./getIngredients"),
 };
-
 module.exports = admin_food;
