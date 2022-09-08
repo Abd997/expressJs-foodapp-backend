@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
 
         for(let x of nutritions){
             for(let y of user_details.nutritions){
-                if(x.name == y.name){
+                if(x.name.toLowerCase() == y.name.toLowerCase()){
                     y.taken += x.value;
                 }
             }

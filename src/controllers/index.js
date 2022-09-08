@@ -25,6 +25,8 @@ module.exports = {
 	updateFavouriteFood: require("./food/updateFavouriteFood"),
 	updateMealLike: require("./food/updateMealLike"),
 	getWeeklyFoodTypes: require("./getWeeklyFoodTypes"),
+	getFoodByName: require("./food/getFoodByName"),
+	
 
 	// =========== GROCERY ===========
 	addGroceries: require("./grocery/addGroceries"),
@@ -41,6 +43,7 @@ module.exports = {
 	getUserAvatar: require("./user/getUserAvatar"),
 	getUserRefreshData : require("./user/getUserRefreshData"),
 	updateUserPassword: require("./user/updatePassword"),
+	deleteUser: require("./user/deleteUser"),
 
 	// =========== USER DASHBOARD ===========
 	getUserDashboardDetails: require("./user-dashboard/getUserDashoardDetails"),
@@ -50,6 +53,7 @@ module.exports = {
 	updateUserWeight: require("./user-dashboard/updateUserWeight"),
 	updateUserWater: require("./user-dashboard/updateUserWater"),
 	userLoginStreak: require("./user-dashboard/userLoginStreak"),
+	addUserFoodById: require("./user-dashboard/addUserFoodById"),
 	// =========== USER ADDRESS ===========
 	addAddress: require("./user-address/addAddress"),
 	getAddresses: require("./user-address/getAddresses"),

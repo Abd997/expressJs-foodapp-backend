@@ -65,6 +65,9 @@ const {
 	updateUserWeight,
 	updateUserWater,
 	userLoginStreak,
+	deleteUser,
+	getFoodByName,
+	addUserFoodById
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -85,7 +88,8 @@ route.post("/dashboard/steps", updateUserSteps)
 route.post("/dashboard/height", updateUserHeight);
 route.post("/dashboard/weight",updateUserWeight);
 route.post("/dashboard/water", updateUserWater);
-route.post("/login-streak",userLoginStreak)
+route.post("/login-streak",userLoginStreak);
+route.post('/dashboard/user-food-id',addUserFoodById)
 
 // ============ EXPLORE ============
 route.get("/explore", getAllExplorePost);
@@ -150,6 +154,7 @@ route.get("/userpost/comment/:commentId", getUserComment);
 // ============ DETAILS ============
 route.put("/user", updateUser);
 route.get("/user", getUserDetails);
+route.delete("/user-account/delete", deleteUser);
 
 // ============ GROCERIES ============
 route.post("/groceries", addGroceries);
@@ -161,6 +166,7 @@ route.post("/grocery", addGrocery);
 route.put("/favouritefood", updateFavouriteFood);
 route.get("/favouritefoods", getFavouriteFoods);
 route.get("/all-food", getAllFoods)
+route.get("/food/:name",getFoodByName)
 
 // ============ ADDRESSES ============
 route.get("/addresses", getAddresses);

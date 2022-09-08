@@ -14,14 +14,10 @@ module.exports = async (req, res) => {
 		const { loggedInUser } = req.body;
         const { user } = req.body;
 
-		const dietMeasurement = user.dietMeasurement;
-		let dashboard = {
-			balance: user.balance || 0,
-			dietMeasurement: dietMeasurement,
-			loginStreak: user.loginStreak
-		};
+		
 		res.json({
-			data: {
+			data: { 
+				id: loggedInUser._id,
 				firstName: loggedInUser.firstName,
 				lastName: loggedInUser.lastName,
 				email: loggedInUser.email,
@@ -31,7 +27,14 @@ module.exports = async (req, res) => {
 				weight: loggedInUser.weight,
 				weightGoal: loggedInUser.weightGoal,
 				height: loggedInUser.height,
-                dashboard: dashboard,
+				bmi: loggedInUser.bmi,
+				calories: loggedInUser.calories,
+				water: loggedInUser.water,
+				steps: loggedInUser.steps,
+				food: loggedInUser.food,
+				loginStreak: loggedInUser.loginStreak,
+				bestStreak: loggedInUser.bestStreak,
+				nutritions: loggedInUser.nutritions, 
 			}
 		});
 	} catch (error) {

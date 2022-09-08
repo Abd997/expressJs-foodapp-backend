@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
 			foodType: req.body.foodType,
 			weekNumber: req.body.weekNumber,
 			tags: req.body.tags,
-			facts: req.body.facts,
+			nutritions: req.body.nutritions,
 			itemQuantity: req.body.itemQuantity,
 			ingredients: req.body.ingredients
 		});

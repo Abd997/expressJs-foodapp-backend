@@ -26,10 +26,11 @@ const FoodSchema = new mongoose.Schema(
 			required: true,
 			default: new Date().getWeekNumber()
 		},
-		facts: [
+		nutritions: [
 			{
 				fact: String,
-				value: String
+				value: Number,
+				unit: { type: String, default: "g", }
 			}
 		],
 		customMeal: {

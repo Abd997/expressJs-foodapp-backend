@@ -36,9 +36,11 @@ module.exports = async (req, res) => {
         } = req.body;
  
         let totalCost = 0;
-
         for(let order of orderDetails){
             const product = await FoodCollection.findById(order.orderItem);
+            if (!product) {
+                return sendErrorResponse(res, 500, `product not found.please give the correct order id:${order.orderItem} `);
+            }
             if(product.quantity - order.quantity < 0){
                 return sendErrorResponse(res, 200, `${product.name} is out of stock`)
             }
