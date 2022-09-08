@@ -27,7 +27,6 @@ module.exports = async (req, res, next) => {
 	}
 
 	try {
-		
 		const userEmail = await jwt.verify(token, process.env.JWT_KEY);
 		const user = await UserCollection.findOne({
 			email: userEmail
