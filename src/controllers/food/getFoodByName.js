@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
 			data: data
 		};
 
-		axios(config)
+		await axios(config)
 			.then(function (response) {
 				console.log(response.data.foods);
 				let food = [];
