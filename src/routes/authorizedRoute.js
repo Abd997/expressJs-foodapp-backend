@@ -67,7 +67,8 @@ const {
 	userLoginStreak,
 	deleteUser,
 	getFoodByName,
-	addUserFoodById
+	addUserFoodById,
+	bmiAndNutritionCalculator
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -90,6 +91,7 @@ route.post("/dashboard/weight",updateUserWeight);
 route.post("/dashboard/water", updateUserWater);
 route.post("/login-streak",userLoginStreak);
 route.post('/dashboard/user-food-id',addUserFoodById)
+route.post("/dashboard/calculator", bmiAndNutritionCalculator)
 
 // ============ EXPLORE ============
 route.get("/explore", getAllExplorePost);
