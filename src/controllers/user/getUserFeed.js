@@ -31,6 +31,9 @@ module.exports = async (req, res) => {
 			let postUser = await UserCollection.findOne({
 				email: data[i].email
 			});
+			if(!postUser) {
+				continue;
+			}
 			feedPosts.push({
 				id: data[i]._id,
 				title: data[i].title,

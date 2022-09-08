@@ -20,27 +20,35 @@ module.exports = async (req, res) => {
 
 		/** @type {Array} */
 		let explorePosts = user.savedExplorePosts;
-		const postExists = explorePosts.find((e) =>
-			e.equals(explorePostId)
-		);
+		
+		let postExists = false;
+		for(let postids of explorePosts){
+			if(postids == explorePostId){
+				postExists = true;
+			}
+		}
+
+		console.log(postExists)
 		if (!postExists) {
 			explorePosts.push(explorePostId);
 			await UserCollection.updateOne(
 				{ email: email },
-				{
+				{ 
 					savedExplorePosts: explorePosts
-				}
+				} 
 			);
 			return res.json({ msg: "Explore post has been saved" });
 		} else {
-			const ind = explorePosts.findIndex((e) =>
-				e.equals(explorePostId)
-			);
-			explorePosts.splice(ind, 1);
+			const ind = []
+			for(let postids of explorePosts){
+				if(postids != explorePostId){
+					ind.push(postids);
+				}
+			}
 			await UserCollection.updateOne(
 				{ email: email },
 				{
-					savedExplorePosts: explorePosts
+					savedExplorePosts: ind
 				}
 			);
 			return res.json({ msg: "Explore post has been unsaved" });
