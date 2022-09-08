@@ -122,8 +122,6 @@ module.exports = async (req, res) => {
         res.json({ success: true, data: [user_details.nutritions, user_details.bmi] })
 
 
-
-
     } catch (error) {
         if (error instanceof BadRequestError) {
             return sendErrorResponse(res, error.statusCode, error.message);
