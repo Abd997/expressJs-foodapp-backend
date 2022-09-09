@@ -33,8 +33,9 @@ module.exports = {
 	getAllGroceries: require("./grocery/getAllGroceries"),
 	addGrocery: require("./grocery/addGrocery"),
 	getUserGroceries: require("./grocery/getUserGroceries"),
+	deleteUserGroceries: require("./grocery/deleteGrocery"),
 
-	// =========== USER ===========
+	// =========== USER =========== 
 	addUser: require("./user/addUser"),
 	getFeed: require("./user/getUserFeed"),
 	getUserAuthentication: require("./user/getUserAuthentication"),
