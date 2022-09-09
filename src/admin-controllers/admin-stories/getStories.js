@@ -10,7 +10,7 @@ require("dotenv").config();
 module.exports = async (req, res) => {
 	try {
         const {email} = req.body;
-		const admin = await AdminCollection.findOne({ email: email });
+		const admin = await AdminCollection.findOne({ email: email }).populate("stories")
 		if (!admin) {
 			throw new BadRequestError("Admin is not registered");
 		}

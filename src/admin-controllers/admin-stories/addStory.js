@@ -1,6 +1,7 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
 const AdminCollection = require("../../collections/Admin");
+const StoryCollection = require("../../collections/Story");
 const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 const uploadToAzure = require("../../utils/uploadToAzure");
@@ -9,15 +10,37 @@ require("dotenv").config();
 
 module.exports = async (req, res) => {
 	try {
-		const {email} = req.body;
+		const { email } = req.body;
 		const admin = await AdminCollection.findOne({ email: email });
 		if (!admin) {
 			throw new BadRequestError("Admin is not registered");
 		}
+		await uploadToAzure(req);
 
-        await uploadToAzure(req);
-		admin.stories.push({storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,caption: req.body.caption})
-		await admin.save();
+		if (req.body.caption) {
+			const story = await StoryCollection.create({ storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`, caption: req.body.caption })
+			console.log(story);
+			if (!admin.stories) {
+				admin.stories = [story["_id"]];
+			}
+			else {
+				admin.stories.unshift(story["_id"])
+			}
+			await admin.save();
+		}
+		else {
+			const story = await StoryCollection.create({ storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}` })
+			console.log(story);
+			if (!admin.stories) {
+				admin.stories = [story["_id"]];
+			}
+			else {
+				admin.stories.unshift(story["_id"])
+			}
+			await admin.save();
+		}
+
+
 		res.json({
 			msg: "story has been added",
 			stories: admin.stories

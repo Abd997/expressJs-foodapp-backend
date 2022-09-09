@@ -9,7 +9,7 @@ const AdminSchema = new mongoose.Schema(
 		gender: { type: String, default: "empty" },
 		dateOfBirth: { type: String, default: "empty" },
 		socketId: { type: String },
-		stories: [{ storyUrl: { type: String }, caption: { type: String }, date: { type: Date, default: Date.now() }}],
+		stories: [{ type: mongoose.Schema.Types.ObjectId, ref: "StoryCollection" }],
 		channels: [{ title: { type: String }, coverUrl: { type: String }, videoUrl: { type: String }, channelType: { type: String }, date: { type: Date, default: Date.now() } }],
 	},
 	{ collection: "AdminCollection" }
