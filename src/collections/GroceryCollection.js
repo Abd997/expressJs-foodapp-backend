@@ -6,6 +6,14 @@ const GrocerySchema = new mongoose.Schema(
 		price: { type: Number, required: true, default: 11 },
 		priceInCents: { type: Number, required: true, default: 11_000 },
 		quantityInInventory: { type: Number, required: true, default: 0 },
+		ingredients: [
+			{
+				name: String,
+				marked: Boolean,
+				unit: String,
+				quantity: Number,
+			} 
+		],
 		description: { type: String, default: "empty" },
 		dateCreated: { type: Date, default: Date.now() }
 	},

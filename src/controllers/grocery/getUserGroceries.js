@@ -1,4 +1,6 @@
 const e = require("express");
+const UserCollection = require("../../collections/User");
+const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
 /**
@@ -15,10 +17,10 @@ const validate = async (req) => {};
 module.exports = async (req, res) => {
 	try {
 		const { user } = req.body;
-		const groceries = user.groceries;
-		return res.json({
-			groceries: groceries
-		});
+		const user_details = await UserCollection.find({email: user.email}).select("groceries").populate("groceries")
+		return res.json(
+			user_details
+		);
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

@@ -63,7 +63,7 @@ route.get("/list/food.html", async (req, res) => {
 
 route.get("/list/grocery.html", admin_grocery.listGrocery);
 
-route.post("/grocery", admin_grocery.addGrocery);
+// route.post("/grocery", admin_grocery.addGrocery);
 
 // =========== ORDERS ===========
 

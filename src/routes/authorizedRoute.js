@@ -90,7 +90,7 @@ route.post("/dashboard/height", updateUserHeight);
 route.post("/dashboard/weight",updateUserWeight);
 route.post("/dashboard/water", updateUserWater);
 route.post("/login-streak",userLoginStreak);
-route.post('/dashboard/user-food-id',addUserFoodById)
+route.post('/dashboard/user-food',addUserFoodById)
 route.post("/dashboard/calculator", bmiAndNutritionCalculator)
 
 // ============ EXPLORE ============

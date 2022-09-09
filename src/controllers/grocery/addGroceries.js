@@ -1,10 +1,29 @@
 const e = require("express");
+const GroceryCollection = require("../../collections/GroceryCollection");
+const UserCollection = require("../../collections/User");
+const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
 const validate = async (req) => {
-	const { groceryId } = req.body;
-	if (!groceryId) {
-		throw new Error("Grocery id not sent");
+	const {  name, price, priceInCents, quantityInInventory, description, ingredients } = req.body;
+	if (!name || typeof name !== "string") {
+		throw new BadRequestError("Grocery name is not valid");
+	} else if (!price || typeof price !== "number") {
+		throw new BadRequestError("Grocery price is not valid");
+	} else if (
+		!quantityInInventory ||
+		typeof quantityInInventory !== "number"
+	) {
+		throw new BadRequestError("Quantity in inventory is not valid");
+	}
+	else if(!description || typeof description !== "string"){
+		throw new BadRequestError("Description is not valid");
+	}
+	else if(!ingredients){
+		throw new BadRequestError("Ingredients is not valid");
+	}
+	else if(!priceInCents){
+		throw new BadRequestError("priceInCents is not valid");
 	}
 };
 
@@ -15,10 +34,28 @@ const validate = async (req) => {
  */
 module.exports = async (req, res) => {
 	try {
-		const { email, groceryId } = req.body;
-
-		return res.json({ msg: "Grocery has been added" });
+		await validate(req);
+		const { user, name, price, priceInCents, quantityInInventory, description, ingredients } =
+			req.body;
+		const data = await GroceryCollection.create({
+			name: name,
+			price: price,
+			priceInCents: priceInCents * 100,
+			quantityInInventory: quantityInInventory,
+			description: description,
+			ingredients: ingredients
+		});
+		const user_details = await UserCollection.findOne({ email: user.email });
+		user_details.groceries.push(data._id)
+		await user_details.save();
+		res.json({
+			msg: "Groceries have been added",
+			data: data
+		});
 	} catch (error) {
-		sendErrorResponse(res, 500, error.message);
+		if (error instanceof BadRequestError) {
+			return sendErrorResponse(res, error.statusCode, error.message);
+		}
+		return sendErrorResponse(res, 500, error.message);
 	}
 };

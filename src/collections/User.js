@@ -42,24 +42,28 @@ const UserSchema = new mongoose.Schema(
 				breakfast: [
 					{
 						name: { type: String },
+						quantity: { type: Number, default: 0 },
 						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}],
 					}
 				],
 				lunch: [
 					{
 						name: { type: String },
+						quantity: { type: Number, default: 0 },
 						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
 					}
 				],
 				dinner: [
 					{
 						name: { type: String },
+						quantity: { type: Number, default: 0 },
 						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
 					}
 				],
 				snacks: [
 					{
 						name: { type: String },
+						quantity: { type: Number, default: 0 },
 						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
 					}
 				],
@@ -81,8 +85,8 @@ const UserSchema = new mongoose.Schema(
 		favouriteFoodIds: [mongoose.Schema.Types.ObjectId],
 		groceries: [
 			{
-				groceryId: mongoose.Schema.Types.ObjectId,
-				quantity: Number
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "GroceryCollection"
 			}
 		],
 

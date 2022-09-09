@@ -92,7 +92,7 @@ module.exports = async (req, res) => {
                 "taken": 0,
                 "unit": "g",
             }, {
-                "name": "carbohydrate",
+                "name": "carbs",
                 "required": required_carbohydrates,
                 "taken": 0,
                 "unit": "g",

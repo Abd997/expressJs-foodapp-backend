@@ -20,6 +20,24 @@ const validate = async (req) => {
 	// 	throw new Error("Description not valid");
 	// }
 };
+const stringToBoolean = (stringValue) => {
+    switch(stringValue?.toLowerCase()?.trim()){
+        case "true": 
+        case "yes": 
+        case "1": 
+          return true;
+
+        case "false": 
+        case "no": 
+        case "0": 
+        case null: 
+        case undefined:
+          return false;
+
+        default: 
+          return JSON.parse(stringValue);
+    }
+}
 /**
  *
  * @param {e.Request} req
@@ -38,7 +56,7 @@ module.exports = async (req, res) => {
 			recipeSteps = recipeSteps.split('|');
 
 			ingredients = ingredients.split(',').map(item => {
-				return { name: item.split('-')[0], quantity: item.split("-")[1] };
+				return { name: item.split('-')[0], quantity: item.split("-")[1], unit: item.split('-')[2], marked: stringToBoolean(item.split('-')[3]) };
 			});
 		}
 

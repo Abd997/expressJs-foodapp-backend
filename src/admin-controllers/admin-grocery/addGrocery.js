@@ -8,16 +8,25 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  * @param {e.Request} req
  */
 const validate = async (req) => {
-	const { groceryName, groceryPrice, groceryQuantity } = req.body;
-	if (!groceryName || typeof groceryName !== "string") {
+	const {  name, price, priceInCents, quantityInInventory, description, ingredients } = req.body;
+	if (!name || typeof name !== "string") {
 		throw new BadRequestError("Grocery name is not valid");
-	} else if (!groceryPrice || typeof groceryPrice !== "number") {
+	} else if (!price || typeof price !== "number") {
 		throw new BadRequestError("Grocery price is not valid");
 	} else if (
-		!groceryQuantity ||
-		typeof groceryQuantity !== "number"
+		!quantityInInventory ||
+		typeof quantityInInventory !== "number"
 	) {
-		throw new BadRequestError("Grocery quantity is not valid");
+		throw new BadRequestError("Quantity in inventory is not valid");
+	}
+	else if(!description || typeof description !== "string"){
+		throw new BadRequestError("Description is not valid");
+	}
+	else if(!ingredients){
+		throw new BadRequestError("Ingredients is not valid");
+	}
+	else if(!priceInCents){
+		throw new BadRequestError("priceInCents is not valid");
 	}
 };
 
@@ -29,16 +38,19 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		await validate(req);
-		const { adminUser, groceryName, groceryPrice, groceryQuantity } =
+		const { adminUser, name, price, priceInCents, quantityInInventory, description, ingredients } =
 			req.body;
-		await GroceryCollection.create({
-			name: groceryName,
-			price: groceryPrice,
-			priceInCents: groceryPrice * 100,
-			quantityInInventory: groceryQuantity
+		const data = await GroceryCollection.create({
+			name: name,
+			price: price,
+			priceInCents: priceInCents * 100,
+			quantityInInventory: quantityInInventory,
+			description: description,
+			ingredients: ingredients
 		});
 		res.json({
-			msg: "Groceries have been added"
+			msg: "Groceries have been added",
+			data: data
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
