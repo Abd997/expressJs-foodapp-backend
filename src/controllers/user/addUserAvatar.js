@@ -20,7 +20,8 @@ module.exports = async (req, res) => {
 			}
 		);
 		return res.json({
-			msg: "User avatar has been updated"
+			msg: "User avatar has been updated",
+			image: await UserCollection.findOne({ email: email }).select("profileImageUrl"),
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
