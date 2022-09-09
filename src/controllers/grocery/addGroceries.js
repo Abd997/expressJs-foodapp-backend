@@ -5,26 +5,21 @@ const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 
 const validate = async (req) => {
-	const {  name, price, priceInCents, quantityInInventory, description, ingredients } = req.body;
-	if (!name || typeof name !== "string") {
-		throw new BadRequestError("Grocery name is not valid");
-	} else if (!price || typeof price !== "number") {
-		throw new BadRequestError("Grocery price is not valid");
-	} else if (
-		!quantityInInventory ||
-		typeof quantityInInventory !== "number"
-	) {
-		throw new BadRequestError("Quantity in inventory is not valid");
+	const { ingredients } = req.body;
+	for (let ingredient of ingredients) {
+		if (!ingredient.name || typeof ingredient.name !== "string") {
+			throw new BadRequestError("Grocery name is not valid");
+		} else if (!ingredient.marked || typeof !ingredient.marked !== "boolean") {
+			throw new BadRequestError("Grocery marked is not valid");
+		}else if (!ingredient.unit || typeof ingredient.unit !== "string") {
+			throw new BadRequestError("Grocery unit is not valid");
+		}else if (
+			!ingredient.quantity || typeof ingredient.quantity !== "number"
+		) {
+			throw new BadRequestError("Quantity in inventory is not valid");
+		}
 	}
-	else if(!description || typeof description !== "string"){
-		throw new BadRequestError("Description is not valid");
-	}
-	else if(!ingredients){
-		throw new BadRequestError("Ingredients is not valid");
-	}
-	else if(!priceInCents){
-		throw new BadRequestError("priceInCents is not valid");
-	}
+	
 };
 
 /**
@@ -35,22 +30,25 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		await validate(req);
-		const { user, name, price, priceInCents, quantityInInventory, description, ingredients } =
+		const { user, ingredients } =
 			req.body;
-		const data = await GroceryCollection.create({
-			name: name,
-			price: price,
-			priceInCents: priceInCents * 100,
-			quantityInInventory: quantityInInventory,
-			description: description,
-			ingredients: ingredients
-		});
+
+		const groceries = []
 		const user_details = await UserCollection.findOne({ email: user.email });
-		user_details.groceries.push(data._id)
+		for (let grocery of ingredients) {
+			const data = await GroceryCollection.create({
+				name: grocery.name,
+				marked: grocery.marked,
+				unit: grocery.unit,
+				quantity: grocery.quantity,
+			});
+			user_details.groceries.push(data._id)
+			groceries.push(data)
+		}
 		await user_details.save();
 		res.json({
 			msg: "Groceries have been added",
-			data: data
+			data: groceries
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

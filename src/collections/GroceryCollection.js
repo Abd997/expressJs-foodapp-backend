@@ -2,19 +2,11 @@ const mongoose = require("mongoose");
 
 const GrocerySchema = new mongoose.Schema(
 	{
-		name: { type: String, required: true },
-		price: { type: Number, required: true, default: 11 },
-		priceInCents: { type: Number, required: true, default: 11_000 },
-		quantityInInventory: { type: Number, required: true, default: 0 },
-		ingredients: [
-			{
-				name: String,
-				marked: Boolean,
-				unit: String,
-				quantity: Number,
-			} 
-		],
-		description: { type: String, default: "empty" },
+
+		name: String,
+		marked: Boolean,
+		unit: String,
+		quantity: Number,
 		dateCreated: { type: Date, default: Date.now() }
 	},
 	{ collection: "GroceryCollection" }

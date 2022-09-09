@@ -56,10 +56,10 @@ module.exports = async (req, res) => {
 			recipeSteps = recipeSteps.split('|');
 
 			ingredients = ingredients.split(',').map(item => {
-				return { name: item.split('-')[0], quantity: item.split("-")[1], unit: item.split('-')[2], marked: stringToBoolean(item.split('-')[3]) };
+				return { name: item.split('-')[0], quantity: item.split("-")[1], unit: item.split('-')[2], marked: stringToBoolean(item.split('-')[3]), visible:  stringToBoolean(item.split('-')[4])};
 			});
 		}
-
+		
 		const imageUrl =
 			"https://foodappstorageaccount.blob.core.windows.net/container/" +
 			req.file.filename

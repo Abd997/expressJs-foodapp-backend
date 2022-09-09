@@ -15,7 +15,7 @@ const ExplorePostSchema = new mongoose.Schema(
 			}
 		],
 		recipeSteps: [{ type: String}],
-		ingredients: [{ name: String, quantity: String, unit:String, marked: Boolean}]
+		ingredients: [{ name: String, quantity: String, unit:String, marked: Boolean, visible: {type: Boolean, default: true}}]
 	},
 	{ collection: "ExplorePostCollection" }
 );
