@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
 
 		res.json({
 			msg: "story has been added",
-			stories: admin.stories
+			stories:  await AdminCollection.findOne({ email: email }).populate("stories")
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
