@@ -7,7 +7,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  * @param {e.Request} req
  */
 const validate = async (req) => {
-	const { addressId } = req.body;
+	const { addressId } = req.params;
 	if (!addressId) {
 		throw new Error("AddressId not sent");
 	}
@@ -21,7 +21,7 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		await validate(req);
-		const { addressId } = req.body;
+		const { addressId } = req.params;
 		await AddressCollection.findByIdAndRemove(addressId);
 		return res.json({
 			msg: "Address deleted"

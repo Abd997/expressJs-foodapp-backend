@@ -15,7 +15,7 @@ const validate = async (req) => {};
 module.exports = async (req, res) => {
 	try {
 		const userId = req.body.user._id;
-		const order = await OrderCollection.find({userId: userId}).where({"status":{$ne:"delivered"}})
+		const order = await OrderCollection.find({userId: userId}).where({"status":{$ne:"delivered"}}).populate({path: "orderDetails.orderItem", select:"name imageURL"})
 		res.json({
 			success: true,
 			data:order

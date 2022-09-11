@@ -54,8 +54,9 @@ module.exports = async (req, res) => {
             totalCost = totalCost + deliveryCharges
         }
         const matches = deliveryDate.match(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z?/gm)
-        if(matches ===null ){
-            return sendErrorResponse(res, 400, 'Date format not Correct.')
+        
+        if(!matches ){
+            return sendErrorResponse(res, 400, 'Date format not Correct. yyyy-mm-ddThh:mm:ssZ')
         }
         let deliverydate = new Date(deliveryDate); 
         

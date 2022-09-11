@@ -174,7 +174,7 @@ route.get("/food/:name",getFoodByName)
 // ============ ADDRESSES ============
 route.get("/addresses", getAddresses);
 route.post("/address", addAddress);
-route.delete("/address", removeAddress);
+route.delete("/address/:addressId", removeAddress);
 route.put("/address", updateAddress);
 
 // ============ FEEDBACK ============
