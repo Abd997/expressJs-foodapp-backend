@@ -19,10 +19,10 @@ module.exports = async (req, res) => {
 		const { email, user, explorePostId } = req.body;
 
 		/** @type {Array} */
-		let explorePosts = user.savedExplorePosts;
+		let user_details = await UserCollection.findOne({ email: email });
 		
 		let postExists = false;
-		for(let postids of explorePosts){
+		for(let postids of user_details.savedExplorePosts){
 			if(postids == explorePostId){
 				postExists = true;
 			}
@@ -30,27 +30,18 @@ module.exports = async (req, res) => {
 
 		console.log(postExists)
 		if (!postExists) {
-			explorePosts.push(explorePostId);
-			await UserCollection.updateOne(
-				{ email: email },
-				{ 
-					savedExplorePosts: explorePosts
-				} 
-			);
+			user_details.savedExplorePosts.push(explorePostId);
+			await user_details.save();
 			return res.json({ msg: "Explore post has been saved" });
 		} else {
 			const ind = []
-			for(let postids of explorePosts){
+			for(let postids of user_details.savedExplorePosts){
 				if(postids != explorePostId){
 					ind.push(postids);
 				}
 			}
-			await UserCollection.updateOne(
-				{ email: email },
-				{
-					savedExplorePosts: ind
-				}
-			);
+			user_details.savedExplorePosts = ind;
+			await user_details.save();
 			return res.json({ msg: "Explore post has been unsaved" });
 		}
 	} catch (error) {
