@@ -69,7 +69,9 @@ const {
 	getFoodByName,
 	addUserFoodById,
 	bmiAndNutritionCalculator,
-	deleteUserGroceries
+	deleteUserGroceries,
+	updateGrocery,
+
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -165,6 +167,7 @@ route.get("/available-groceries", getAllGroceries);
 route.get("/groceries", getUserGroceries);
 route.post("/grocery", addGrocery);
 route.delete("/grocery/:id", deleteUserGroceries);
+route.put("/grocery/:id", updateGrocery)
 // ============ FAVOURITE FOOD ============
 route.put("/favouritefood", updateFavouriteFood);
 route.get("/favouritefoods", getFavouriteFoods);

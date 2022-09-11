@@ -34,6 +34,7 @@ module.exports = {
 	addGrocery: require("./grocery/addGrocery"),
 	getUserGroceries: require("./grocery/getUserGroceries"),
 	deleteUserGroceries: require("./grocery/deleteGrocery"),
+	updateGrocery: require("./grocery/updateGrocery"),
 
 	// =========== USER =========== 
 	addUser: require("./user/addUser"),
