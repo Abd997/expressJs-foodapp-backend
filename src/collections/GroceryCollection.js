@@ -7,6 +7,7 @@ const GrocerySchema = new mongoose.Schema(
 		marked: Boolean,
 		unit: String,
 		quantity: Number,
+		visible: Boolean,
 		dateCreated: { type: Date, default: Date.now() }
 	},
 	{ collection: "GroceryCollection" }

@@ -14,11 +14,11 @@ const validate = async (req) => {
         name,
         marked,
         unit,
-        quantity
+        quantity, visible
     } = req.body;
     if (!name || typeof name !== "string") {
         throw new BadRequestError("Grocery name is not valid");
-    } else if (!marked || typeof marked !== "boolean") {
+    } else if ( typeof marked !== "boolean") {
         throw new BadRequestError("Grocery marked is not valid");
     } else if (!unit || typeof unit !== "string") {
         throw new BadRequestError("Grocery unit is not valid");
@@ -26,6 +26,8 @@ const validate = async (req) => {
         !quantity || typeof quantity !== "number"
     ) {
         throw new BadRequestError("Quantity in inventory is not valid");
+    } else if ( typeof visible !== "boolean") {
+        throw new BadRequestError("Grocery visible is not valid");
     }
 
 };
@@ -42,13 +44,14 @@ module.exports = async (req, res) => {
         const { name,
             marked,
             unit,
-            quantity, user } = req.body;
+            quantity,visible, user } = req.body;
         if (user.groceries.includes(groceryId)) {
             const grocery = await GroceryCollection.findById({ _id: groceryId });
             grocery.name = name;
             grocery.unit = unit;
             grocery.quantity = quantity;
             grocery.marked = marked;
+            grocery.visible = visible;
             await grocery.save();
             if (!grocery) {
                 throw new Error("Grocery does not exist");

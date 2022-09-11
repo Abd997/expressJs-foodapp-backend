@@ -9,7 +9,7 @@ const validate = async (req) => {
 	for (let ingredient of ingredients) {
 		if (!ingredient.name || typeof ingredient.name !== "string") {
 			throw new BadRequestError("Grocery name is not valid");
-		} else if (!ingredient.marked || typeof !ingredient.marked !== "boolean") {
+		} else if ( typeof !ingredient.marked !== "boolean") {
 			throw new BadRequestError("Grocery marked is not valid");
 		}else if (!ingredient.unit || typeof ingredient.unit !== "string") {
 			throw new BadRequestError("Grocery unit is not valid");
@@ -17,6 +17,9 @@ const validate = async (req) => {
 			!ingredient.quantity || typeof ingredient.quantity !== "number"
 		) {
 			throw new BadRequestError("Quantity in inventory is not valid");
+		}
+		else if (typeof ingredient.visible !== "boolean") {
+			throw new BadRequestError("Grocery visible is not valid");
 		}
 	}
 	
@@ -41,6 +44,7 @@ module.exports = async (req, res) => {
 				marked: grocery.marked,
 				unit: grocery.unit,
 				quantity: grocery.quantity,
+				visible: grocery.visible
 			});
 			user_details.groceries.push(data._id)
 			groceries.push(data)

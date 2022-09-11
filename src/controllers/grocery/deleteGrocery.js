@@ -25,12 +25,15 @@ module.exports = async (req, res) => {
 
         if (user.groceries.includes(groceryId)) {
             const data = await GroceryCollection.deleteOne({ _id: groceryId });
-            const user_details = await UserCollection.findOne({ email: user.email });
-            const groceries = [];
+            let user_details = await UserCollection.findOne({ email: user.email });
+            let groceries = [];
             for(let grocery of user_details.groceries)
             {
-                if(grocery == groceryId){
+                if(grocery== groceryId){
                     continue;
+                }
+                else{
+                    groceries.push(grocery)
                 }
             }
             user_details.groceries = groceries;
