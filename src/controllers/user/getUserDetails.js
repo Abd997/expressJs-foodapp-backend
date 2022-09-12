@@ -21,7 +21,10 @@ module.exports = async (req, res) => {
 				gender: loggedInUser.gender,
 				weight: loggedInUser.weight,
 				weightGoal: loggedInUser.weightGoal,
-				height: loggedInUser.height
+				height: loggedInUser.height,
+				age: loggedInUser.age,
+				bmi: loggedInUser.bmi,
+				nutritions: loggedInUser.nutritions,
 			}
 		});
 	} catch (error) {

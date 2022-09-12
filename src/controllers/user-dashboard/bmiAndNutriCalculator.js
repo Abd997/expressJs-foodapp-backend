@@ -18,6 +18,9 @@ module.exports = async (req, res) => {
         if ((weight.unit == "kg") && (height.unit == "meter" || height.unit == "meters")) {
             bmi = weight.value / (height.value * height.value)
         }
+        if ((weight.unit == "kg") && (height.unit == "ft" || height.unit == "feet" || height.unit == "feets")) {
+            bmi = weight.value / ((height.value* 0.3048) * (height.value* 0.3048))
+        }
         if ((weight.unit == "lb" || weight.unit == "lbs" || weight.unit == "pound" || weight.unit == "pounds") && (height.unit == "in" || height.unit == "inches")) {
             bmi = 703 * weight.value / (height.value * height.value)
         }
