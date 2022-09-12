@@ -104,12 +104,10 @@ module.exports = async (req, res) => {
 		if (error instanceof jwt.JsonWebTokenError) {
 			return sendErrorResponse(
 				res,
-				500,
-				"Could not create token for user"
-			);
+				200,{statusCode: 500, message: "Could not create token for user"});
 		} else if (error instanceof BadRequestError) {
-			return sendErrorResponse(res, 403, error.message);
+			return sendErrorResponse(res, 200,{statusCode: 403, message: error.message});
 		}
-		return sendErrorResponse(res, 500, error.message);
+		return sendErrorResponse(res, 200,{statusCode: 500, message: error.message});
 	}
 };
