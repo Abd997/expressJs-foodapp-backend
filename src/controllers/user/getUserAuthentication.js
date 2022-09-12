@@ -108,7 +108,7 @@ module.exports = async (req, res) => {
 				"Could not create token for user"
 			);
 		} else if (error instanceof BadRequestError) {
-			return sendErrorResponse(res, error.statusCode, error.message);
+			return sendErrorResponse(res, 403, error.message);
 		}
 		return sendErrorResponse(res, 500, error.message);
 	}
