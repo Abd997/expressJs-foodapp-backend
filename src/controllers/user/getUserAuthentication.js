@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
 			user.password
 		);
 		if (!validPassword) {
-			throw new BadRequestError("Password is not correct");
+			throw new BadRequestError("Authentication is not correct");
 		}
 
 		// update user last login
