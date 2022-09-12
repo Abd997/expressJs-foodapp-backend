@@ -6,6 +6,7 @@ const BadRequestError = require("../../custom-error/BadRequestError");
 const UserRepo = require("../../repo/UserRepo");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 const bcrypt = require("bcrypt");
+const AddressCollection = require("../../collections/Address");
 
 /**
  *
@@ -73,7 +74,7 @@ module.exports = async (req, res) => {
             user_details.lastLogin = nowDate
             await user_details.save();
         }
-		
+		const addresses = await AddressCollection.find({ email: email });
 		/* Returning the response to the client. */
 		return res.json({
 			msg: "User successfully authenticated",
@@ -86,6 +87,7 @@ module.exports = async (req, res) => {
 				isAmbassador: user_details.isAmbassador,
 				profileImageUrl: user_details.profileImageUrl,
 				gender: user_details.gender,
+				address: addresses,
 				weight: user_details.weight,
 				weightGoal: user_details.weightGoal,
 				height: user_details.height,
