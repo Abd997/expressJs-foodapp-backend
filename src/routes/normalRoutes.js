@@ -3,11 +3,15 @@ const { authenticateAdmin } = require("../admin-controllers");
 const {
 	addUser,
 	getUserAuthentication,
-	getFoodDetails
+	getFoodDetails,
+	forgotPassword,
 } = require("../controllers");
 
 route.post("/user/register", addUser);
 route.post("/user/login", getUserAuthentication);
+route.post("/user/forgot-password", forgotPassword)
+
+
 route.get("/food-details/:foodId", getFoodDetails);
 
 route.post("/admin/login", authenticateAdmin);

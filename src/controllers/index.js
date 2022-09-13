@@ -46,6 +46,7 @@ module.exports = {
 	getUserRefreshData : require("./user/getUserRefreshData"),
 	updateUserPassword: require("./user/updatePassword"),
 	deleteUser: require("./user/deleteUser"),
+	forgotPassword: require("./user/forgotPassword"),
 
 	// =========== USER DASHBOARD ===========
 	getUserDashboardDetails: require("./user-dashboard/getUserDashoardDetails"),
