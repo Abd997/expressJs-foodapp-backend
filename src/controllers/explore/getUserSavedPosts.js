@@ -19,7 +19,11 @@ module.exports = async (req, res) => {
 	try {
 		const { user, email } = req.body;
 		const result = await UserCollection.find({ email: email }).select("savedExplorePosts").populate("savedExplorePosts")
-		return res.json({ data: result[0]["savedExplorePosts"] });
+		let savedPosts = [];
+		for(let post of result[0]["savedExplorePosts"]){
+				savedPosts.push({post,isSaved:true})
+		}
+		return res.json({ posts: savedPosts });
 	} catch (error) {
 		return sendErrorResponse(res, 500, error.message);
 	}
