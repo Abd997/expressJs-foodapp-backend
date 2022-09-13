@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 		if (!postExists) {
 			user_details.savedExplorePosts.push(explorePostId);
 			await user_details.save();
-			return res.json({ msg: "Explore post has been saved" });
+			return res.json({ message: "Explore post has been saved" });
 		} else {
 			const ind = []
 			for(let postids of user_details.savedExplorePosts){
