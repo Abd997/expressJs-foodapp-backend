@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 		if (!postExists) {
 			user_details.savedExplorePosts.push(explorePostId);
 			await user_details.save();
-			return res.json({ msg: "Explore post has been saved",data: await UserCollection.find({ email: email }).select("savedExplorePosts").populate("savedExplorePosts") });
+			return res.json({ msg: "Explore post has been saved" });
 		} else {
 			const ind = []
 			for(let postids of user_details.savedExplorePosts){
@@ -41,8 +41,7 @@ module.exports = async (req, res) => {
 			}
 			user_details.savedExplorePosts = ind;
 			await user_details.save();
-			const result = await UserCollection.find({ email: email }).select("savedExplorePosts").populate("savedExplorePosts")
-			return res.json({ data: result[0]["savedExplorePosts"]  });
+			return res.json({message:" Explore post unsaved successfully"});
 		}
 	} catch (error) {
 		if (error instanceof BadRequestError) {

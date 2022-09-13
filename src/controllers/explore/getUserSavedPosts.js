@@ -8,7 +8,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
  *
  * @param {e.Request} req
  */
-const validate = async (req) => {};
+const validate = async (req) => { };
 
 /**
  *
@@ -18,11 +18,8 @@ const validate = async (req) => {};
 module.exports = async (req, res) => {
 	try {
 		const { user, email } = req.body;
-		const posts =  await UserCollection.find({ email: email }).select("savedExplorePosts").populate("savedExplorePosts");
-		
-		return res.json({
-			posts: posts
-		});
+		const result = await UserCollection.find({ email: email }).select("savedExplorePosts").populate("savedExplorePosts")
+		return res.json({ data: result[0]["savedExplorePosts"] });
 	} catch (error) {
 		return sendErrorResponse(res, 500, error.message);
 	}
