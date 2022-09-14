@@ -1,6 +1,7 @@
 const e = require("express");
 const UserPosts = require("../../collections/UserPosts");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
+const { androidPushNotification } = require("../../utils/sendNotification");
 
 /**
  *
@@ -12,7 +13,7 @@ const validate = async (req) => {
 		throw new Error("Post id not sent");
 	} else if (!comment) {
 		throw new Error("Comment not sent");
-	} 
+	}
 };
 
 /**
@@ -23,7 +24,7 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		await validate(req);
-		const { postId, email, comment} = req.body;
+		const { postId, email, comment } = req.body;
 		const NewComment = {
 			email: email,
 			comment: comment,
@@ -36,9 +37,15 @@ module.exports = async (req, res) => {
 		post.comments.push(NewComment);
 		await post.save();
 
-		res.json({
-			msg: "Comment added to post"
-		});
+		const postAdmin = await UserCollection.findOne({ email: post.email })
+		const adminDeviceToken = postAdmin.deviceToken;
+
+		const user = await UserCollection.findOne({ email: email });
+		const notification = await androidPushNotification(adminDeviceToken, {
+			title: user.firstName + ' ' + user.lastName,
+			body: "Has liked your post."
+		})
+		return res.json({ msg: "User Comment Added", notification: notification ? "Notification sent successfully" : "Notification not sent successfully" });
 	} catch (error) {
 		sendErrorResponse(res, 500, error.message);
 	}

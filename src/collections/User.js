@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
 		stripeCustomerId: { type: String, default: null },
 
 		isAmbassador: { type: Boolean, default: false },
-
+		deviceToken: { type: String, default: "empty"},
 		profileImageUrl: { type: String, default: "empty" },
 
 		gender: String,

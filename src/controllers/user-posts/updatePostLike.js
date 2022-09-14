@@ -3,6 +3,7 @@ const UserCollection = require("../../collections/User");
 const UserPosts = require("../../collections/UserPosts");
 const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
+const { androidPushNotification } = require("../../utils/sendNotification");
 
 /**
  * Check if a user has already liked the post
@@ -53,9 +54,17 @@ module.exports = async (req, res) => {
 				{ _id: postId },
 				{ likedBy: likedUsers, totalLikes: totalLikes }
 			);
-
 			await UserCollection.findByIdAndUpdate({_id:req.body.loggedInUser._id.toString()},{$push:{likedPosts:postId}})
-			return res.json({ msg: "User like added" });
+
+			const postAdmin = await UserCollection.findOne({email: post.email})
+			const adminDeviceToken = postAdmin.deviceToken;
+
+			const user = await UserCollection.findOne({email: email});
+			const notification = await androidPushNotification(adminDeviceToken, {
+				title: user.firstName + ' ' + user.lastName ,
+				body: "Has liked your post."
+			})
+			return res.json({ msg: "User like added", notification: notification? "Notification sent successfully": "Notification not sent successfully"});
 		}
 	} catch (error) {
 		if (error instanceof BadRequestError) {

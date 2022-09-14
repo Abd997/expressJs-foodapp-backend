@@ -47,6 +47,7 @@ module.exports = {
 	updateUserPassword: require("./user/updatePassword"),
 	deleteUser: require("./user/deleteUser"),
 	forgotPassword: require("./user/forgotPassword"),
+	addDeviceToken: require("./user/addDeviceToken"),
 
 	// =========== USER DASHBOARD ===========
 	getUserDashboardDetails: require("./user-dashboard/getUserDashoardDetails"),
