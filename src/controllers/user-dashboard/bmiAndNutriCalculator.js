@@ -70,7 +70,7 @@ module.exports = async (req, res) => {
             required_calories = bmr * 1.55;
         }
         if (exerciseType == "hard") {
-            required_calories = 1.725
+            required_calories = bmr * 1.725
         }
 
         let required_carbohydrates = required_calories / 2;
