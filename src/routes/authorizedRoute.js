@@ -71,7 +71,8 @@ const {
 	bmiAndNutritionCalculator,
 	deleteUserGroceries,
 	updateGrocery,
-	addDeviceToken
+	addDeviceToken,
+	deleteUserPost
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -149,6 +150,7 @@ route.post(
 	addUserPost
 );
 route.get("/userposts", getAllUserPosts);
+route.delete("/userpost/:postId",deleteUserPost);
 route.put("/userpost/like", updatePostLike);
 route.post("/userpost/comment", addPostComment);
 route.get("/userpost/comments/:postId", getPostComments);

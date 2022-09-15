@@ -73,6 +73,7 @@ module.exports = {
 	getPostComments: require("./user-posts/getPostComments"),
 	getUserComment: require("./user-posts/getUserComment"),
 	updatePostLike: require("./user-posts/updatePostLike"),
+	deleteUserPost: require("./user-posts/deleteUserPost"),
 
 	// =========== USER SAFETY ===========
 	reportUser: require("./user-safety/reportUser"),
