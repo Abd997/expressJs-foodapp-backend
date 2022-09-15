@@ -38,36 +38,29 @@ module.exports = async (req, res) => {
         user_details.bmi = bmi;
         await user_details.save();
         let bmr = 0;
-        if (gender == "male") {
-            if ((weight.unit == "lb") && (height.unit == "cm")) {
-                bmr = 66.47 + (6.24 * weight.value) + (12.7 * height.value * 0.393701) - (6.75 * age)
-            }
-            if ((weight.unit == "lb") && (height.unit == "ft")) {
-                bmr = 66.47 + (6.24 * weight.value) + (12.7 * height.value * 12) - (6.75 * age)
-            }
-            if ((weight.unit == "kg") && (height.unit == "cm")) {
-                bmr = 66.5 + (13.75 * weight.value) + (5.003 * height.value) - (6.75 * age)
-            }
-            if ((weight.unit == "kg") && (height.unit == "ft")) {
-                bmr = 66.5 + (13.75 * weight.value) + (5.003 * (height.value * 30.48)) - (6.75 * age)
-            }
+        let newWeight = 0;
+        let newHeight = 0;
+
+        if (weight.unit == "kg") {
+            newWeight = weight.value;
+        } else {
+            newWeight = weight.value * 0.453
         }
-        if (gender == "female") {
-            if ((weight.unit == "lb") && (height.unit == "cm")) {
-                bmr = 65.51 + (4.35 * weight.value) + (4.7 * height.value * 0.393701) - (4.7 * age)
-            }
-            if ((weight.unit == "lb") && (height.unit == "ft")) {
-                bmr = 65.51 + (4.35 * weight.value) + (4.7 * height.value * 12) - (4.7 * age)
-            }
-            if ((weight.unit == "kg") && (height.unit == "cm")) {
-                bmr = 655.1 + (9.563 * weight.value) + (1.850 * height.value) - (4.676 * age)
-            }
-            if ((weight.unit == "kg") && (height.unit == "ft")) {
-                bmr = 655.1 + (9.563 * weight.value) + (1.850 * (height.value * 30.48)) - (4.676 * age)
-            }
+
+        if (height.unit == "cm") {
+            newHeight = height.value;
+        } else {
+            newHeight = height.value * 30.48;
+        }
+        if (gender == "male") {
+            bmr = 66.5 + (13.75 * newWeight) + (5.003 * newHeight) - (6.75 * age)
+        }
+        else if (gender == "female") {
+            bmr = 655.1 + (9.563 * newWeight) + (1.850 * newHeight) - (4.676 * age)
+
         }
         let required_calories = 0;
-        if (exerciseType == "little") {
+        if (exerciseType == "low") {
             required_calories = bmr * 1.2;
         }
         if (exerciseType == "light") {
