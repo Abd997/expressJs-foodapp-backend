@@ -13,49 +13,56 @@ module.exports = async (req, res) => {
         const { user } = req.body;
         let { age, gender, height, weight, exerciseType } = req.body;
         const user_details = await UserCollection.findOne({ email: user.email });
-        console.log(user_details.age, user_details.gender, user_details.height, user_details.weight)
+
+        user_details.age = age;
+        user_details.gender = gender;
+        user_details.height = height;
+        user_details.weight = weight;
+        user_details.currentActivityLevel = exerciseType;
+        await user_details.save();
+
         let bmi = 0;
-        if ((weight.unit == "kg") && (height.unit == "meter" || height.unit == "meters")) {
+        if ((weight.unit == "kg") && (height.unit == "meter")) {
             bmi = weight.value / (height.value * height.value)
         }
-        if ((weight.unit == "kg") && (height.unit == "ft" || height.unit == "feet" || height.unit == "feets")) {
-            bmi = weight.value / ((height.value* 0.3048) * (height.value* 0.3048))
+        if ((weight.unit == "kg") && (height.unit == "ft")) {
+            bmi = weight.value / ((height.value * 0.3048) * (height.value * 0.3048))
         }
-        if ((weight.unit == "lb" || weight.unit == "lbs" || weight.unit == "pound" || weight.unit == "pounds") && (height.unit == "in" || height.unit == "inches")) {
+        if ((weight.unit == "lb") && (height.unit == "in")) {
             bmi = 703 * weight.value / (height.value * height.value)
         }
-        if ((weight.unit == "lb" || weight.unit == "lbs" || weight.unit == "pound" || weight.unit == "ft") && (height.unit == "feet" || height.unit == "feets")) {
-            height.value = parseInt(height.value.toString().split(".")[0] * 12) + parseInt(height.value.toString().split(".")[1]);
-            height.unit = "inches";
-            bmi = 703 * weight.value / (height.value * height.value)
+        if ((weight.unit == "lb") && (height.unit == "ft")) {
+            let heightValue = parseInt(height.value.toString().split(".")[0] * 12) + parseInt(height.value.toString().split(".")[1]);
+            bmi = 703 * weight.value / (heightValue * heightValue)
         }
         user_details.bmi = bmi;
         await user_details.save();
         let bmr = 0;
-        if (gender == "male" || gender == "man" || gender == "men") {
-            if ((weight.unit == "lb" || weight.unit == "lbs" || weight.unit == "pound") && (height.unit == "in" || height.unit == "inches")) {
-                bmr = 66.47 + (6.24 * weight.value) + (12.7 * height.value) - (6.75 * age)
+        if (gender == "male") {
+            if ((weight.unit == "lb") && (height.unit == "cm")) {
+                bmr = 66.47 + (6.24 * weight.value) + (12.7 * height.value * 0.393701) - (6.75 * age)
             }
-            if ((weight.unit == "kg" || weight.unit == "kilogram") && (height.unit == "meter" || height.unit == "meters")) {
-                height.value = height.value * 100;
-                height.unit = "cm";
+            if ((weight.unit == "lb") && (height.unit == "ft")) {
+                bmr = 66.47 + (6.24 * weight.value) + (12.7 * height.value * 12) - (6.75 * age)
+            }
+            if ((weight.unit == "kg") && (height.unit == "cm")) {
                 bmr = 66.5 + (13.75 * weight.value) + (5.003 * height.value) - (6.75 * age)
             }
-            if ((weight.unit == "kg" || weight.unit == "kilogram") && (height.unit == "ft" || height.unit == "feet")) {
+            if ((weight.unit == "kg") && (height.unit == "ft")) {
                 bmr = 66.5 + (13.75 * weight.value) + (5.003 * (height.value * 30.48)) - (6.75 * age)
             }
         }
-        if (gender == "female" || gender == "woman" || gender == "women") {
-            if ((weight.unit == "lb" || weight.unit == "lbs" || weight.unit == "pound") && (height.unit == "in" || height.unit == "inches")) {
-                bmr = 65.51 + (4.35 * weight.value) + (4.7 * height.value) - (4.7 * age)
+        if (gender == "female") {
+            if ((weight.unit == "lb") && (height.unit == "cm")) {
+                bmr = 65.51 + (4.35 * weight.value) + (4.7 * height.value * 0.393701) - (4.7 * age)
             }
-            if ((weight.unit == "kg" || weight.unit == "kilogram") && (height.unit == "meter" || height.unit == "meters")) {
-                height.value = height.value * 100;
-                height.unit = "cm";
+            if ((weight.unit == "lb") && (height.unit == "ft")) {
+                bmr = 65.51 + (4.35 * weight.value) + (4.7 * height.value * 12) - (4.7 * age)
+            }
+            if ((weight.unit == "kg") && (height.unit == "cm")) {
                 bmr = 655.1 + (9.563 * weight.value) + (1.850 * height.value) - (4.676 * age)
             }
-            if ((weight.unit == "kg" || weight.unit == "kilogram") && (height.unit == "ft" || height.unit == "feet")) {
-
+            if ((weight.unit == "kg") && (height.unit == "ft")) {
                 bmr = 655.1 + (9.563 * weight.value) + (1.850 * (height.value * 30.48)) - (4.676 * age)
             }
         }
@@ -80,11 +87,12 @@ module.exports = async (req, res) => {
         required_fat = required_fat / 9;
 
         let required_protein = 0;
+
         if (weight.unit == "kg") {
-            weight.value = weight.value * 2.20462;
-            weight.unit = "pound";
+            required_protein = (((weight.value * 2.20462) * 2.20462) / 20);
+            required_protein = (required_protein * 7);
         }
-        required_protein = (weight.value / 20);
+        required_protein = ((weight.value * 2.20462) / 20);
         required_protein = (required_protein * 7);
 
 

@@ -7,7 +7,6 @@ exports.androidPushNotification = async (deviceToken, messageBody) => {
         notification: {
             title: messageBody.title,
             body: messageBody.body,
-            sound: ping.aiff,
             delivery_receipt_requested: true
         },
         data: {

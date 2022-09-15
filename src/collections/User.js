@@ -14,11 +14,11 @@ const UserSchema = new mongoose.Schema(
 		profileImageUrl: { type: String, default: "empty" },
 
 		gender: String,
-		weight: { value: { type: Number, default: null }, unit: { type: String, default: "kg", }, },
+		weight: { value: { type: Number, default: 0 }, unit: { type: String, default: "kg", }, },
 		weightGoal: String,
 		currentActivityLevel: String,
 		dateOfBirth: String,
-		height: { value: { type: Number, default: null }, unit: { type: String, default: "cm", }, },
+		height: { value: { type: Number, default: 0 }, unit: { type: String, default: "cm", }, },
 		bmi: { type: Number, default: 0 },
 		nutritions: [
 			{
@@ -31,9 +31,9 @@ const UserSchema = new mongoose.Schema(
 		water: [{
 			date: {type: Date},
 			required: { type: Number, default: 7,},
-			taken: { type: Number, default: null, maxLength:7, minLength:0 },
+			taken: { type: Number, default: 0, maxLength:7, minLength:0 },
 		}],
-		steps: [{date: {type: Date, default: null}, steps: {type: Number, default: 0 }}],
+		steps: [{date: {type: Date, default: 0}, steps: {type: Number, default: 0 }}],
 		food: [
 			{
 				date: {

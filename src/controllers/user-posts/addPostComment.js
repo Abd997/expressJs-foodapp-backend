@@ -1,4 +1,5 @@
 const e = require("express");
+const UserCollection = require("../../collections/User");
 const UserPosts = require("../../collections/UserPosts");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 const { androidPushNotification } = require("../../utils/sendNotification");
