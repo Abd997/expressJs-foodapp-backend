@@ -111,7 +111,7 @@ route.get("/checkout/failure", checkoutFailure);
 route.get("/checkout/cancel", checkoutCancel);
 
 // ============ USER ============
-route.put(
+route.post(
 	"/avatar",
 	multerUpload.single("image"),
 	verifyToken,
