@@ -11,7 +11,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
 module.exports = async (req, res) => {
     try {
         const { user } = req.body;
-        let { age, gender, height, weight, exerciseType } = req.body;
+        let { age, gender, height, weight, exerciseType, weightGoal } = req.body;
         const user_details = await UserCollection.findOne({ email: user.email });
 
         user_details.age = age;
@@ -19,6 +19,7 @@ module.exports = async (req, res) => {
         user_details.height = height;
         user_details.weight = weight;
         user_details.currentActivityLevel = exerciseType;
+        user_details.weightGoal = weightGoal;
         await user_details.save();
 
         let bmi = 0;
@@ -73,6 +74,12 @@ module.exports = async (req, res) => {
             required_calories = bmr * 1.725
         }
 
+        if(weightGoal == "weightLoss"){
+            required_calories -=500;
+        }else if(weightGoal == "weightGain"){
+            required_calories +=500;
+        }
+        
         let required_carbohydrates = required_calories / 2;
         required_carbohydrates = required_carbohydrates / 4;
 
