@@ -37,11 +37,12 @@ module.exports = async (req, res) => {
 
         let totalCost = 0;
         for (let order of orderDetails) {
-            const product = await FoodCollection.findById(order.orderItem);
+            const product = await FoodCollection.findById({_id:order["orderItem"]});
             if (!product) {
-                return sendErrorResponse(res, 500, `product not found.please give the correct order id:${order.orderItem} `);
+                return sendErrorResponse(res, 500, `product not found.please give the correct order id:${order["orderItem"]} `);
             }
-            if (product.quantity - order.quantity < 0) {
+            console.log(product.itemQuantity , order["quantity"])
+            if (product.itemQuantity - order["quantity"] < 0) {
                 return sendErrorResponse(res, 200, `${product.name} is out of stock`)
             }
             await product.save();
@@ -89,11 +90,11 @@ module.exports = async (req, res) => {
                 paymentStatus: "completed"
             })
             for (let order of orderDetails) {
-                const product = await FoodCollection.findById(order.orderItem);
-                product.quantity  = product.quantity - order.quantity
+                const product = await FoodCollection.findById({_id:order["orderItem"]});
+                product.itemQuantity  = product.itemQuantity - order["quantity"]
                 await product.save();
             }
-           return res.json({
+           return res.json({ 
                 success: true,
                 message: `Order #${order._id} created`,
                 data: order,

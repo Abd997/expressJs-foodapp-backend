@@ -10,7 +10,7 @@ module.exports = (
 	message = "Bad response"
 ) => {
 	if (message.constructor === Array) {
-		return res.status(statuscode).json(message);
+		return res.status(statuscode).json({status: false, message: message});
 	}
-	return res.status(statuscode).json(message);
+	return res.status(statuscode).json({status: false, message: message});
 };
