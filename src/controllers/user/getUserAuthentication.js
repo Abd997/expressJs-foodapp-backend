@@ -34,23 +34,40 @@ module.exports = async (req, res) => {
 
 		// update user last login
 		// increment user login streak if valid
-		const currentDate = new Date().toISOString().slice(0, 10);
-		let userLastLogin = user.lastLogin;
+		
+
+
+		let currentDate = new Date();
+		currentDate.setDate(currentDate.getDate() - 1)
+		currentDate = currentDate.toISOString().slice(0, 10)
+		console.log(currentDate)
+		let userLastLogin = user.lastLogin.toISOString().slice(0, 10);
+		console.log(userLastLogin)
 		let loginStreak = user.loginStreak;
-		if (currentDate > userLastLogin) {
+		console.log(loginStreak)
+		console.log(currentDate >= userLastLogin)
+		if (currentDate == userLastLogin) {
 			loginStreak++;
 		}
-		userLastLogin = new Date().toISOString().slice(0, 10);
-
-		await UserCollection.updateOne(
-			{
-				email: email
-			},
-			{
-				loginStreak: loginStreak,
-				lastLogin: userLastLogin
-			}
-		);
+		else{
+            loginStreak = 1;
+        }
+		user.loginStreak = loginStreak;
+		user.lastLogin = new Date().toISOString().slice(0, 10);
+		await user.save()
+		if(user.bestStreak < user.loginStreak){
+			user.bestStreak = user.loginStreak;
+			await user.save()
+		}
+		// await UserCollection.updateOne(
+		// 	{
+		// 		email: email
+		// 	},
+		// 	{
+		// 		loginStreak: loginStreak,
+		// 		lastLogin: userLastLogin
+		// 	}
+		// );
  
 		// create jwt token
 		const token = await jwt.sign(email, process.env.JWT_KEY);
@@ -60,20 +77,16 @@ module.exports = async (req, res) => {
 			email: email
 		});
 		
-		const nowDate = new Date();
-        if(user_details.lastLogin.getFullYear() == nowDate.getFullYear() && user_details.lastLogin.getMonth() == nowDate.getMonth() && user_details.lastLogin.getDate() == nowDate.getDate()-1) {
-            user_details.loginStreak +=  1 ;
-            if(user_details.bestStreak < user_details.loginStreak){
-                user_details.bestStreak = user_details.loginStreak;
-            }
-            user_details.lastLogin = nowDate
-            await user_details.save();
-        }
-        else{
-            user_details.loginStreak = 1;
-            user_details.lastLogin = nowDate
-            await user_details.save();
-        }
+		// const nowDate = new Date();
+        // if(user_details.lastLogin.getFullYear() == nowDate.getFullYear() && user_details.lastLogin.getMonth() == nowDate.getMonth() && user_details.lastLogin.getDate() == nowDate.getDate()-1) {
+        //     user_details.loginStreak +=  1 ;
+        //     if(user_details.bestStreak < user_details.loginStreak){
+        //         user_details.bestStreak = user_details.loginStreak;
+        //     }
+        //     user_details.lastLogin = nowDate
+        //     await user_details.save();
+        // }
+       
 		const addresses = await AddressCollection.find({ email: email });
 		/* Returning the response to the client. */
 		return res.json({

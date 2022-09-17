@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
 			firstName: firstName,
 			lastName: lastName,
 			password: hashPassword,
-			lastLogin: new Date(),
+			lastLogin: new Date().toISOString().slice(0, 10),
 		});
 	} catch (err) {
 		return sendErrorResponse(res, 500, "Could not add user");
