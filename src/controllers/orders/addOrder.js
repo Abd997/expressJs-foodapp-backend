@@ -47,6 +47,7 @@ module.exports = async (req, res) => {
             }
             await product.save();
             totalCost += product.price * order.quantity;
+            console.log("totalCost :",totalCost);
         }
 
         if (totalCost < 90) {
@@ -71,7 +72,7 @@ module.exports = async (req, res) => {
         const paymentIntent = await stripe.paymentIntents.create({
             payment_method: cardId,
             customer: customer,
-            amount: totalCost,
+            amount: totalCost*100,
             currency: "eur",
             confirm: "true",
             payment_method_types: ["card"]

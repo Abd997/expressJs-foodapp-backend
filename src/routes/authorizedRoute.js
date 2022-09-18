@@ -164,7 +164,7 @@ route.put("/user", updateUser);
 route.get("/user", getUserDetails);
 route.post("/user/add-device-token", addDeviceToken);
 route.delete("/user-account/delete", deleteUser);
-route.put("/user/change-name",updateName)
+route.post("/user/change-name",updateName)
 
 // ============ GROCERIES ============
 route.post("/groceries", addGroceries);
