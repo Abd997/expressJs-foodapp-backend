@@ -11,9 +11,9 @@ const uploadToAzure = require("../utils/uploadToAzure");
  * @param {e.Response} res
  */
 
-const getColor = () =>{
-	const colors = ["red","orange","green","purple","black","yellow"]
-	const random = Math.floor(Math.random()*(5-0)) + 0
+const getColor = () => {
+	const colors = ["red", "orange", "green", "purple", "black", "yellow"]
+	const random = Math.floor(Math.random() * (5 - 0)) + 0
 	return colors[random];
 }
 
@@ -51,6 +51,12 @@ module.exports = async (req, res) => {
 
 		const ingredients = req.body.ingredients.split(",");
 
+		let custom = req.body.custom;
+		custom = custom.split(",");
+		custom = custom.map(element => {
+			return { name: element.split("-")[0], price: parseInt(element.split("-")[1]) };
+		});
+		
 		const data = {
 			name: req.body.name,
 			description: req.body.description,
@@ -63,14 +69,15 @@ module.exports = async (req, res) => {
 			weekNumber: req.body.weekNumber,
 			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,
 			ingredients: ingredients,
+			custom: custom
 		};
 
-		const foodTypes = ["meal","babyfood","shakes","snacks","drinks"]
-		if(!foodTypes.includes(data.foodType)){
+		const foodTypes = ["meal", "babyfood", "shakes", "snacks", "drinks"]
+		if (!foodTypes.includes(data.foodType)) {
 			return sendErrorResponse(res, 500, "Food Type is not valid.");
 		}
 		const result = await FoodCollection.create(data);
-		res.send({message:"Food has been added", data: await FoodCollection.findById({_id: result._id}).populate({path: "ingredients", select:"name imageURL"}) });
+		res.send({ message: "Food has been added", data: await FoodCollection.findById({ _id: result._id }).populate({ path: "ingredients", select: "name imageURL" }) });
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

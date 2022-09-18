@@ -33,10 +33,13 @@ const FoodSchema = new mongoose.Schema(
 				unit: { type: String, default: "g", }
 			}
 		],
-		customMeal: {
-			type: Array,
-			default: ["No carbs", "Halal", "Double veggies"]
-		},
+		custom: [
+			{
+				name: { type: String},
+				isMarked: { type: Boolean, default: false,},
+				price: { type: Number, default: 0, },
+			}
+		],
 		ingredients: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
