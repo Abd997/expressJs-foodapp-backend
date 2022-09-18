@@ -72,7 +72,8 @@ const {
 	deleteUserGroceries,
 	updateGrocery,
 	addDeviceToken,
-	deleteUserPost
+	deleteUserPost,
+	updateName
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -163,6 +164,7 @@ route.put("/user", updateUser);
 route.get("/user", getUserDetails);
 route.post("/user/add-device-token", addDeviceToken);
 route.delete("/user-account/delete", deleteUser);
+route.put("/user/change-name",updateName)
 
 // ============ GROCERIES ============
 route.post("/groceries", addGroceries);
