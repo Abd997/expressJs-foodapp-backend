@@ -113,7 +113,7 @@ module.exports = async (req, res) => {
                 "taken": 0,
                 "unit": "g",
             }, {
-                "name": "protein",
+                "name": "protien",
                 "required": required_protein,
                 "taken": 0,
                 "unit": "g",
@@ -131,7 +131,6 @@ module.exports = async (req, res) => {
         await user_details.save();
 
         res.json({ success: true, data: [user_details.nutritions, user_details.bmi] })
-
 
     } catch (error) {
         if (error instanceof BadRequestError) {
