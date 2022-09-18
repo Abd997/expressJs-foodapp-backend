@@ -23,24 +23,26 @@ module.exports = async (req, res) => {
 	try {
 		await validate(req);
 		const { postId } = req.params;
-		console.log('POST', postId);
 		const post = await UserPosts.findById({_id:postId});
+		let commentUserNotFound = 0;
 		if (!post) {
 			throw new Error("Post does not exists");
 		}
-		console.log('POST', post);
 		const postUser = await UserCollection.findOne({
 			email: post.email
 		});
 		/** @type{Array} */
 		const comments = post.comments;
 		let commentData = [];
-		console.log('POST', comments[0].email);
 		for (let i = 0; i < comments.length; i++) {
 			let comment = comments[i];
 			let commentUser = await UserCollection.findOne({
-				email: comment["email"]
+				email: comment.email
 			});
+			if (!commentUser) {
+				commentUserNotFound++;
+				continue;
+			}
 			commentData.push({
 				postId: post._id,
 				userId: commentUser._id,
@@ -51,6 +53,7 @@ module.exports = async (req, res) => {
 			});
 		}
 		return res.json({
+			commentUserNotFound: commentUserNotFound,
 			totalComments: post.totalComments,
 			comments: commentData
 		});
