@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 	const weekNumber = req.params.weekNumber;
 	const docs = await FoodCollection.find(
 		{ weekNumber: weekNumber },
-		"id name price foodType tags imageURL currency"
+		"id name price description foodType tags imageURL currency"
 	).populate({ path: "ingredients", select: "name imageURL" })
 	const userFavouriteFoodIds = req.body.user.favouriteFoodIds;
 
