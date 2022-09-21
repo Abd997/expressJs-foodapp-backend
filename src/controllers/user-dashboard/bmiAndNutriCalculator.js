@@ -119,7 +119,6 @@ module.exports = async (req, res) => {
                 "unit": "g",
             },
         ]
-
         for (let x of user_details.nutritions) {
             for (let y of nutritions) {
                 if (x.name == y.name) {
