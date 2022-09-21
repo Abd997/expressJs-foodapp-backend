@@ -129,7 +129,6 @@ module.exports = async (req, res) => {
         }
         user_details.nutritions = nutritions;
         await user_details.save();
-
         res.json({ success: true, data: [user_details.nutritions, user_details.bmi] })
 
     } catch (error) {
