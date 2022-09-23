@@ -11,11 +11,45 @@ const UserPosts = require("../../collections/UserPosts");
 module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
-		const user = req.body.loggedInUser
-		const feedPosts = await UserPosts.find(
+		let postUser = await UserCollection.findOne({
+			email: email
+		});
+		if(!postUser) {
+			return sendErrorResponse(res, 500, "User not found");
+		}
+		const user = req.body.loggedInUser;
+
+		const data = await UserPosts.find(
 			{ email: email },
-			"_id email imageUrl totalLikes totalComments dateUpdated userProfileImage firstName"
-		);
+			`
+		_id
+        title 
+        email 
+        imageUrl 
+        description 
+        totalLikes
+        totalComments 
+        dateCreated 
+        dateUpdated
+      `
+		).sort({ dateUpdated: -1 });
+
+		let feedPosts = [];
+		for (let i = 0; i < data.length; i++) {
+			
+			feedPosts.push({
+				id: data[i]._id,
+				title: data[i].title,
+				imageUrl: data[i].imageUrl,
+				email: data[i].email,
+				totalLikes: data[i].totalLikes,
+				totalComments: data[i].totalComments,
+				dateCreated: data[i].dateCreated,
+				description: data[i].description,
+				username: postUser.firstName,
+				profileImageUrl: postUser.profileImageUrl
+			});
+		}
 		let likedPosts = []
 		for(let post of feedPosts){
 			if(user.likedPosts.includes(post.id)){
