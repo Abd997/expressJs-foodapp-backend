@@ -2,6 +2,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
 const UserCollection = require("../../collections/User");
 const PostCollection = require("../../collections/UserPosts");
 const UserPosts = require("../../collections/UserPosts");
+const { BadRequestError } = require("../../custom-error");
 
 /**
  *
@@ -11,9 +12,11 @@ const UserPosts = require("../../collections/UserPosts");
 module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
-		const postUser = await UserCollection.find({}).where({email: email});
-		if(!postUser) {
-			return sendErrorResponse(res, 500, "User not found");
+		const postUser = await UserCollection.findOne({
+			email: email
+		});
+		if (!user) {
+			throw new BadRequestError(`User having email ${email} not found`);
 		}
 		const user = req.body.loggedInUser;
 
