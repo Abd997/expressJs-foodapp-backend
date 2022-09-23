@@ -11,12 +11,21 @@ const UserPosts = require("../../collections/UserPosts");
 module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
-		const posts = await UserPosts.find(
+		const user = req.body.loggedInUser
+		const feedPosts = await UserPosts.find(
 			{ email: email },
 			"_id email imageUrl totalLikes totalComments dateUpdated userProfileImage firstName"
 		);
+		let likedPosts = []
+		for(let post of feedPosts){
+			if(user.likedPosts.includes(post.id)){
+				likedPosts.push({post,isLiked:true})
+			}else{
+				likedPosts.push({post,isLiked:false})
+			}
+		}
 		return res.json({
-			posts: posts
+			posts: likedPosts
 		});
 	} catch (e) {
 		sendErrorResponse(res, 500, e.message);
