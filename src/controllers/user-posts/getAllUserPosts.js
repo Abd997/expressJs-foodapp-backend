@@ -11,9 +11,7 @@ const UserPosts = require("../../collections/UserPosts");
 module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
-		let postUser = await UserCollection.find({
-			email: email
-		});
+		const postUser = await UserCollection.find({}).where({email: email});
 		if(!postUser) {
 			return sendErrorResponse(res, 500, "User not found");
 		}
