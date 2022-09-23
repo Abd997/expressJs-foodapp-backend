@@ -150,7 +150,7 @@ route.post(
 	verifyToken,
 	addUserPost
 );
-route.post("/userposts", getAllUserPosts);
+route.get("/userposts", getAllUserPosts);
 route.delete("/userpost/:postId",deleteUserPost);
 route.put("/userpost/like", updatePostLike);
 route.post("/userpost/comment", addPostComment);

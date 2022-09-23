@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
 		const postUser = await UserCollection.findOne({
 			email: email
 		});
-		console.log(postUser)
+		
 		if (!postUser) {
 			throw new Error(`User having email ${email} not found`);
 		}
