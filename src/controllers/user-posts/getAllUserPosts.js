@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
 			email: email
 		});
 		if (!postUser) {
-			throw new BadRequestError(`User having email ${email} not found`);
+			throw new Error(`User having email ${email} not found`);
 		}
 		const user = req.body.loggedInUser;
 
