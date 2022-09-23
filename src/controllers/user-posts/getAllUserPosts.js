@@ -12,6 +12,8 @@ const { BadRequestError } = require("../../custom-error");
 module.exports = async (req, res) => {
 	try {
 		const { email } = req.body;
+		let feedPosts = [];
+		let likedPosts = []
 		const postUser = await UserCollection.findOne({
 			email: email
 		});
@@ -35,7 +37,7 @@ module.exports = async (req, res) => {
       `
 		).sort({ dateUpdated: -1 });
 
-		let feedPosts = [];
+		
 		for (let i = 0; i < data.length; i++) {
 			
 			feedPosts.push({
@@ -51,7 +53,7 @@ module.exports = async (req, res) => {
 				profileImageUrl: postUser.profileImageUrl
 			});
 		}
-		let likedPosts = []
+		
 		for(let post of feedPosts){
 			if(user.likedPosts.includes(post.id)){
 				likedPosts.push({post,isLiked:true})
