@@ -28,6 +28,9 @@ module.exports = async (req, res) => {
 		).sort({ dateUpdated: -1 });
 		let feedPosts = [];
 		for (let i = 0; i < data.length; i++) {
+			if(user.otherBlockedUsers.includes(data[i].email)){
+				continue;
+			}
 			let postUser = await UserCollection.findOne({
 				email: data[i].email
 			});
