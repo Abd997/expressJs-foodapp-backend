@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
 		isAmbassador: { type: Boolean, default: false },
 		deviceToken: { type: String, default: "empty"},
 		profileImageUrl: { type: String, default: "empty" },
-
+		age: { type: Number, default:0},
 		gender: String,
 		weight: { value: { type: Number, default: 0 }, unit: { type: String, default: "kg", }, },
 		weightGoal: String,
