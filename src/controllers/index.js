@@ -57,6 +57,7 @@ module.exports = {
 	updateUserHeight: require("./user-dashboard/updateUserHieght"), 
 	updateUserWeight: require("./user-dashboard/updateUserWeight"),
 	updateUserWater: require("./user-dashboard/updateUserWater"),
+	updateUserWeightGoal: require("./user-dashboard/updateUserWeightGoal"),
 	userLoginStreak: require("./user-dashboard/userLoginStreak"),
 	addUserFoodById: require("./user-dashboard/addUserFoodById"),
 	bmiAndNutritionCalculator: require("./user-dashboard/bmiAndNutriCalculator"),

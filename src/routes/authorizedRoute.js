@@ -73,7 +73,8 @@ const {
 	updateGrocery,
 	addDeviceToken,
 	deleteUserPost,
-	updateName
+	updateName,
+	updateUserWeightGoal
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -94,6 +95,7 @@ route.post("/dashboard/steps", updateUserSteps)
 route.post("/dashboard/height", updateUserHeight);
 route.post("/dashboard/weight",updateUserWeight);
 route.post("/dashboard/water", updateUserWater);
+route.post("/dashboard/weight-goal", updateUserWeightGoal);
 route.post("/login-streak",userLoginStreak);
 route.post('/dashboard/user-food',addUserFoodById)
 route.post("/dashboard/calculator", bmiAndNutritionCalculator)
