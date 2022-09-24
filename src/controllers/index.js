@@ -92,7 +92,6 @@ module.exports = {
 	getDiscoverDeals: require("./getDiscoverDeals"),
 	updateUser: require("./updateUser"),
 	updateUserExtraDetails: require("./updateUserExtraDetails"),
-	updateUserWeightGoal: require("./updateUserWeightGoal"),
 
 	// =========== ORDERS ===========
 
