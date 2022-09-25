@@ -1,8 +1,10 @@
 require("dotenv").config();
 const e = require("express");
 const AdminCollection = require("../../collections/Admin");
+const ChannelCollection = require("../../collections/Channel");
 const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
+const uploadMultipleToAzure = require("../../utils/uploadMultipleToAzure");
 const uploadToAzure = require("../../utils/uploadToAzure");
 
 /**
@@ -13,14 +15,15 @@ const uploadToAzure = require("../../utils/uploadToAzure");
 module.exports = async function (req, res) {
 	try {
 		const { email } = req.body;
+		await uploadMultipleToAzure(req);
 		
-		await uploadToAzure(req);
-		const admin_details = await AdminCollection.findOne(
+		const admin = await AdminCollection.findOne(
 			{ email: email }
 		);
-		admin_details.channels.push({title: req.body.title,videoUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,channelType: req.body.channelType})
-		await admin_details.save();
-		res.json({ msg: "Story uploaded successfully" ,channels: admin_details.channels});
+
+		const data = await ChannelCollection.create({username: admin.firstName+" "+admin.lastName,email: admin.email, profileImageUrl: admin.profileImageUrl,title: req.body.title, coverUrl:`${process.env.AZURE_CONTAINER_URL}/${req.files.image[0].filename}` ,videoUrl: `${process.env.AZURE_CONTAINER_URL}/${req.files.video[0].filename}`,channelType: req.body.channelType})
+		
+		res.json({ msg: "Story uploaded successfully" ,channels: data});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);

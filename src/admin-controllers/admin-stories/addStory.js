@@ -18,20 +18,18 @@ module.exports = async (req, res) => {
 		await uploadToAzure(req);
 
 		if (req.body.caption) {
-			const story = await StoryCollection.create({ storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`, caption: req.body.caption })
-			admin.stories.push(story["_id"]);
-			await admin.save();
+			const story = await StoryCollection.create({ username: admin.firstName+" "+admin.lastName,email: admin.email, profileImageUrl: admin.profileImageUrl, storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`, caption: req.body.caption })
+			
 		}
 		else {
-			const story = await StoryCollection.create({ storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}` })
-			admin.stories.push(story["_id"]);
-			await admin.save();
+			const story = await StoryCollection.create({ username: admin.firstName+" "+admin.lastName,email: admin.email, profileImageUrl: admin.profileImageUrl, storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}` })
+		
 		}
 
 
 		res.json({
 			msg: "story has been added",
-			stories:  await AdminCollection.findOne({ email: email }).populate("stories")
+			stories:  await StoryCollection.find({ email: email })
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

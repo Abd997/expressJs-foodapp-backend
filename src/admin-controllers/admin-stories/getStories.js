@@ -1,6 +1,8 @@
 const e = require("express");
 const jwt = require("jsonwebtoken");
 const AdminCollection = require("../../collections/Admin");
+const ChannelCollection = require("../../collections/Channel");
+const StoryCollection = require("../../collections/Story");
 const { BadRequestError } = require("../../custom-error");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
 const uploadToAzure = require("../../utils/uploadToAzure");
@@ -10,15 +12,16 @@ require("dotenv").config();
 module.exports = async (req, res) => {
 	try {
         const {email} = req.body;
-		const admin = await AdminCollection.findOne({ email: email }).populate("stories")
+		const admin = await AdminCollection.findOne({ email: email })
 		if (!admin) {
 			throw new BadRequestError("Admin is not registered");
 		}
+		const stories = await StoryCollection.find({}).where({ email: email });
+		const channels = await ChannelCollection.find({}).where({ email: email });
 		res.json({
 			msg: "story has been found",
-			stories: admin.stories,
-            channels: admin.channels,
-            name: admin.firstName,
+			stories: stories,
+            channels: channels,
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

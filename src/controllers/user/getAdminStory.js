@@ -1,5 +1,6 @@
 const e = require("express");
 const AdminCollection = require("../../collections/Admin");
+const StoryCollection = require("../../collections/Story");
 const BadRequestError = require("../../custom-error/BadRequestError");
 const UserRepo = require("../../repo/UserRepo");
 const sendErrorResponse = require("../../utils/sendErrorResponse");
@@ -12,7 +13,7 @@ const sendErrorResponse = require("../../utils/sendErrorResponse");
 module.exports = async (req, res) => {
 	try {
 		const { loggedInUser } = req.body;
-		const data = await AdminCollection.find({}).select("firstName lastName email stories channels").populate("stories")
+		const data = await StoryCollection.find({})
         return res.status(200).json({status: true, data: data});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
