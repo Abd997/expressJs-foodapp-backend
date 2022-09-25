@@ -8,7 +8,7 @@ const StorySchema = new mongoose.Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            index: { expires: "1h"}
+            index: { expires: 60*60*24}
         }
     },
     {
