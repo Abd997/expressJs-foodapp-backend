@@ -19,24 +19,12 @@ module.exports = async (req, res) => {
 
 		if (req.body.caption) {
 			const story = await StoryCollection.create({ storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`, caption: req.body.caption })
-			console.log(story);
-			if (!admin.stories) {
-				admin.stories = [story["_id"]];
-			}
-			else {
-				admin.stories.unshift(story["_id"])
-			}
+			admin.stories.push(story["_id"]);
 			await admin.save();
 		}
 		else {
 			const story = await StoryCollection.create({ storyUrl: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}` })
-			console.log(story);
-			if (!admin.stories) {
-				admin.stories = [story["_id"]];
-			}
-			else {
-				admin.stories.unshift(story["_id"])
-			}
+			admin.stories.push(story["_id"]);
 			await admin.save();
 		}
 
