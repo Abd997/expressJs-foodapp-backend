@@ -79,7 +79,7 @@ route.post("/story", multerUpload.single("story"),verifyAdminToken,admin_stories
 route.get("/stories",verifyAdminToken, admin_stories.getStories)
 
 // =========== Channels =========
-route.post("/channel", multerUpload.single("cover"),verifyAdminToken, admin_stories.addChannel)
+route.post("/channel", multerUpload.single("videoUrl"),verifyAdminToken, admin_stories.addChannel)
 
 
 
