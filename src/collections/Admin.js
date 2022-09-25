@@ -13,7 +13,6 @@ const AdminSchema = new mongoose.Schema(
     channels: [
       {
         title: { type: String },
-        coverUrl: { type: String },
         videoUrl: { type: String },
         channelType: { type: String },
         date: { type: Date, default: Date.now() },
