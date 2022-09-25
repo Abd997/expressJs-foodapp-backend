@@ -4,7 +4,7 @@ const StorySchema = new mongoose.Schema(
     {
         username: {type: String, required: true},
         email: {type: String, required: true},
-        profileImageUrl: { type: String},
+        profileImageUrl: { type: String , default:"empty"},
         storyUrl: { type: String, required: true},
         caption: { type: String },
         date: { type: Date, default: Date.now() },
