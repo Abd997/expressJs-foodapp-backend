@@ -76,7 +76,8 @@ const {
 	updateName,
 	updateUserWeightGoal,
 	getAdminStory,
-	getAdminChannel
+	getAdminChannel,
+	getUserDashboardDetailsByDate
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -101,6 +102,7 @@ route.post("/dashboard/weight-goal", updateUserWeightGoal);
 route.post("/login-streak",userLoginStreak);
 route.post('/dashboard/user-food',addUserFoodById)
 route.post("/dashboard/calculator", bmiAndNutritionCalculator)
+route.get('/dashboard/:date',getUserDashboardDetailsByDate)
 
 // ============ EXPLORE ============
 route.get("/explore", getAllExplorePost);

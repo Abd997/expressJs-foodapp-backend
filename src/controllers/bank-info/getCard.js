@@ -25,7 +25,6 @@ module.exports = async (req, res) => {
 
 		const customer = await stripe.customers.retrieve(
 			loggedInUser.stripeCustomerId,
-			
 		)
 		.then(async function(customer) {
 			let sources = []

@@ -61,7 +61,7 @@ module.exports = {
 	userLoginStreak: require("./user-dashboard/userLoginStreak"),
 	addUserFoodById: require("./user-dashboard/addUserFoodById"),
 	bmiAndNutritionCalculator: require("./user-dashboard/bmiAndNutriCalculator"),
-
+	getUserDashboardDetailsByDate: require('./user-dashboard/getUserDetailsByDate'),
 	// =========== USER ADDRESS ===========
 	addAddress: require("./user-address/addAddress"),
 	getAddresses: require("./user-address/getAddresses"),

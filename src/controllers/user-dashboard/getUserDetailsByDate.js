@@ -33,13 +33,13 @@ module.exports = async (req, res) => {
           });
         });
     }
-    let nowDate = new Date();
+    let nowDate = req.params.date;
     let user_water = [];
     let user_food = [];
     let user_steps = [];
     for (let water of user_details.water) {
       if (
-        nowDate.toISOString().split("T")[0] ==
+        nowDate.split("T")[0] ==
         water.date.toISOString().split("T")[0]
       ) {
         user_water.push(water);
@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
     }
     for (let food of user_details.food) {
       if (
-        nowDate.toISOString().split("T")[0] ==
+        nowDate.split("T")[0] ==
         food.date.toISOString().split("T")[0]
       ) {
         user_food.push(food);
@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
     }
     for (let step of user_details.steps) {
       if (
-        nowDate.toISOString().split("T")[0] ==
+        nowDate.split("T")[0] ==
         step.date.toISOString().split("T")[0]
       ) {
         user_steps.push(step);
