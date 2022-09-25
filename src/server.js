@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 mongoose
-	.connect(process.env.DATABASE_TEST)
+	.connect(process.env.DATABASE_PROD)
 	.then(() => console.log("Connected to MongoDb"))
 	.catch(() => console.log("Could not connect to MongoDb"));
 
