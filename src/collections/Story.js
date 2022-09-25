@@ -11,7 +11,7 @@ const StorySchema = new mongoose.Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            index: { expireAfterSeconds: 86400}
+            expires: 86400
         }
     },
     {
