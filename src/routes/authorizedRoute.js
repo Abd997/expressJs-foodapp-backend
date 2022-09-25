@@ -74,7 +74,9 @@ const {
 	addDeviceToken,
 	deleteUserPost,
 	updateName,
-	updateUserWeightGoal
+	updateUserWeightGoal,
+	getAdminStory,
+	getAdminChannel
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -142,7 +144,9 @@ route.get("/stories", user_story.getAllUserStories);
 route.put("/story/like", user_story.updateStoryLike);
 route.post("/story/comment", user_story.postStoryComment);
 
-// =========== USER CHANNELS =================================
+// =========== USER CHANNELS AND STORIES =================================
+route.get("/admin-story", getAdminStory)
+route.get("/admin-channels", getAdminChannel)
 
 route.post("/channel",multerUpload.single("cover"),verifyToken, user_story.addUserChannel);
 // ============ USER POST ============

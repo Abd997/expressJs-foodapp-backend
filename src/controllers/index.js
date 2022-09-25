@@ -86,6 +86,8 @@ module.exports = {
 	addUserStory: require("./user-story/addUserStory"),
 	getStory: require("./user-story/getUserStory"),
 	getAllStories: require("./user-story/getAllUserStories"),
+	getAdminStory: require("./user/getAdminStory"),
+	getAdminChannel: require("./user/getAdminChannels"),
 
 	// =========== OTHERS ===========
 	addFeedback: require("./addFeedback"),
