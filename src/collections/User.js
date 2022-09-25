@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
 		age: { type: Number, default:0},
 		gender: String,
 		weight: { value: { type: Number, default: 0 }, unit: { type: String, default: "kg", }, },
-		weightGoal: String,
+		weightGoal: {type: String, default: "empty" ,enum:["weightGain","weightLoss","maintenance"]},
 		currentActivityLevel: String,
 		dateOfBirth: String,
 		height: { value: { type: Number, default: 0 }, unit: { type: String, default: "cm", }, },

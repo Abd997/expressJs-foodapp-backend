@@ -72,6 +72,8 @@ module.exports = async (req, res) => {
       required_calories -= 500;
     } else if (weightGoal == "weightGain") {
       required_calories += 500;
+    } else if (weightGoal == "maintenance") {
+      required_calories += 0;
     }
 
     let required_carbohydrates = required_calories / 2;
