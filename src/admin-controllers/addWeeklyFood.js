@@ -65,7 +65,7 @@ module.exports = async (req, res) => {
 			weekNumber: req.body.weekNumber,
 			tags: tags,
 			itemQuantity: req.body.itemQuantity,
-			facts: facts,
+			nutritions: facts,
 			weekNumber: req.body.weekNumber,
 			imageURL: `${process.env.AZURE_CONTAINER_URL}/${req.file.filename}`,
 			ingredients: ingredients,
