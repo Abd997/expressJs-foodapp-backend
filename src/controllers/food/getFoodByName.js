@@ -30,8 +30,8 @@ module.exports = async (req, res) => {
 		});
 
 		var config = {
-			method: 'post',
-			url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
+			method: 'get',
+			url: 'https://trackapi.nutritionix.com/v2/search/instant',
 			headers: {
 				'x-app-id': 'aebbf73e',
 				'x-app-key': '0b7f87de4edbac779c0db3ac3eea7b5d',
