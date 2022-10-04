@@ -6,6 +6,7 @@ module.exports = {
 	getExplorePost: require("./explore/getExplorePost"),
 	getUserSavedPosts: require("./explore/getUserSavedPosts"),
 	getAllExplorePost: require("./explore/getAllExplorePost"),
+	getExplorePostByTags: require("./explore/getExplorePostByTags"),
 
 	// =========== CHECKOUT ===========
 	createCheckoutSession: require("./checkout/createCheckoutSession"),

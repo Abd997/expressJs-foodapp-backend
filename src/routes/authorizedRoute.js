@@ -77,7 +77,8 @@ const {
 	updateUserWeightGoal,
 	getAdminStory,
 	getAdminChannel,
-	getUserDashboardDetailsByDate
+	getUserDashboardDetailsByDate,
+	getExplorePostByTags
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -109,6 +110,7 @@ route.get("/explore", getAllExplorePost);
 route.get("/explore/type/:type", getExplorePost); 
 route.get("/explore/saved-posts", getUserSavedPosts);
 route.put("/explore/save-post", saveExplorePost);
+route.get("/explore/search",getExplorePostByTags)
 
 // ============ CHECKOUT ============
 route.post("/checkout/create-intent", createCheckoutSession);
