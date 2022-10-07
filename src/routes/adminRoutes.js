@@ -96,7 +96,7 @@ route.post(
 // =========== Custom Meals =================
 route.post("/custom", addCustom);
 route.get("/custom", getAllCustom);
-route.post("/custom/add-to-post", addCustomToFood);
+route.post("/custom/add-to-food", addCustomToFood);
 
 
 module.exports = route;
