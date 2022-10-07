@@ -35,36 +35,41 @@ const UserSchema = new mongoose.Schema(
 		}],
 		steps: [{date: {type: Date, default: 0}, steps: {type: Number, default: 0 }}],
 		food: [
-			{
+			{	
+				_id: false,
 				date: {
 					type: Date
 				},
 				breakfast: [
 					{
+						_id: false,
 						name: { type: String },
 						quantity: { type: Number, default: 0 },
-						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}],
+						nutritions: [{ _id: false,name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}],
 					}
 				],
 				lunch: [
 					{
+						_id: false,
 						name: { type: String },
 						quantity: { type: Number, default: 0 },
-						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
+						nutritions: [{ _id: false,name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
 					}
 				],
 				dinner: [
 					{
+						_id: false,
 						name: { type: String },
 						quantity: { type: Number, default: 0 },
-						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
+						nutritions: [{ _id: false,name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
 					}
 				],
 				snacks: [
 					{
+						_id: false,
 						name: { type: String },
 						quantity: { type: Number, default: 0 },
-						nutritions: [{ name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
+						nutritions: [{ _id: false,name: { type: String },value: { type: Number, default: 0 },unit: { type: String, default: "g", },}]
 					}
 				],
 			},
@@ -75,6 +80,7 @@ const UserSchema = new mongoose.Schema(
 		storyLikes: [String],
 		storyComments: [
 			{
+				_id: false,
 				commentUserEmail: String,
 				commentText: String
 			}

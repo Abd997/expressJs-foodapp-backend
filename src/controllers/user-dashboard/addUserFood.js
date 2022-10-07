@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
             }
         }
         await user_details.save();
-		res.json({success: true, food: user_details.food})
+		res.json({success: true, data: {food: user_details.food,nutritions: user_details.nutritions}})
 	} catch (error) {
 		if (error instanceof BadRequestError) {
 			return sendErrorResponse(res, error.statusCode, error.message);
