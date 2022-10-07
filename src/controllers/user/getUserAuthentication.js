@@ -31,19 +31,22 @@ module.exports = async (req, res) => {
 
     // update user last login
     // increment user login streak if valid
+    let previousDate = new Date();
+    previousDate.setDate(previousDate.getDate()-1);
+    previousDate = previousDate.toISOString().slice(0, 10);
 
     let currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 1);
+    currentDate.setDate(currentDate.getDate());
     currentDate = currentDate.toISOString().slice(0, 10);
-    console.log(currentDate);
     let userLastLogin = user.lastLogin.toISOString().slice(0, 10);
-    console.log(userLastLogin);
     let loginStreak = user.loginStreak;
-    console.log(loginStreak);
-    console.log(currentDate >= userLastLogin);
-    if (currentDate == userLastLogin) {
+    console.log(currentDate , userLastLogin);
+    if (previousDate == userLastLogin) {
       loginStreak++;
-    } else {
+    }else if(currentDate == userLastLogin) {
+      loginStreak = loginStreak;
+    }
+     else {
       loginStreak = 1;
     }
     user.loginStreak = loginStreak;
@@ -91,7 +94,7 @@ module.exports = async (req, res) => {
       await stripe.customers
         .listSources(customer.id, { object: "card", limit: 3 })
         .autoPagingEach(async (source) => {
-          console.log(source);
+          
           sources.push({
             id: source.id,
             brand: source.brand,
