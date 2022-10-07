@@ -84,6 +84,7 @@ module.exports = async (req, res) => {
         bestStreak: user_details.bestStreak,
         balance: user_details.balance,
         nutritions: user_details.nutritions,
+        taken_nutritions: user_details.taken_nutritions,
         cards: sources,
       },
     });

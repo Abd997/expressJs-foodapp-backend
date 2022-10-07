@@ -78,7 +78,9 @@ const {
 	getAdminStory,
 	getAdminChannel,
 	getUserDashboardDetailsByDate,
-	getExplorePostByTags
+	getExplorePostByTags,
+	getAllCustom,
+	addOrderForCustom
 } = require("../controllers");
 
 // ============ USER CHAT ============
@@ -188,6 +190,7 @@ route.put("/favouritefood", updateFavouriteFood);
 route.get("/favouritefoods", getFavouriteFoods);
 route.get("/all-food", getAllFoods)
 route.get("/food/:name",getFoodByName)
+route.get("/custom-food", getAllCustom);
 
 // ============ ADDRESSES ============
 route.get("/addresses", getAddresses);
@@ -212,9 +215,10 @@ route.get("/weeklyfood/:weekNumber", getWeeklyFoods);
 
 // ============ ORDERS ============
 route.post("/order", addNewOrder);
+route.post("/custom-order")
 route.get("/previousOrders", getPreviousOrders);
 route.get("/pendingOrders", getPendingOrders);
-
+route.post("/order/custom",addOrderForCustom)
 // ============ EVENTS ============
 route.get("/previousEvent", getPreviousEvent);
 route.get("/comingEvent", getComingEvent);

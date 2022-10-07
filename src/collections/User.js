@@ -28,6 +28,18 @@ const UserSchema = new mongoose.Schema(
 				unit: { type: String, default: "g", },
 			}
 		],
+		taken_nutritions: [
+			{
+				date: {type: Date},
+				nutrition: [
+					{
+						name: { type: String },
+						required: { type: Number, default: 0 },
+						taken: { type: Number, default: 0 },
+						unit: { type: String, default: "g", },
+					}
+				]
+			}],
 		water: [{
 			date: {type: Date},
 			required: { type: Number, default: 7,},

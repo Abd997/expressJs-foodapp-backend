@@ -37,6 +37,7 @@ module.exports = async (req, res) => {
     let user_water = [];
     let user_food = [];
     let user_steps = [];
+    let user_nutrition = []
     for (let water of user_details.water) {
       if (
         nowDate.split("T")[0] ==
@@ -61,6 +62,14 @@ module.exports = async (req, res) => {
         user_steps.push(step);
       }
     }
+    for (let nutrition of user_details.taken_nutritions) {
+      if (
+        nowDate.split("T")[0] ==
+        nutrition.date.toISOString().split("T")[0]
+      ) {
+        user_nutrition.push(nutrition.nutrition);
+      }
+    }
     /* Returning the response to the client. */
     return res.json({
       msg: "User successfully authenticated",
@@ -83,7 +92,7 @@ module.exports = async (req, res) => {
         loginStreak: user_details.loginStreak,
         bestStreak: user_details.bestStreak,
         balance: user_details.balance,
-        nutritions: user_details.nutritions,
+        nutritions: user_nutrition,
         cards: sources,
       },
     });

@@ -36,25 +36,13 @@ module.exports = async (req, res) => {
     } = req.body;
 
     let totalCost = 0;
+    let customPrice = 0;
     for (let order of orderDetails) {
-      const product = await FoodCollection.findById({
-        _id: order["orderItem"],
-      });
-      if (!product) {
-        return sendErrorResponse(
-          res,
-          500,
-          `product not found.please give the correct order id:${order["orderItem"]} `
-        );
-      }
-      // if (product.itemQuantity - order["quantity"] < 0) {
-      //   return sendErrorResponse(res, 200, `${product.name} is out of stock`);
-      // }
-      await product.save();
       for (let custom of order.customs) {
-        totalCost += custom.price;
+        customPrice += custom.price;
       }
-      totalCost += product.price * order.quantity;
+      totalCost += customPrice * order.quantity;
+      customPrice=0;
     }
     
     if (totalCost < 90) {
@@ -101,13 +89,6 @@ module.exports = async (req, res) => {
         status,
         paymentStatus: "completed",
       });
-      for (let order of orderDetails) {
-        const product = await FoodCollection.findById({
-          _id: order["orderItem"],
-        });
-        product.itemQuantity = product.itemQuantity - order["quantity"];
-        await product.save();
-      }
       return res.json({
         success: true,
         message: `Order #${order._id} created`,

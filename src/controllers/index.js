@@ -27,7 +27,7 @@ module.exports = {
 	updateMealLike: require("./food/updateMealLike"),
 	getWeeklyFoodTypes: require("./getWeeklyFoodTypes"),
 	getFoodByName: require("./food/getFoodByName"),
-	
+	getAllCustom: require("./food/getCustomFood"),
 
 	// =========== GROCERY ===========
 	addGroceries: require("./grocery/addGroceries"),
@@ -101,7 +101,7 @@ module.exports = {
 	addNewOrder: require("./orders/addOrder"),
 	getPreviousOrders: require("./orders/getPreviousOrders"),
 	getPendingOrders: require("./orders/getPendingOrders"),
-
+	addOrderForCustom: require("./orders/addOrderForCustom"),
 	// =========== EVENTS ===========	
 
 	getComingEvent: require("./events/getComingEvent"),

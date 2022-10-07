@@ -95,22 +95,22 @@ module.exports = async (req, res) => {
         let nutritions = [
             {
                 "name": "calories",
-                "required": required_calories*7,
+                "required": required_calories,
                 "taken": 0,
                 "unit": "g",
             }, {
                 "name": "carbs",
-                "required": required_carbohydrates*7,
+                "required": required_carbohydrates,
                 "taken": 0,
                 "unit": "g",
             }, {
                 "name": "fat",
-                "required": required_fat*7,
+                "required": required_fat,
                 "taken": 0,
                 "unit": "g",
             }, {
                 "name": "protien",
-                "required": required_protein*7,
+                "required": required_protein,
                 "taken": 0,
                 "unit": "g",
             },
