@@ -12,7 +12,11 @@ module.exports = async (req, res) => {
 	try { 
 		const userFavouriteFoodIds = req.body.user.favouriteFoodIds;
 		const foods = await FoodCollection.find({}).populate({path: "ingredients", select:"name imageURL"});
-
+		for (let food of foods){
+			if(food.foodType != "meal"){
+				food.custom = []
+			}
+		}
 		let favouriteFood = [];
 		for(let food of foods){
 			let newFood = {};

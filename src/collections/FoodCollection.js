@@ -40,6 +40,12 @@ const FoodSchema = new mongoose.Schema(
 				price: { type: Number, default: 0, },
 			}
 		],
+		customItems: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "CustomMealsCollection"
+			}
+		],
 		ingredients: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

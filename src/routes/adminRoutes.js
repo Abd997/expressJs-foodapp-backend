@@ -7,6 +7,7 @@ const {
 } = require("../admin-controllers");
 const addAmbassador = require("../admin-controllers/addAmbassador");
 const { addEvent } = require("../admin-controllers/admin-event");
+const { addCustom, getAllCustom, addCustomToFood } = require("../admin-controllers/admin-food");
 const admin_food = require("../admin-controllers/admin-food");
 const admin_grocery = require("../admin-controllers/admin-grocery");
 const admin_stories = require("../admin-controllers/admin-stories");
@@ -90,5 +91,12 @@ route.post(
   verifyAdminToken,
   admin_stories.addChannel
 );
+
+
+// =========== Custom Meals =================
+route.post("/custom", addCustom);
+route.get("/custom", getAllCustom);
+route.post("/custom/add-to-post", addCustomToFood);
+
 
 module.exports = route;

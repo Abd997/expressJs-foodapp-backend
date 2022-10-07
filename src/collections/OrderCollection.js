@@ -15,6 +15,7 @@ const OrderSchema = new mongoose.Schema(
 					type: mongoose.Schema.Types.ObjectId,
 					ref: "FoodCollection"
 				},
+				customs: [],
 				quantity: {
 					type: Number,
 					required: true,
