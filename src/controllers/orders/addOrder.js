@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
     const userId = req.body.user._id;
     let deliveryCharges = 0;
     const {
+      orderItem,
       orderDetails,
       deliveryAddress,
       deliveryDate,
@@ -40,23 +41,35 @@ module.exports = async (req, res) => {
       const product = await FoodCollection.findById({
         _id: order["orderItem"],
       });
-      if (!product) {
-        return sendErrorResponse(
-          res,
-          500,
-          `product not found.please give the correct order id:${order["orderItem"]} `
-        );
+      if (orderItem != "custom") {
+        if (!product) {
+          return sendErrorResponse(
+            res,
+            500,
+            `product not found.please give the correct order id:${order["orderItem"]} `
+          );
+        }
+        // if (product.itemQuantity - order["quantity"] < 0) {
+        //   return sendErrorResponse(res, 200, `${product.name} is out of stock`);
+        // }
+        await product.save();
+
+        for (let custom of order.customs) {
+          totalCost += custom.price;
+        }
+        totalCost += product.price * order.quantity;
+      } else {
+        let customPrice = 0;
+        for (let order of orderDetails) {
+          for (let custom of order.customs) {
+            customPrice += custom.price;
+          }
+          totalCost += customPrice * order.quantity;
+          customPrice = 0;
+        }
       }
-      // if (product.itemQuantity - order["quantity"] < 0) {
-      //   return sendErrorResponse(res, 200, `${product.name} is out of stock`);
-      // }
-      await product.save();
-      for (let custom of order.customs) {
-        totalCost += custom.price;
-      }
-      totalCost += product.price * order.quantity;
     }
-    
+
     if (totalCost < 90) {
       deliveryCharges = 10;
       totalCost = totalCost + deliveryCharges;
@@ -101,18 +114,20 @@ module.exports = async (req, res) => {
         status,
         paymentStatus: "completed",
       });
-      for (let order of orderDetails) {
-        const product = await FoodCollection.findById({
-          _id: order["orderItem"],
-        });
-        product.itemQuantity = product.itemQuantity - order["quantity"];
-        await product.save();
+      if (orderItem != "custom") {
+        for (let order of orderDetails) {
+          const product = await FoodCollection.findById({
+            _id: order["orderItem"],
+          });
+          product.itemQuantity = product.itemQuantity - order["quantity"];
+          await product.save();
+        }
       }
+
       return res.json({
         success: true,
         message: `Order #${order._id} created`,
         data: order,
-
       });
     } else {
       return res.json({ success: false, message: paymentIntent.status });

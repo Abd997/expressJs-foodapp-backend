@@ -18,17 +18,11 @@ const validate = async (req) => {
  */
 module.exports = async (req, res) => {
 	try {
-		const custom = await CustomMealsCollection.create({
-			name: req.body.name,
-			description: req.body.description,
-			price: req.body.price,
-			nutritions: req.body.nutritions,
-			options: req.body.options
-		});
+		const custom = await CustomMealsCollection.create({data:req.body.data});
 		
 		return res.json({
 			msg: "Custom has been added",
-			data: custom, 
+			data: custom.data, 
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {

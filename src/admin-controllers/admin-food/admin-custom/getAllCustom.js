@@ -19,10 +19,13 @@ const validate = async (req) => {
 module.exports = async (req, res) => {
 	try {
 		const customs = await CustomMealsCollection.find({})
-		
+		let allCustoms = []
+		for(let custom of customs) {
+			allCustoms.push({_id: custom.id,custom:custom.data});
+		}
 		return res.json({
 			msg: "Customs has been fetched successfully",
-			data: customs, 
+			data: allCustoms, 
 		});
 	} catch (error) {
 		if (error instanceof BadRequestError) {
