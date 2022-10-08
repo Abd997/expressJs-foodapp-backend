@@ -9,6 +9,7 @@ const CustomMealsSchema = new mongoose.Schema(
           {
             name: String,
             price: Number,
+            isMarked: { type: Boolean, default: false },
             protein: Number,
             fat: Number,
             carbs: Number,
