@@ -38,6 +38,10 @@ const FoodSchema = new mongoose.Schema(
 				name: { type: String},
 				isMarked: { type: Boolean, default: false,},
 				price: { type: Number, default: 0, },
+				protein:{ type: Number, default: 0, },
+				fat: { type: Number, default: 0, },
+				calories: { type: Number, default: 0, },
+				carbs: { type: Number, default: 0, },
 			}
 		],
 		customItems: [

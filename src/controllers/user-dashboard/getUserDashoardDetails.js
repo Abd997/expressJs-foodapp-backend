@@ -61,6 +61,35 @@ module.exports = async (req, res) => {
         user_steps.push(step);
       }
     }
+    let nutritions = [];
+    if(user_details.nutritions.length==0) {
+      nutritions = [
+        {
+          name: "calories",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+        {
+          name: "carbs",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+        {
+          name: "fat",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+        {
+          name: "protien",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+      ];
+    }
     /* Returning the response to the client. */
     return res.json({
       msg: "User successfully authenticated",
@@ -83,7 +112,7 @@ module.exports = async (req, res) => {
         loginStreak: user_details.loginStreak,
         bestStreak: user_details.bestStreak,
         balance: user_details.balance,
-        nutritions: user_details.nutritions,
+        nutritions: nutritions,
         taken_nutritions: user_details.taken_nutritions,
         cards: sources,
       },

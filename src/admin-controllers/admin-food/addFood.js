@@ -30,7 +30,8 @@ module.exports = async (req, res) => {
 			tags: req.body.tags,
 			nutritions: req.body.nutritions,
 			itemQuantity: req.body.itemQuantity,
-			ingredients: req.body.ingredients
+			ingredients: req.body.ingredients,
+			custom: req.body.custom,
 		});
 		
 		res.json({
