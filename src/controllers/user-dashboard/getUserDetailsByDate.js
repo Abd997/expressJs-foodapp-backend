@@ -37,67 +37,59 @@ module.exports = async (req, res) => {
     let user_water = [];
     let user_food = [];
     let user_steps = [];
-    let user_nutrition = []
+    let user_nutrition = [];
     for (let water of user_details.water) {
-      if (
-        nowDate.split("T")[0] ==
-        water.date.toISOString().split("T")[0]
-      ) {
+      if (nowDate.split("T")[0] == water.date.toISOString().split("T")[0]) {
         user_water.push(water);
       }
     }
     for (let food of user_details.food) {
-      if (
-        nowDate.split("T")[0] ==
-        food.date.toISOString().split("T")[0]
-      ) {
+      if (nowDate.split("T")[0] == food.date.toISOString().split("T")[0]) {
         user_food.push(food);
       }
     }
     for (let step of user_details.steps) {
-      if (
-        nowDate.split("T")[0] ==
-        step.date.toISOString().split("T")[0]
-      ) {
+      if (nowDate.split("T")[0] == step.date.toISOString().split("T")[0]) {
         user_steps.push(step);
       }
     }
     for (let nutrition of user_details.taken_nutritions) {
-      if (
-        nowDate.split("T")[0] ==
-        nutrition.date.toISOString().split("T")[0]
-      ) {
+      if (nowDate.split("T")[0] == nutrition.date.toISOString().split("T")[0]) {
         user_nutrition.push(nutrition.nutrition);
       }
     }
     console.log(user_nutrition);
-    if(user_nutrition.length==0) {
-      user_nutrition = [
-        {
-          name: "calories",
-          required: 0,
-          taken: 0,
-          unit: "g",
-        },
-        {
-          name: "carbs",
-          required: 0,
-          taken: 0,
-          unit: "g",
-        },
-        {
-          name: "fat",
-          required: 0,
-          taken: 0,
-          unit: "g",
-        },
-        {
-          name: "protien",
-          required: 0,
-          taken: 0,
-          unit: "g",
-        },
-      ];
+    if (user_nutrition.length == 0) {
+      if (user_details.nutritions.length == 0) {
+        user_nutrition = [
+          {
+            name: "calories",
+            required: 0,
+            taken: 0,
+            unit: "g",
+          },
+          {
+            name: "carbs",
+            required: 0,
+            taken: 0,
+            unit: "g",
+          },
+          {
+            name: "fat",
+            required: 0,
+            taken: 0,
+            unit: "g",
+          },
+          {
+            name: "protien",
+            required: 0,
+            taken: 0,
+            unit: "g",
+          },
+        ];
+      } else {
+        user_nutrition = user_details.nutritions;
+      }
     }
     /* Returning the response to the client. */
     return res.json({
