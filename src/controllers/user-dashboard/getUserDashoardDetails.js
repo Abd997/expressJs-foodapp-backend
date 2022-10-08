@@ -61,9 +61,9 @@ module.exports = async (req, res) => {
         user_steps.push(step);
       }
     }
-    let nutritions = [];
+    
     if(user_details.nutritions.length==0) {
-      nutritions = [
+      user_details.nutritions = [
         {
           name: "calories",
           required: 0,
@@ -112,7 +112,7 @@ module.exports = async (req, res) => {
         loginStreak: user_details.loginStreak,
         bestStreak: user_details.bestStreak,
         balance: user_details.balance,
-        nutritions: nutritions,
+        nutritions: user_details.nutritions,
         taken_nutritions: user_details.taken_nutritions,
         cards: sources,
       },

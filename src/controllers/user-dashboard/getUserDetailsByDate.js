@@ -70,6 +70,35 @@ module.exports = async (req, res) => {
         user_nutrition.push(nutrition.nutrition);
       }
     }
+    console.log(user_nutrition);
+    if(user_nutrition.length==0) {
+      user_nutrition = [
+        {
+          name: "calories",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+        {
+          name: "carbs",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+        {
+          name: "fat",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+        {
+          name: "protien",
+          required: 0,
+          taken: 0,
+          unit: "g",
+        },
+      ];
+    }
     /* Returning the response to the client. */
     return res.json({
       msg: "User successfully authenticated",
